@@ -29,7 +29,7 @@
         $(this).each(function () {
             // extra_offset: 70 (60 Footer height + 10 top offset)
             var $fixed_item = $(this), pos = $fixed_item.offset(), extra_offset = 70;
-            $(window).bind('scroll.sl resize.sl load.sl', function (e) {
+            $(window).on('scroll.sl resize.sl load.sl', function (e) {
                 var $win = $(this), scroll_top = $win.scrollTop();
                 if ($fixed_item.height() < $win.height() &&
                     scroll_top > (pos.top - 10) &&
@@ -153,8 +153,8 @@
             var $link = $(this);
             $link.parent().parent().find('.active').removeClass('active');
             $link.parent().addClass('active');
-            $('.' + tab_prefix).removeClass('show').addClass('hide');
-            tab_contents($link).removeClass('hide').addClass('show')
+            $('.' + tab_prefix).removeClass('show').addClass('d-none');
+            tab_contents($link).removeClass('d-none').addClass('show')
         });
 
         activate_tabs();

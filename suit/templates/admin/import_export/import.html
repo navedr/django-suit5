@@ -30,7 +30,7 @@
 
     {% if result %}
         {% if result.has_errors %}
-            <div class="alert alert-error alert-block">
+            <div class="alert alert-danger alert-block">
                 <h4>{% trans "Errors" %}</h4>
                 <ul>
                     {% for error in result.base_errors %}

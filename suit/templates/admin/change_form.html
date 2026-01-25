@@ -105,11 +105,11 @@
                   {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
                   <a href="{% add_preserved_filters history_url %}" class="historylink">
                   {% endif %}
-                  <i class="icon-time icon-alpha75"></i>{% trans "History" %}</a>
+                  <i class="bi bi-clock icon-alpha75"></i>{% trans "History" %}</a>
                 </li>
                 {% if has_absolute_url %}
                   <li>
-                    <a href="{{ absolute_url }}" class="viewsitelink"><i class="icon-eye-open icon-alpha75"></i>{% trans "View on site" %}</a>
+                    <a href="{{ absolute_url }}" class="viewsitelink"><i class="bi bi-eye icon-alpha75"></i>{% trans "View on site" %}</a>
                   </li>
                 {% endif %}
 
@@ -120,7 +120,7 @@
                     {% else %}
                     <a href="{% url opts|admin_urlname:'add' %}">
                     {% endif %}
-                      <i class="icon-plus-sign icon-alpha75"></i>{% blocktrans with opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+                      <i class="bi bi-plus-circle icon-alpha75"></i>{% blocktrans with opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
                     </a>
                   </li>
                   {# {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>#}
@@ -148,7 +148,7 @@
           {% if is_popup %}
             <input type="hidden" name="_popup" value="1"/>{% endif %}
           {% if errors %}
-            <div class="alert alert-error">
+            <div class="alert alert-danger">
               {% if errors|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
               {{ adminform.form.non_field_errors }}
             </div>

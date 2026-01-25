@@ -7,10 +7,10 @@
 
   {% if show_delete_link %}
     {% if '1.9'|django_version_lt %}
-      <a href="delete/" class="text-error deletelink">{% trans "Delete" %}</a>
+      <a href="delete/" class="text-danger deletelink">{% trans "Delete" %}</a>
     {% else %}
         {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-        <a href="{% add_preserved_filters delete_url %}" class="text-error deletelink">{% trans "Delete" %}</a>
+        <a href="{% add_preserved_filters delete_url %}" class="text-danger deletelink">{% trans "Delete" %}</a>
     {% endif %}
   {% endif %}
 </div>

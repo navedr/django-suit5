@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run setup:*)",
+      "Bash(npm run build:css:expanded:*)",
+      "Bash(find:*)",
+      "Bash",
+      "Task",
+      "Glob",
+      "Grep",
+      "LS",
+      "Read",
+      "Edit",
+      "MultiEdit",
+      "Write",
+      "WebFetch",
+      "WebSearch",
+      "Bash(npm run build:css:*)",
+      "Bash(chmod:*)",
+      "Bash(python3:*)",
+      "Bash(source venv/bin/activate)",
+      "Bash(pip install:*)",
+      "Bash(python setup_demo.py:*)",
+      "Bash(grep:*)",
+      "Bash(brew list:*)",
+      "Bash(/usr/local/bin/python3.7:*)",
+      "Bash(python manage.py makemigrations:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)"
+    ]
+  }
+}

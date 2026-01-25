@@ -1,0 +1,79 @@
+// Breadcrumb Styles
+
+// Django admin original class - support for Admin original html structure
+.breadcrumbs {
+  font-size: 14px;
+  padding: 8px 15px 8px 10px;
+  margin: -5px 0 15px;
+  background-color: var(--suit-box-bg);
+  border-radius: $border-radius;
+  @extend .white-shadow;
+  color: var(--suit-text-muted);
+
+  > a {
+    display: inline-block;
+    padding: 0 3px;
+    text-shadow: var(--suit-white-shadow);
+    font-weight: normal;
+
+    > .divider {
+      padding: 0 5px;
+      color: #ccc;
+    }
+
+    > .active {
+      font-weight: bold;
+      color: var(--suit-text-muted);
+    }
+  }
+}
+
+.breadcrumbs > .active {
+  color: var(--suit-grey);
+}
+
+// NEW CLASS based on BS
+.breadcrumb {
+  margin: -5px 0 15px;
+  font-size: 14px;
+  @extend .white-shadow;
+  background-color: var(--suit-box-bg);
+  padding: 8px 15px;
+  border-radius: $border-radius;
+
+  li {
+    margin: 0 5px;
+    a {
+      text-decoration: none;
+      color: var(--suit-link-color);
+      margin-right: 5px;
+
+      &:hover {
+        text-decoration: underline;
+        color: var(--suit-link-hover-color);
+      }
+    }
+
+    &.active,
+    &.active a {
+      font-weight: bold;
+      color: var(--suit-text-color);
+    }
+  }
+
+  &.toplinks {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+}
+
+// Bootstrap 5 breadcrumb adjustments
+.breadcrumb-item {
+  + .breadcrumb-item::before {
+    color: var(--suit-grey);
+  }
+
+  &.active {
+    color: var(--suit-text-color);
+  }
+}

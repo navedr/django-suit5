@@ -1,0 +1,175 @@
+// Box Styles
+
+.box,
+.well {
+  @extend .grey-box-shadow;
+  border-radius: $border-radius;
+  background: var(--suit-box-bg);
+  padding: 10px 12px;
+  border: 0;
+}
+
+.menu-box {
+  margin: 0 0 10px 0;
+  padding: 5px 0;
+  background-color: var(--suit-nav-bg);
+  border-radius: $border-radius;
+  @extend .grey-box-shadow;
+
+  li {
+    list-style: none;
+    line-height: 18px;
+
+    a {
+      text-decoration: none;
+      line-height: 18px;
+      display: block;
+      padding: 5px 10px 5px 13px;
+      color: var(--suit-nav-text);
+      border-bottom: 1px solid var(--suit-border-color-light);
+
+      &:hover {
+        background-color: var(--suit-nav-hover-bg);
+
+        &:first-child {
+          border-radius: $border-radius $border-radius 0 0;
+        }
+
+        &:last-child {
+          border-radius: 0 0 $border-radius $border-radius;
+        }
+      }
+
+      i {
+        margin-right: 7px;
+      }
+    }
+
+    &.active a {
+      background: var(--suit-nav-active-bg);
+      color: var(--suit-nav-active-text);
+    }
+
+    &:last-child a {
+      border-bottom: 0;
+    }
+  }
+
+  &.menu-box-compact li a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+}
+
+.save-box {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 12px;
+
+  .btn {
+    width: 100%;
+    margin-bottom: 8px;
+    display: block;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 3px;
+
+    &.btn-high,
+    &.btn-primary,
+    &[name="_save"] {
+      background: linear-gradient(to bottom, #5bc0de, #2f96b4);
+      border: 1px solid #2f96b4;
+      color: #fff;
+      font-weight: normal;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        background: linear-gradient(to bottom, #4ab4d3, #2888a3);
+      }
+    }
+
+    &.btn-secondary,
+    &.btn-default,
+    &[name="_continue"],
+    &[name="_addanother"] {
+      background: linear-gradient(to bottom, #fff, #e6e6e6);
+      border: 1px solid #ccc;
+      color: #333;
+
+      &:hover {
+        background: linear-gradient(to bottom, #e6e6e6, #d9d9d9);
+        border-color: #bbb;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    font-size: 13px;
+    color: var(--suit-link-color);
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.text-error,
+    &.text-danger,
+    &.deletelink {
+      color: var(--suit-red);
+    }
+  }
+}
+
+// Tools box in sidebar
+.tools-box,
+#content-related .module {
+  background: var(--suit-table-bg);
+  border-radius: $border-radius;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  overflow: hidden;
+
+  h2, h4, caption {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    color: var(--suit-text-color);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+
+    li {
+      padding: 5px 12px;
+
+      a {
+        text-decoration: none;
+        color: var(--suit-text-color);
+        font-size: 13px;
+
+        &:hover {
+          color: var(--suit-link-color);
+        }
+
+        i {
+          margin-right: 8px;
+          opacity: 0.6;
+          width: 14px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

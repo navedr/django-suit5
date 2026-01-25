@@ -1,0 +1,96 @@
+// Login Page Styles
+
+.login {
+  #wrap {
+    background: none;
+  }
+
+  #content-main {
+    margin: 0;
+    padding: 0;
+    @extend .grey-box-shadow;
+    border-radius: $border-radius;
+    background: var(--suit-table-bg);
+
+    // Position hor/ver center
+    position: absolute;
+    width: 340px;
+    left: 50%;
+    top: 35%;
+    margin-left: -170px; // Half the width
+    margin-top: -100px; // Half the height
+
+    h1 {
+      font-size: 14px;
+      font-weight: normal;
+      background: var(--suit-btn-primary-bg);
+      color: #fff;
+      text-shadow: 0 1px #4f7f92;
+      padding: 0 15px;
+      margin: 0;
+      border-radius: $border-radius $border-radius 0 0;
+      line-height: 40px;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+
+    form {
+      margin: 15px 15px 0;
+
+      input[type="text"],
+      input[type="password"] {
+        width: 90%;
+        padding: 8px 12px;
+        border: 1px solid var(--suit-input-border);
+        border-radius: $border-radius;
+        background-color: var(--suit-input-bg);
+        color: var(--suit-text-color);
+        margin-bottom: 10px;
+
+        &:focus {
+          outline: none;
+          border-color: var(--suit-input-focus-border);
+          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--suit-text-color);
+        font-weight: 500;
+      }
+    }
+
+    .submit-row {
+      background: var(--suit-bg-light);
+      margin: 10px -15px 0;
+      padding: 10px 15px;
+      border-top: 1px solid var(--suit-border-color-light);
+      @extend .white-inset;
+      border-radius: 0 0 $border-radius $border-radius;
+    }
+
+    .control-group {
+      border: 0;
+      margin-bottom: 15px;
+    }
+
+    // Error messages
+    .errornote {
+      background-color: var(--suit-error-bg);
+      color: var(--suit-red);
+      padding: 10px 15px;
+      margin: 0;
+      border-radius: 0;
+      font-size: 13px;
+    }
+  }
+}
+
+// Dark theme login adjustments
+.dark-theme .login #content-main h1 {
+  text-shadow: none;
+}

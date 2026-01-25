@@ -8,7 +8,7 @@
 {% block content %}
 {% if perms_lacking or protected %}
     {% if perms_lacking %}
-        <div class="alert alert-error alert-block">{% blocktrans %}Deleting the selected files and/or folders would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}
+        <div class="alert alert-danger alert-block">{% blocktrans %}Deleting the selected files and/or folders would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}
         <ul>
         {% for obj in perms_lacking %}
             <li>{{ obj }}</li>
@@ -17,7 +17,7 @@
         </div>
     {% endif %}
     {% if protected %}
-        <div class="alert alert-error alert-block">{% blocktrans %}Deleting the selected files and/or folders would require deleting the following protected related objects:{% endblocktrans %}
+        <div class="alert alert-danger alert-block">{% blocktrans %}Deleting the selected files and/or folders would require deleting the following protected related objects:{% endblocktrans %}
         <ul>
         {% for obj in protected %}
             <li>{{ obj }}</li>
@@ -27,7 +27,7 @@
     {% endif %}
 {% else %}
     <form action="" method="post">{% csrf_token %}
-    <div class="alert alert-error alert-block">{% blocktrans %}<p>Are you sure you want to delete the selected files and/or folders? All of the following objects and their related items will be deleted:</p>{% endblocktrans %}
+    <div class="alert alert-danger alert-block">{% blocktrans %}<p>Are you sure you want to delete the selected files and/or folders? All of the following objects and their related items will be deleted:</p>{% endblocktrans %}
     {% for deletable_object in deletable_objects %}
         <ul>{{ deletable_object|unordered_list }}</ul>
     {% endfor %}

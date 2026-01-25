@@ -1,0 +1,131 @@
+// List & Object Tools Styles
+
+.object-tools {
+  float: right;
+  margin-bottom: 10px;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    margin-left: 5px;
+  }
+
+  .btn {
+    margin-left: 5px;
+  }
+}
+
+.actions {
+  margin-bottom: 5px;
+
+  label {
+    display: inline;
+  }
+
+  select {
+    color: var(--suit-text-color);
+  }
+}
+
+.below-actions .changelist-save {
+  margin-top: -43px;
+}
+
+// CHANGELISTS
+.change-list .hiddenfields {
+  display: none;
+}
+
+// ACTIONS
+#changelist .actions span.all,
+#changelist .actions span.action-counter,
+#changelist .actions span.clear,
+#changelist .actions span.question {
+  display: none;
+}
+
+#changelist #action-toggle {
+  display: none;
+}
+
+// Hide action label
+#changelist .actions span.action-label {
+  display: none;
+}
+
+#toolbar form {
+  margin: 0 0 15px 0;
+}
+
+// Search container styling
+.search-container {
+  margin-top: -5px;
+
+  input,
+  select {
+    color: var(--suit-text-color);
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin-top: 3px;
+  }
+
+  .result-count {
+    display: inline-block;
+    margin: 5px 0 0 5px;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: var(--suit-text-muted);
+  }
+
+  .active {
+    border-color: orange;
+    box-shadow: 0 0 1px 0 orange;
+  }
+}
+
+// Changelist filters
+#changelist-filter {
+  background-color: var(--suit-box-bg);
+  border-radius: $border-radius;
+  padding: 10px;
+
+  h2 {
+    font-size: 14px;
+    color: var(--suit-text-color);
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--suit-text-color);
+    margin: 10px 0 5px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: 2px 0;
+
+      a {
+        color: var(--suit-link-color);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &.selected {
+          font-weight: bold;
+          color: var(--suit-text-color);
+        }
+      }
+    }
+  }
+}

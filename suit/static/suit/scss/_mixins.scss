@@ -1,0 +1,96 @@
+// Django Suit SCSS Mixins
+// Converted from LESS - Removed vendor prefixes (handled by modern browsers)
+
+@mixin clearfix() {
+  &::before,
+  &::after {
+    display: table;
+    content: "";
+  }
+  &::after {
+    clear: both;
+  }
+}
+
+@mixin horizontal-list($li-margin-right: 0) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: block;
+    position: relative;
+    float: left;
+    margin-right: $li-margin-right;
+  }
+
+  @include clearfix();
+}
+
+@mixin selection($color: #FFF, $background: rgba(0, 0, 0, 1)) {
+  ::selection {
+    background: $background;
+    color: $color;
+  }
+
+  img::selection {
+    background: transparent;
+  }
+}
+
+@mixin horizontal-gradient($startColor: #555, $endColor: #333) {
+  background-color: $endColor;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, $startColor, $endColor);
+}
+
+@mixin vertical-gradient($startColor: #555, $endColor: #333) {
+  background-color: $endColor;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to bottom, $startColor, $endColor);
+}
+
+@mixin background-size($mode) {
+  background-size: $mode;
+}
+
+@mixin inner-shadow($x: 0, $y: 1px, $blur: 2px, $spread: 0, $alpha: 0.25) {
+  box-shadow: inset $x $y $blur $spread rgba(0, 0, 0, $alpha);
+}
+
+@mixin box-shadow($string) {
+  box-shadow: $string;
+}
+
+@mixin drop-shadow($x: 0, $y: 1px, $blur: 2px, $spread: 0, $alpha: 0.25) {
+  box-shadow: $x $y $blur $spread rgba(0, 0, 0, $alpha);
+}
+
+@mixin opacity($opacity: 0.5) {
+  opacity: $opacity;
+}
+
+// Border radius with individual corner support
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+@mixin border-radius-custom($top-left, $top-right, $bottom-right, $bottom-left) {
+  @if $top-left != null {
+    border-top-left-radius: $top-left;
+  }
+  @if $top-right != null {
+    border-top-right-radius: $top-right;
+  }
+  @if $bottom-right != null {
+    border-bottom-right-radius: $bottom-right;
+  }
+  @if $bottom-left != null {
+    border-bottom-left-radius: $bottom-left;
+  }
+}
+
+// Shorthand for top/bottom radius
+@mixin border-radius-tb($top, $bottom) {
+  @include border-radius-custom($top, $top, $bottom, $bottom);
+}

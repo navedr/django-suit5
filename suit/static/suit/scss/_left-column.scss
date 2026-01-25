@@ -1,0 +1,37 @@
+// Left Column / Quick Search Styles
+
+.nav-quick-search {
+  margin: 20px 0 2px 15px;
+  position: relative;
+
+  .search-query {
+    border-radius: 15px;
+    width: 150px;
+    padding: 3px 10px;
+    background: var(--suit-bg-light);
+    border: 1px solid var(--suit-border-color);
+    color: var(--suit-text-color);
+
+    &:focus {
+      outline: none;
+      border-color: var(--suit-input-focus-border);
+    }
+  }
+
+  .submit {
+    background: transparent;
+    border: 0;
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 20px;
+    top: 3px;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -29,7 +29,7 @@
                 <br>
                 <h4 class="italic-title">{% trans 'duplicates'|capfirst %}</h4>
                     <ul class="box menu-box">
-                        {% for duplicate in duplicates %}<li><a href="{{ duplicate.get_admin_url_path }}" title="{{ duplicate }}"><i class="icon-picture icon-alpha75"></i>{{ duplicate|truncatechars:20 }}</a></li>{% endfor %}
+                        {% for duplicate in duplicates %}<li><a href="{{ duplicate.get_admin_url_path }}" title="{{ duplicate }}"><i class="bi bi-image icon-alpha75"></i>{{ duplicate|truncatechars:20 }}</a></li>{% endfor %}
                     </ul>
 			{% endif %}
 		{% endwith %}

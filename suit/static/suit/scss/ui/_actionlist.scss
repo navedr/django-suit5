@@ -1,0 +1,121 @@
+// Action List Styles (Recent Actions)
+
+.actionlist {
+  margin: 0;
+  padding: 0;
+  border-radius: $border-radius;
+  @extend .grey-box-shadow;
+  background: var(--suit-table-bg);
+  min-width: 200px;
+  list-style: none;
+
+  li {
+    font-size: 11px;
+    list-style: none;
+    border-bottom: 1px solid var(--suit-border-color-light);
+    padding: 3px 10px;
+
+    &:nth-child(2n) {
+      background-color: var(--suit-bg-light);
+    }
+
+    &:first-child {
+      padding-top: 5px;
+    }
+
+    &:last-child {
+      padding-bottom: 5px;
+      border: 0;
+      border-radius: 0 0 $border-radius $border-radius;
+    }
+
+    i {
+      float: left;
+      margin-right: 10px;
+      opacity: 0.6;
+    }
+
+    &.deletelink {
+      color: var(--suit-grey);
+
+      a {
+        color: var(--suit-grey);
+      }
+    }
+
+    .deleted-entry {
+      color: var(--suit-text-color);
+    }
+
+    a {
+      color: var(--suit-link-color);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// App list table styling
+.applist {
+  td:last-child {
+    min-width: 40px;
+  }
+}
+
+// Module styles for dashboard
+.module {
+  //background-color: var(--suit-table-bg);
+  //border-radius: $border-radius;
+  box-shadow: none;
+  @extend .grey-box-shadow;
+  margin-bottom: 20px;
+
+  caption,
+  h2 {
+    background: var(--suit-table-header-bg);
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--suit-text-color);
+    border-radius: $border-radius $border-radius 0 0;
+    margin: 0;
+    @extend .white-shadow;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--suit-border-color-light);
+      color: var(--suit-text-color);
+    }
+
+    th {
+      font-weight: bold;
+      background-color: var(--suit-bg-light);
+    }
+
+    tr:last-child {
+      th,
+      td {
+        border-bottom: none;
+      }
+    }
+
+    a {
+      color: var(--suit-link-color);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

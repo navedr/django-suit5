@@ -7,7 +7,7 @@
     {% block menu_home %}
       {% url 'admin:index' as index_url %}
       <li{% if index_url == request.path %} class="active"{% endif %}>
-        <a href="{{ index_url }}"><i class="icon-home"></i>{% trans 'Home' %}
+        <a href="{{ index_url }}"><i class="bi bi-house"></i>{% trans 'Home' %}
         </a>
       </li>
     {% endblock %}
@@ -19,7 +19,7 @@
           <li class="separator"></li>
         {% else %}
           <li{{ app.is_active|yesno:' class=active,' }}>
-            <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}><i class="{% firstof app.icon 'icon-chevron-right' %}"></i>{% trans app.label|capfirst %}
+            <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}><i class="{% firstof app.icon 'bi bi-chevron-right' %}"></i>{% trans app.label|capfirst %}
             </a>
             {% if app.models %}
               <ul>

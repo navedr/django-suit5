@@ -31,7 +31,7 @@
 
                 {% if model.add_url %}
                   <td><a href="{{ model.add_url }}" class="addlink icon"><i
-                          class="icon-plus-sign icon-alpha75"></i>{% trans 'Add' %}
+                          class="bi bi-plus-circle icon-alpha75"></i>{% trans 'Add' %}
                   </a></td>
                 {% else %}
                   <td>&nbsp;</td>
@@ -62,7 +62,7 @@
           {% for entry in admin_log %}
             <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}text-error{% endif %}">
 
-              <i class="{% if entry.is_addition %}icon-plus{% endif %}{% if entry.is_change %}icon-pencil{% endif %}{% if entry.is_deletion %}icon-trash{% endif %} icon-alpha5"></i>
+              <i class="{% if entry.is_addition %}bi bi-plus{% endif %}{% if entry.is_change %}bi bi-pencil{% endif %}{% if entry.is_deletion %}bi bi-trash{% endif %} icon-alpha5"></i>
 
               {% spaceless %}
                 {% if entry.is_addition %}{% trans 'added'|capfirst %}{% endif %}

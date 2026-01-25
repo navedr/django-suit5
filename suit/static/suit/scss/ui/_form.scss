@@ -1,0 +1,910 @@
+// Form Styles
+
+h2.legend,
+.form-horizontal fieldset .legend {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 8px 10px;
+  margin: 0;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  text-shadow: none;
+}
+
+.form-horizontal {
+  fieldset {
+    display: table;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 0;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    border-radius: $border-radius;
+    border: 1px solid #ddd;
+    border-collapse: separate;
+    background: var(--suit-table-bg);
+
+    &.first,
+    .popup &:first-of-type {
+      margin-top: 0;
+    }
+
+    &.first:not(:first-of-type) {
+      margin-top: 5px;
+    }
+
+    .legend {
+      display: table-caption;
+      caption-side: top;
+
+      .description {
+        font-weight: normal;
+        font-size: 12px;
+        display: inline;
+        margin-left: 15px;
+        color: var(--suit-grey);
+      }
+    }
+
+    // BS collapse override
+    &.collapse {
+      overflow: visible;
+      height: auto;
+    }
+
+    // Position attr change for collapsed
+    &.collapsed {
+      background-color: var(--suit-bg-light);
+
+      .legend {
+        position: static;
+        font-size: 13px;
+        font-weight: normal;
+      }
+    }
+
+    &.full-width {
+      box-shadow: none;
+
+      .control-group {
+        border-radius: 0;
+        width: 100%;
+        display: block;
+
+        > div {
+          display: block;
+        }
+
+        .control-label {
+          display: none;
+          width: 0;
+        }
+
+        .controls {
+          display: block;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          width: 100%;
+          border-radius: $border-radius;
+
+          .html-widget {
+            display: inline-block;
+            margin: 10px;
+          }
+        }
+      }
+    }
+
+    &.wide .control-label {
+      min-width: 200px;
+    }
+
+    // COLLAPSE LOGIC
+    &.collapsed * {
+      display: none;
+    }
+
+    &.collapsed .legend,
+    &.collapsed .legend *,
+    &.collapsed {
+      display: block !important;
+    }
+
+    &.collapsed .collapse-toggle {
+      background: transparent;
+      display: inline !important;
+    }
+  }
+
+  .submit-row-bottom {
+    margin: 20px 0 0 200px;
+  }
+
+  .control-group {
+    display: table-header-group;
+    margin: 0;
+
+    > div {
+      display: table-row;
+      width: 100%;
+    }
+
+    .control-label {
+      background: var(--suit-form-label-bg);
+      display: table-cell;
+      min-width: 130px;
+      max-width: 160px;
+      float: none;
+      padding: 8px 12px 8px 10px;
+      border-bottom: 1px solid #eee;
+      border-right: 1px solid #eee;
+      width: auto;
+      color: #666;
+      text-align: right;
+      font-size: 12px;
+      vertical-align: top;
+      line-height: 1.6;
+
+      label {
+        padding: 0;
+        margin: 0;
+        color: #666;
+        font-weight: normal;
+      }
+    }
+
+    .controls {
+      display: table-cell;
+      vertical-align: top;
+      float: none;
+      background-color: var(--suit-form-control-bg);
+      padding: 6px 12px;
+      width: 100%;
+      line-height: 28px;
+      color: var(--suit-text-color);
+
+      p {
+        margin-bottom: 0;
+      }
+
+      .readonly {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      input[type="number"],
+      input[type="url"],
+      input[type="tel"],
+      textarea {
+        color: var(--suit-text-color);
+      }
+
+      select {
+        color: var(--suit-text-color);
+      }
+    }
+
+    &:first-child,
+    &:first-of-type {
+      .control-label {
+        padding-top: 10px;
+      }
+
+      .controls {
+        padding-top: 8px;
+      }
+    }
+
+    &:last-child,
+    &:last-of-type {
+      .control-label {
+        padding-bottom: 10px;
+        border: 0;
+        border-bottom-left-radius: $border-radius;
+      }
+
+      .controls {
+        padding-bottom: 10px;
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+
+    // BS form global overrides
+    .help-block,
+    .help-inline,
+    .form-text {
+      font-size: 11px;
+      color: var(--suit-grey);
+      line-height: normal;
+    }
+
+    .help-inline ul,
+    .radiolist {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        list-style: none;
+        padding: 0 10px 0 0;
+      }
+    }
+
+    .help-icon {
+      margin: 1px 0 0 5px;
+    }
+
+    // Inline forms fields
+    .field-box .controls {
+      label {
+        float: left;
+        display: inline-block;
+        margin: 5px 10px 0 0;
+
+        &.required {
+          margin-right: 15px;
+        }
+      }
+
+      .multi-field-box {
+        margin-top: 5px;
+        float: left;
+        margin-right: 15px;
+
+        .multi-field-controls {
+          float: left;
+        }
+
+        .help-block {
+          display: block;
+          margin: 3px 0 0 5px;
+        }
+      }
+
+      .error {
+        .control-label,
+        .help-block,
+        .help-inline,
+        .help-inline ul li,
+        &.multi-field-box label {
+          color: var(--suit-red);
+        }
+
+        input,
+        select,
+        textarea {
+          border-color: var(--suit-red);
+          color: var(--suit-red);
+        }
+      }
+
+      &:not(:first-child) {
+        .control-label {
+          width: auto;
+          margin-left: 10px;
+        }
+
+        .controls {
+          float: left;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    &.first-error .control-label {
+      color: var(--suit-red);
+    }
+
+    &.multi-field-row {
+      .controls {
+        padding-top: 0;
+      }
+
+      &:first-child,
+      &:first-of-type {
+        .controls {
+          padding-top: 5px;
+        }
+      }
+    }
+  }
+}
+
+.popup {
+  .one-column {
+    padding-top: 10px;
+  }
+}
+
+// Related widget links
+.control-group,
+.inline-group {
+  .add-another {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0 0 0 8px;
+  }
+
+  .related-widget-wrapper-link.change-related {
+    &,
+    &:hover {
+      opacity: 0.2;
+    }
+
+    &:link {
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .add-related,
+  .related-lookup,
+  .change-related,
+  .delete-related {
+    display: inline-block;
+    padding: 4px;
+    border: 1px solid transparent;
+    padding-left: 6px;
+    vertical-align: middle;
+    opacity: 0.6;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    img {
+      display: none;
+    }
+  }
+
+  .vForeignKeyRawIdAdminField {
+    width: 90px;
+  }
+}
+
+// Alerts
+.alert {
+  > ul {
+    margin-top: 10px;
+
+    ul {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+// Stacked & Tabular inlines
+.empty-form,
+tr.empty-form {
+  display: none;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 36px;
+  @extend .white-shadow;
+  padding-left: 10px;
+  margin: 0;
+  color: var(--suit-text-color);
+}
+
+// STACKED Inlines
+.form-horizontal {
+  .inline-group {
+    > h2 {
+      margin-top: 11px;
+    }
+
+    fieldset:first-of-type {
+      margin: 0;
+    }
+
+    .inline-related {
+      z-index: 2;
+      position: relative;
+      border-bottom: 1px solid var(--suit-table-border);
+    }
+
+    .add-row {
+      z-index: 1;
+      position: relative;
+      padding: 6px 0 4px 15px;
+      margin: -1px -1px 0 -1px;
+      @extend .white-inset;
+      background: var(--suit-btn-default-bg);
+      border-radius: 0 0 $border-radius $border-radius;
+      border: 1px solid var(--suit-border-color);
+
+      a {
+        @extend .white-shadow;
+        color: var(--suit-link-color);
+      }
+    }
+  }
+
+  .inline-related {
+    fieldset {
+      border-radius: 0;
+      margin: 40px 0 0 0;
+
+      &:first-of-type {
+        .control-group {
+          &:first-child,
+          &:first-of-type {
+            border-radius: 0;
+
+            .control-label {
+              border-top-left-radius: 0;
+            }
+
+            .controls {
+              border-top-right-radius: 0;
+            }
+          }
+        }
+      }
+
+      &.first {
+        margin-top: 0;
+      }
+    }
+
+    h3 {
+      font-size: 13px;
+      overflow: auto;
+      line-height: 32px;
+      background: linear-gradient(to bottom, #fafafa, #f0f0f0);
+      border: 1px solid #e0e0e0;
+      border-bottom: 1px solid #d5d5d5;
+      border-radius: $border-radius $border-radius 0 0;
+
+      b {
+        display: inline-block;
+        min-width: 180px;
+        margin-right: 10px;
+      }
+
+      span {
+        display: inline-block;
+
+        &.delete,
+        &:last-child {
+          float: right;
+          margin-right: 10px;
+          font-weight: normal;
+        }
+
+        &.delete {
+          input {
+            margin: 0;
+          }
+
+          label {
+            padding: 7px 0 0 5px;
+            vertical-align: middle;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    &:not(:first-of-type) {
+      h3 {
+        margin-top: 5px;
+      }
+    }
+
+    &.tabular {
+      margin-top: 15px;
+
+      fieldset {
+        box-shadow: none;
+
+        > h2 {
+          margin-top: -4px;
+        }
+      }
+
+      table {
+        margin-bottom: 0;
+      }
+
+      table td .errorlist {
+        margin-bottom: 5px;
+        font-size: 11px;
+      }
+
+      table td.control-group {
+        display: table-cell;
+      }
+    }
+  }
+}
+
+// Selector (M2M widget)
+.form-horizontal .control-group .controls .selector {
+  overflow: auto;
+
+  .selector-available,
+  .selector-chooser,
+  .selector-chosen {
+    float: left;
+
+    h2 {
+      margin-left: 5px;
+      font-size: 12px;
+    }
+
+    > a {
+      margin-left: 5px;
+    }
+  }
+
+  &.stacked {
+    .selector-available,
+    .selector-chosen {
+      width: 100%;
+      min-width: 150px;
+      max-width: 100%;
+
+      select,
+      input {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+
+  .selector-available,
+  .selector-chosen {
+    width: 45%;
+    min-width: 150px;
+    max-width: 300px;
+
+    select,
+    input {
+      width: 100%;
+      display: block;
+      background-color: var(--suit-input-bg);
+      border-color: var(--suit-input-border);
+      color: var(--suit-text-color);
+    }
+  }
+
+  .selector-chooser {
+    list-style: none;
+    margin: 70px 10px 0 10px;
+    padding: 0;
+
+    li {
+      a {
+        display: block;
+        padding: 4px;
+        border: 1px solid transparent;
+        opacity: 0.6;
+
+        &:hover {
+          background-color: var(--suit-table-bg);
+          border-radius: $border-radius;
+          border: 1px solid var(--suit-border-color);
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.stacked {
+    .selector-chooser {
+      list-style: none;
+      margin: 5px 0 0 0;
+      width: 100%;
+
+      li {
+        display: inline-block;
+      }
+    }
+  }
+
+  .selector-available,
+  .selector-chosen {
+    a:not(.active) {
+      color: var(--suit-grey);
+      text-decoration: none;
+    }
+  }
+
+  .selector-available select {
+    border-radius: 0;
+  }
+
+  .selector-filter {
+    margin-right: 14px;
+    position: relative;
+    margin-bottom: -1px;
+
+    input {
+      border-radius: 0 0 $border-radius $border-radius;
+    }
+
+    label {
+      position: absolute;
+      right: 0;
+      top: 4px;
+      margin-right: -10px;
+      opacity: 0.2;
+    }
+  }
+}
+
+// Special styles for django auth app
+.controls {
+  #id_groups_from {
+    min-height: 80px;
+  }
+
+  #id_user_permissions_from {
+    min-height: 184px;
+  }
+
+  // File upload styles
+  .file-upload {
+    .clearable-file-input {
+      display: inline-block;
+      margin: 0 0 0 30px;
+
+      input {
+        margin: 5px 7px 0 0;
+        vertical-align: middle;
+        float: left;
+      }
+
+      label {
+        font-size: 11px;
+        margin-top: 2px;
+        vertical-align: middle;
+        display: inline-block;
+        color: var(--suit-grey);
+
+        &:hover {
+          color: var(--suit-red);
+        }
+      }
+    }
+  }
+}
+
+// Select2 overrides
+.select2-container-multi .select2-choices {
+  border-radius: 4px;
+  background-color: var(--suit-input-bg);
+  border-color: var(--suit-input-border);
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  padding: 3px 20px 3px 5px !important;
+  line-height: normal;
+}
+
+.select2-container-multi .select2-search-choice-close {
+  top: 3px;
+  left: auto !important;
+}
+
+.select2-search-choice .s2-size {
+  float: right;
+}
+
+.select2-search-choice .s2-size em {
+  font-style: normal;
+  color: grey;
+  font-size: 9px;
+  text-shadow: 0 1px 0 #fff;
+}
+
+// Datetime shortcuts
+.datetimeshortcuts {
+  font-size: 11px;
+  margin-left: 5px;
+  vertical-align: middle;
+  color: transparent;
+
+  a:first-child {
+    margin-right: 4px;
+  }
+
+  a:last-child {
+    margin-left: -6px;
+    margin-right: 10px;
+  }
+}
+
+// Original date widgets for Django 1.9+
+.datetime > div:not(.input-group) .datetimeshortcuts,
+.controls > .datetimeshortcuts,
+.controls > .datetime > .datetimeshortcuts {
+  .date-icon,
+  .clock-icon {
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Fix original date/time fields
+.vDateField,
+.vTimeField {
+  width: auto;
+  vertical-align: top;
+}
+
+// Datetime improvements
+.suit-date {
+  position: relative;
+
+  .datetimeshortcuts {
+    margin-left: 32px;
+    color: var(--suit-bg-light);
+
+    a:last-child {
+      padding: 0 5px;
+      position: absolute;
+      left: ($date-input-width + $date-icon-offset);
+      z-index: 2;
+
+      img {
+        visibility: hidden;
+      }
+    }
+
+    .date-icon,
+    .clock-icon {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      margin: 1px 0 0 -5px;
+    }
+  }
+
+  input {
+    vertical-align: middle;
+
+    &.vDateField {
+      width: $date-input-width;
+    }
+
+    &.vTimeField {
+      width: $time-input-width;
+    }
+  }
+
+  .input-group-text,
+  .add-on {
+    position: absolute;
+    left: ($date-input-width + $date-input-offset);
+  }
+
+  &.suit-time {
+    .input-group-text,
+    .add-on {
+      left: ($time-input-width + $date-input-offset);
+    }
+
+    .datetimeshortcuts {
+      a:last-child {
+        position: absolute;
+        left: ($time-input-width + $date-icon-offset);
+      }
+    }
+  }
+}
+
+.autosize {
+  max-height: 150px;
+}
+
+.legend,
+h2 {
+  .description {
+    font-weight: normal;
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 20px;
+    line-height: normal;
+    color: var(--suit-grey);
+  }
+}
+
+// Legend/H2 for suit_form_includes
+.form-horizontal .suit-tab {
+  visibility: hidden;
+
+  &.show {
+    visibility: inherit;
+  }
+
+  &.collapsed.hide,
+  &.collapsed.d-none {
+    display: none !important;
+  }
+}
+
+.suit-tab,
+.form-horizontal .suit-include {
+  > h2 {
+    margin-top: -10px;
+    margin-bottom: -6px;
+    line-height: 36px;
+    padding: 0;
+  }
+}
+
+.linked-select-link {
+  font-size: 11px;
+  margin-right: 5px;
+}
+
+// StackedInline sortables
+.stacked-inline-sortable {
+  float: right;
+
+  :first-child {
+    padding-right: 1px;
+  }
+
+  &:nth-last-child(2) {
+    margin-right: 10px;
+  }
+}
+
+.inline-group > div:first-of-type .stacked-inline-sortable .sortable-up,
+.inline-group > div:nth-last-child(3) .stacked-inline-sortable .sortable-down {
+  opacity: 0.15 !important;
+  cursor: default;
+}
+
+// Error list
+.errorlist {
+  color: var(--suit-red);
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+// Required field indicator
+label.required::after {
+  content: " *";
+  color: var(--suit-red);
+}
+
+// Bootstrap 5 form control theming
+.form-control,
+.form-select {
+  color: var(--suit-text-color);
+
+  &:disabled,
+  &[readonly] {
+    background-color: var(--suit-bg-light);
+  }
+}
+
+// Form label styling
+.form-label {
+  color: var(--suit-text-color);
+}

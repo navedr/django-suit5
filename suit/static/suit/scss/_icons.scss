@@ -1,0 +1,163 @@
+// Icon Compatibility Layer
+// Maps old Glyphicon classes to Bootstrap Icons
+// Bootstrap Icons font must be loaded for this to work
+
+// Base icon styles - use Bootstrap Icons font
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: "bootstrap-icons" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+
+  // Hide text for icon replacement
+  &::before {
+    display: inline-block;
+  }
+}
+
+// Icon mappings: Glyphicons -> Bootstrap Icons
+// Format: .icon-{old-name}::before { content: "\{unicode}"; }
+
+// Navigation & UI
+.icon-home::before { content: "\f424"; } // bi-house
+.icon-cog::before,
+.icon-gear::before { content: "\f3e5"; } // bi-gear
+.icon-trash::before { content: "\f5de"; } // bi-trash
+.icon-pencil::before { content: "\f4cb"; } // bi-pencil
+.icon-plus::before,
+.icon-plus-sign::before { content: "\f4fe"; } // bi-plus
+.icon-search::before { content: "\f52a"; } // bi-search
+.icon-calendar::before { content: "\f1f4"; } // bi-calendar
+.icon-time::before,
+.icon-clock::before { content: "\f293"; } // bi-clock
+.icon-eye-open::before { content: "\f341"; } // bi-eye
+.icon-eye-close::before { content: "\f343"; } // bi-eye-slash
+.icon-ok::before,
+.icon-check::before { content: "\f26b"; } // bi-check
+.icon-remove::before,
+.icon-x::before { content: "\f62a"; } // bi-x
+.icon-chevron-right::before { content: "\f285"; } // bi-chevron-right
+.icon-chevron-left::before { content: "\f284"; } // bi-chevron-left
+.icon-chevron-up::before { content: "\f286"; } // bi-chevron-up
+.icon-chevron-down::before { content: "\f282"; } // bi-chevron-down
+.icon-arrow-up::before { content: "\f148"; } // bi-arrow-up
+.icon-arrow-down::before { content: "\f128"; } // bi-arrow-down
+.icon-arrow-left::before { content: "\f12f"; } // bi-arrow-left
+.icon-arrow-right::before { content: "\f138"; } // bi-arrow-right
+.icon-lock::before { content: "\f47b"; } // bi-lock
+.icon-globe::before { content: "\f3ef"; } // bi-globe
+.icon-user::before { content: "\f4e1"; } // bi-person
+.icon-comment::before { content: "\f268"; } // bi-chat
+.icon-question-sign::before { content: "\f505"; } // bi-question-circle
+.icon-upload::before { content: "\f603"; } // bi-upload
+.icon-download::before { content: "\f30a"; } // bi-download
+.icon-picture::before,
+.icon-image::before { content: "\f42c"; } // bi-image
+.icon-file::before { content: "\f37d"; } // bi-file-earmark
+.icon-folder-open::before { content: "\f3d5"; } // bi-folder2-open
+.icon-folder-close::before { content: "\f3d4"; } // bi-folder2
+.icon-list::before { content: "\f479"; } // bi-list
+.icon-th::before { content: "\f3fd"; } // bi-grid
+.icon-th-list::before { content: "\f479"; } // bi-list
+.icon-star::before { content: "\f586"; } // bi-star-fill
+.icon-star-empty::before { content: "\f588"; } // bi-star
+.icon-heart::before { content: "\f417"; } // bi-heart-fill
+.icon-heart-empty::before { content: "\f419"; } // bi-heart
+.icon-signal::before { content: "\f5c8"; } // bi-signal
+.icon-refresh::before { content: "\f130"; } // bi-arrow-clockwise
+.icon-filter::before { content: "\f3a4"; } // bi-funnel
+.icon-sort::before { content: "\f574"; } // bi-sort-down
+.icon-sort-by-alphabet::before { content: "\f571"; } // bi-sort-alpha-down
+.icon-sort-by-order::before { content: "\f574"; } // bi-sort-numeric-down
+.icon-info-sign::before { content: "\f431"; } // bi-info-circle
+.icon-warning-sign::before { content: "\f33a"; } // bi-exclamation-triangle
+.icon-exclamation-sign::before { content: "\f333"; } // bi-exclamation-circle
+.icon-ban-circle::before { content: "\f54b"; } // bi-slash-circle
+.icon-share::before { content: "\f52d"; } // bi-share
+.icon-share-alt::before { content: "\f52c"; } // bi-share-fill
+.icon-link::before { content: "\f470"; } // bi-link-45deg
+.icon-external-link::before { content: "\f1c5"; } // bi-box-arrow-up-right
+.icon-tag::before { content: "\f5ba"; } // bi-tag
+.icon-tags::before { content: "\f5bc"; } // bi-tags
+.icon-bookmark::before { content: "\f1ac"; } // bi-bookmark-fill
+.icon-print::before { content: "\f502"; } // bi-printer
+.icon-envelope::before { content: "\f32f"; } // bi-envelope
+.icon-phone::before { content: "\f5c0"; } // bi-telephone
+.icon-edit::before { content: "\f4ca"; } // bi-pencil-square
+.icon-zoom-in::before { content: "\f641"; } // bi-zoom-in
+.icon-zoom-out::before { content: "\f642"; } // bi-zoom-out
+.icon-move::before { content: "\f14a"; } // bi-arrows-move
+.icon-resize-full::before { content: "\f150"; } // bi-arrows-fullscreen
+.icon-resize-small::before { content: "\f3e7"; } // bi-fullscreen-exit
+.icon-log-in::before { content: "\f1c5"; } // bi-box-arrow-in-right
+.icon-log-out::before { content: "\f1c7"; } // bi-box-arrow-right
+.icon-off::before,
+.icon-power-off::before { content: "\f4f8"; } // bi-power
+
+// Form/Input related
+.icon-ok-circle::before { content: "\f26c"; } // bi-check-circle
+.icon-remove-circle::before { content: "\f62b"; } // bi-x-circle
+.icon-plus-sign::before { content: "\f4ff"; } // bi-plus-circle
+.icon-minus-sign::before { content: "\f2ea"; } // bi-dash-circle
+
+// Media controls
+.icon-play::before { content: "\f4f4"; } // bi-play-fill
+.icon-pause::before { content: "\f4c3"; } // bi-pause-fill
+.icon-stop::before { content: "\f5a3"; } // bi-stop-fill
+.icon-forward::before { content: "\f552"; } // bi-skip-forward-fill
+.icon-backward::before { content: "\f54d"; } // bi-skip-backward-fill
+.icon-fast-forward::before { content: "\f3a6"; } // bi-fast-forward-fill
+.icon-fast-backward::before { content: "\f510"; } // bi-rewind-fill
+.icon-step-forward::before { content: "\f553"; } // bi-skip-end-fill
+.icon-step-backward::before { content: "\f54e"; } // bi-skip-start-fill
+.icon-eject::before { content: "\f323"; } // bi-eject-fill
+.icon-volume-off::before { content: "\f614"; } // bi-volume-mute
+.icon-volume-down::before { content: "\f612"; } // bi-volume-down
+.icon-volume-up::before { content: "\f613"; } // bi-volume-up
+
+// Text formatting
+.icon-bold::before { content: "\f5e0"; } // bi-type-bold
+.icon-italic::before { content: "\f5e5"; } // bi-type-italic
+.icon-text-height::before { content: "\f5c3"; } // bi-text-paragraph
+.icon-text-width::before { content: "\f5c3"; } // bi-text-paragraph
+.icon-align-left::before { content: "\f5c4"; } // bi-text-left
+.icon-align-center::before { content: "\f5c5"; } // bi-text-center
+.icon-align-right::before { content: "\f5c6"; } // bi-text-right
+.icon-align-justify::before { content: "\f4af"; } // bi-justify
+.icon-indent-left::before { content: "\f5c7"; } // bi-text-indent-left
+.icon-indent-right::before { content: "\f5c8"; } // bi-text-indent-right
+
+// White icon variants (for dark backgrounds)
+.icon-white {
+  color: #fff;
+
+  .dark-theme & {
+    color: var(--suit-text-color);
+  }
+}
+
+// Sortable icons for tables
+.sortable-up::before { content: "\f148"; } // bi-arrow-up
+.sortable-down::before { content: "\f128"; } // bi-arrow-down
+
+// Bootstrap Icons direct class aliases (for transition period)
+// Users can also use bi-* classes directly
+.bi {
+  font-family: "bootstrap-icons" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

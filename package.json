@@ -1,0 +1,23 @@
+{
+  "name": "django-suit",
+  "version": "2.0.0",
+  "description": "Modern theme for Django Admin",
+  "private": true,
+  "scripts": {
+    "build:css": "sass suit/static/suit/scss/suit.scss suit/static/suit/css/suit.css --style=compressed",
+    "build:css:expanded": "sass suit/static/suit/scss/suit.scss suit/static/suit/css/suit.css --style=expanded",
+    "watch:css": "sass --watch suit/static/suit/scss/suit.scss:suit/static/suit/css/suit.css",
+    "build:djangocms": "sass suit/static/suit/scss/vendor/_djangocms.scss suit/static/suit/css/djangocms.css --style=compressed",
+    "copy:bootstrap": "cp node_modules/bootstrap/dist/css/bootstrap.min.css suit/static/suit/bootstrap5/css/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js suit/static/suit/bootstrap5/js/",
+    "copy:icons": "cp node_modules/bootstrap-icons/font/bootstrap-icons.min.css suit/static/suit/icons/ && cp -r node_modules/bootstrap-icons/font/fonts/* suit/static/suit/icons/fonts/",
+    "copy:jquery": "cp node_modules/jquery/dist/jquery.min.js suit/static/suit/js/jquery-3.7.1.min.js",
+    "setup": "npm run copy:bootstrap && npm run copy:icons && npm run copy:jquery",
+    "build": "npm run setup && npm run build:css && npm run build:djangocms"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0",
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.0",
+    "jquery": "^3.7.1"
+  }
+}

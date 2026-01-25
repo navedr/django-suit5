@@ -1,18 +1,25 @@
 {% load admin_static %}{% load suit_tags %}{% load url from suit_compat %}<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{% block title %}{{ title }} | {{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</title>
   {% block before_suit_styles %}{% endblock %}
   <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% endblock %}"/>
-  <link rel="stylesheet" type="text/css" href="{% static 'suit/bootstrap/css/bootstrap.min.css' %}" media="all"/>
+  <!-- Bootstrap 5 -->
+  <link rel="stylesheet" type="text/css" href="{% static 'suit/bootstrap5/css/bootstrap.min.css' %}" media="all"/>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" type="text/css" href="{% static 'suit/icons/bootstrap-icons.min.css' %}" media="all"/>
+  <!-- Django Suit -->
   <link rel="stylesheet" type="text/css" href="{% static 'suit/css/suit.css' %}" media="all">
   {% block extrastyle %}{% endblock %}
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>{% endif %}
   <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
-  {% block suit_jquery %}{% if '1.9'|django_version_gte %}<script src="{% static 'suit/js/jquery-2.2.4.min.js' %}">{% else %}<script src="{% static 'suit/js/jquery-1.8.3.min.js' %}">{% endif %}</script>{% endblock %}
+  {% block suit_jquery %}<script src="{% static 'suit/js/jquery-3.7.1.min.js' %}"></script>{% endblock %}
   <script type="text/javascript">var Suit = { $: $.noConflict() }; if (!$) $ = Suit.$; </script>
-  <script src="{% static 'suit/bootstrap/js/bootstrap.min.js' %}"></script>
+  <!-- Bootstrap 5 Bundle (includes Popper) -->
+  <script src="{% static 'suit/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
   {% if 'SHOW_REQUIRED_ASTERISK'|suit_conf %}
   <style type="text/css">.required:after { content: '*'; margin: 0 0 0 5px; position: absolute; color: #ccc;}</style>
   {% endif %}
@@ -42,7 +49,7 @@
             {% block header_time %}
             <div class="header-content header-content-first">
               <div class="header-column icon">
-                <i class="icon-time"></i>
+                <i class="bi bi-clock"></i>
               </div>
               <div class="header-column">
                 <span class="date"> {% suit_date %}</span><br>
@@ -54,7 +61,7 @@
             {% block header_content %}
               <!--<div class="header-content">
                 <div class="header-column icon">
-                  <i class="icon-comment"></i>
+                  <i class="bi bi-chat"></i>
                 </div>
                 <div class="header-column">
                   <a href="" class="grey"><b>2</b> new messages</a>
@@ -82,6 +89,11 @@
                   <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
                 {% endblock %}
                 </span>
+                {% block theme_toggle %}
+                <button type="button" class="theme-toggle ms-3" onclick="toggleTheme()" title="Toggle dark/light mode">
+                  <i class="bi bi-moon-stars" id="theme-icon"></i>
+                </button>
+                {% endblock %}
               </div>
             {% endif %}
             {% block nav-global %}{% endblock %}
@@ -115,8 +127,8 @@
               {% if messages %}
 
                 {% for message in messages %}
-                  <div class="alert alert-{% firstof message.tags 'info' %}">
-                    <button class="close" data-dismiss="alert">×</button>
+                  <div class="alert alert-{% firstof message.tags 'info' %} alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     {{ message }}
                   </div>
                 {% endfor %}
@@ -124,7 +136,7 @@
             {% endblock messages %}
 
             <!-- Content -->
-            <div id="content" class="{% block coltype %}colM{% endblock %} row-fluid">
+            <div id="content" class="{% block coltype %}colM{% endblock %}">
               {% block pretitle %}{% endblock %}
               {% block content_title %}{% if title %}
                 <h2 class="content-title">{{ title }}</h2>
@@ -150,7 +162,7 @@
                   {% if search_url %}
                     <form class="form-search nav-quick-search" autocomplete="off" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
                       <input type="text" name="q" class="input-medium search-query" id="quick-search">
-                      <i class="input-icon icon-search"></i>
+                      <i class="input-icon bi bi-search"></i>
                       <input type="submit" class="submit" value="">
                     </form>
                   {% endif %}
@@ -180,9 +192,9 @@
     <div class="content">
       <div class="tools">
         {% block footer_links %}
-          <a href="http://djangosuit.com/support/" target="_blank" class="icon"><i class="icon-question-sign"></i>Support</a>
-          <a href="http://djangosuit.com/pricing/" target="_blank" class="icon"><i class="icon-bookmark"></i>Licence</a>
-          <a href="http://github.com/darklow/django-suit/issues" target="_blank" class="icon"><i class="icon-comment"></i>Report a bug</a>
+          <a href="http://djangosuit.com/support/" target="_blank" class="icon"><i class="bi bi-question-circle"></i> Support</a>
+          <a href="http://djangosuit.com/pricing/" target="_blank" class="icon"><i class="bi bi-bookmark"></i> Licence</a>
+          <a href="http://github.com/darklow/django-suit/issues" target="_blank" class="icon"><i class="bi bi-chat"></i> Report a bug</a>
         {% endblock %}
       </div>
 
@@ -206,6 +218,41 @@
 {% endblock %}
 
   <script src="{% static 'suit/js/suit.js' %}"></script>
+
+  <!-- Theme Toggle Script -->
+  <script>
+  function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    body.classList.toggle('dark-theme');
+
+    if (body.classList.contains('dark-theme')) {
+      icon.classList.remove('bi-moon-stars');
+      icon.classList.add('bi-sun');
+      localStorage.setItem('suit-theme', 'dark');
+    } else {
+      icon.classList.remove('bi-sun');
+      icon.classList.add('bi-moon-stars');
+      localStorage.setItem('suit-theme', 'light');
+    }
+  }
+
+  // Load saved theme preference (default to light)
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('suit-theme');
+    const icon = document.getElementById('theme-icon');
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-theme');
+      if (icon) {
+        icon.classList.remove('bi-moon-stars');
+        icon.classList.add('bi-sun');
+      }
+    }
+    // Light theme is the default - no class needed
+  });
+  </script>
+
   {% block extrajs %}{% endblock %}
 
 </body>

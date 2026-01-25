@@ -1,0 +1,85 @@
+// Tabs Styles
+
+.nav-tabs-suit {
+  list-style: none;
+  margin: 0 4px 15px 4px;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    float: none;
+    vertical-align: bottom;
+
+    &:first-child {
+      margin-left: 10px;
+    }
+
+    a {
+      display: inline-block;
+      padding: 8px 20px 7px;
+      border-radius: ($border-radius + 1) ($border-radius + 1) 0 0;
+      @extend .white-inset;
+      text-decoration: none;
+      color: var(--suit-link-color);
+      font-size: 13px;
+      background-color: var(--suit-bg-light);
+      border: 1px solid var(--suit-border-color);
+      border-bottom: none;
+
+      &:hover {
+        text-decoration: underline;
+        background-color: var(--suit-bg-light);
+      }
+
+      &.error {
+        color: var(--suit-red) !important;
+      }
+    }
+
+    &.active {
+      a {
+        font-weight: bold;
+        color: var(--suit-text-color);
+        @extend .white-shadow;
+        box-shadow: none;
+        text-decoration: none;
+        background-color: var(--suit-bg-color);
+        border-bottom-color: var(--suit-bg-color);
+      }
+    }
+  }
+
+  &::after,
+  &::before {
+    display: inline;
+    content: normal;
+    clear: none;
+  }
+}
+
+// Bootstrap 5 tabs adjustments
+.nav-tabs {
+  border-bottom-color: var(--suit-border-color);
+
+  .nav-link {
+    color: var(--suit-link-color);
+    background-color: var(--suit-bg-light);
+    border-color: var(--suit-border-color) var(--suit-border-color) transparent;
+
+    &:hover,
+    &:focus {
+      border-color: var(--suit-border-color) var(--suit-border-color) var(--suit-border-color);
+      color: var(--suit-link-hover-color);
+    }
+
+    &.active {
+      color: var(--suit-text-color);
+      background-color: var(--suit-bg-color);
+      border-color: var(--suit-border-color) var(--suit-border-color) var(--suit-bg-color);
+    }
+  }
+}
+
+.tab-content {
+  background-color: var(--suit-bg-color);
+}

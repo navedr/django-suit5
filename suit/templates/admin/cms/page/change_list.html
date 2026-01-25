@@ -137,7 +137,7 @@
         {% block object-tools-items %}
           {% if has_add_permission %}
             <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="btn btn-success">
-              <i class="icon-plus-sign icon-white"></i>&nbsp;
+              <i class="bi bi-plus-circle text-white"></i>&nbsp;
               {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
             </a>
           {% endif %}

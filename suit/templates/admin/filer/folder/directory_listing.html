@@ -67,8 +67,8 @@
             <div class="toolbar-content">
                 {% block search %}
                 <div class="object-tools">
-                    {% if folder.can_have_subfolders %}<a id="id_new_folder" href="{% url 'admin:filer-directory_listing-make_root_folder' %}?parent_id={{ folder.id }}" class="btn btn-success addlink" onclick="return showAddAnotherPopup(this);" title="{% trans "Adds a new Folder" %}"><i class="icon-plus-sign icon-white"></i>&nbsp; {% trans "New Folder" %}</a>{% endif %}
-                    <a id="id_upload_button" href="#" class="addlink btn btn-info" title="{% trans 'upload files' %}"><i class="icon-upload icon-white"></i>&nbsp; {% trans 'Upload' %}</a>
+                    {% if folder.can_have_subfolders %}<a id="id_new_folder" href="{% url 'admin:filer-directory_listing-make_root_folder' %}?parent_id={{ folder.id }}" class="btn btn-success addlink" onclick="return showAddAnotherPopup(this);" title="{% trans "Adds a new Folder" %}"><i class="bi bi-plus-circle text-white"></i>&nbsp; {% trans "New Folder" %}</a>{% endif %}
+                    <a id="id_upload_button" href="#" class="addlink btn btn-info" title="{% trans 'upload files' %}"><i class="bi bi-upload text-white"></i>&nbsp; {% trans 'Upload' %}</a>
                     {% include 'admin/filer/tools/upload_button_js.html' %}
                 </div>
                 {% include "admin/filer/tools/search_form.html" %}
@@ -76,17 +76,17 @@
             </div>
 
             {% if not folder.is_root %}
-            <h2 class="folder_header">{% if folder.parent %}<a href="{% url 'admin:filer-directory_listing' folder.parent.id %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}" title="{% trans "Go back to the parent folder" %}"><i class="icon-arrow-up icon-alpha75"></i></a>{% else %}<a href="{% url 'admin:filer-directory_listing-root' %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}" title="{% trans "Go back to" %} {% trans "root"|title %} {% trans "folder" %}"><i class="icon-arrow-up icon-alpha75"></i></a>{% endif %}
+            <h2 class="folder_header">{% if folder.parent %}<a href="{% url 'admin:filer-directory_listing' folder.parent.id %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}" title="{% trans "Go back to the parent folder" %}"><i class="bi bi-arrow-up icon-alpha75"></i></a>{% else %}<a href="{% url 'admin:filer-directory_listing-root' %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}" title="{% trans "Go back to" %} {% trans "root"|title %} {% trans "folder" %}"><i class="bi bi-arrow-up icon-alpha75"></i></a>{% endif %}
                 <img src="{{ folder.icons.48 }}" alt="{% trans "Folder Icon" %}" /> {{ folder.name }}
                 <span class="small quiet">({% blocktrans count folder.children_count as counter %}1 folder{% plural %}{{ counter }} folders{% endblocktrans %}, {% blocktrans count folder.file_count as counter %}1 file{% plural %}{{ counter }} files{% endblocktrans %})</span>
                 <span>
                     {% if is_popup %}
-                        {% if select_folder and folder.file_type == 'Folder' %}&nbsp;<a class="insertlink insertlinkButton btn btn-info btn-small" href="" onclick="opener.dismissRelatedFolderLookupPopup(window, {{ folder.id }}, '{{ folder.pretty_logical_path }}'); return false;"><i class="icon-ok-sign icon-white"></i></a>{% endif %}
+                        {% if select_folder and folder.file_type == 'Folder' %}&nbsp;<a class="insertlink insertlinkButton btn btn-info btn-sm" href="" onclick="opener.dismissRelatedFolderLookupPopup(window, {{ folder.id }}, '{{ folder.pretty_logical_path }}'); return false;"><i class="bi bi-check-sign text-white"></i></a>{% endif %}
                     {% else %}<a style="display: block; float: right;" class="changelink" href="{% url 'admin:filer_folder_change' folder.id %}" title="{% trans "Change current folder details" %}">{% trans "Change" %}</a>{% endif %}
                 </span>
             </h2>
             {% else %}{% if folder.is_smart_folder %}
-            <h2 class="folder_header"><a href="{% url 'admin:filer-directory_listing-root' %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}"><i class="icon-arrow-up icon-alpha75"></i></a>
+            <h2 class="folder_header"><a href="{% url 'admin:filer-directory_listing-root' %}{% if is_popup %}?_popup=1{% if select_folder %}&select_folder=1{% endif %}{% endif %}"><i class="bi bi-arrow-up icon-alpha75"></i></a>
                 <img src="{{ folder.icons.32 }}" alt="{% trans "Folder Icon" %}" /> {{ folder.name }}
             </h2>
             {% endif %}
