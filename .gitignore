@@ -1,0 +1,9 @@
+*.py[co]
+*.egg*
+*.swp
+*~
+*.log
+.idea
+docs/_build/
+/build
+/dist/
