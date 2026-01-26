@@ -92,7 +92,7 @@ STATIC_URL = '/static/'
 # Django Suit5 configuration
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Django Suit5 Demo',
-    'HEADER_DATE_FORMAT': 'l, F j, Y',
+    'HEADER_DATE_FORMAT': 'l, jS F Y',
     'HEADER_TIME_FORMAT': 'H:i',
     'SHOW_REQUIRED_ASTERISK': True,
     'CONFIRM_UNSAVED_CHANGES': True,

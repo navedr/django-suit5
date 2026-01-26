@@ -3,20 +3,20 @@
 .header {
   color: var(--suit-header-text);
   height: $header-height;
-  overflow: hidden;
   text-shadow: 0 -1px #121414;
   background: linear-gradient(to right, var(--suit-header-bg-1), var(--suit-header-bg-2));
+  display: flex;
+  align-items: center;
 
   .header-content {
-    float: left;
-    height: $header-height;
-    overflow: hidden;
-    padding: 7px 0 0 30px;
-    line-height: normal;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px 0 30px;
+    line-height: 1.4;
 
     &.header-content-first {
       border-left: 1px solid #45494c;
-      margin-right: 20px;
     }
 
     .time {
@@ -25,30 +25,41 @@
     }
 
     .header-column {
-      float: left;
+      display: flex;
+      align-items: center;
 
       i {
         margin-right: 10px;
+      }
+
+      // For date/time column, use block layout so line breaks work
+      &:not(.icon) {
+        display: block;
+        line-height: 1.4;
       }
     }
   }
 
   #branding {
-    height: $header-height;
-    float: left;
+    display: flex;
+    align-items: center;
+    height: 100%;
     min-width: $left-column-width;
     border-right: 1px solid #2f3334;
+    padding: 0 15px 0 13px;
 
     h1 {
       color: white;
       font-size: 18px;
-      margin: 4px 15px 0 13px;
+      margin: 0;
       padding: 0;
       text-shadow: 0 -1px #121414;
     }
 
     a {
       text-decoration: none;
+      display: flex;
+      align-items: center;
 
       &:hover h1 {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
@@ -70,8 +81,11 @@
   }
 
   #user-tools {
-    padding: 12px 20px 0 0;
-    float: right;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px 0 0;
+    margin-left: auto;
 
     .user-links {
       display: inline-block;
