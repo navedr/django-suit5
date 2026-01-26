@@ -1,6 +1,6 @@
-# Django Suit Demo Project
+# Django Suit5 Demo Project
 
-Example Django project to test the Bootstrap 5 migration of Django Suit.
+Example Django project to test Django Suit5 with Bootstrap 5.
 
 ## Requirements
 
@@ -54,7 +54,7 @@ python manage.py runserver
 - Form validation
 - Dark theme support (click moon icon in header)
 
-## Testing the Bootstrap 5 Migration
+## Testing Django Suit5
 
 After setting up, test the following:
 

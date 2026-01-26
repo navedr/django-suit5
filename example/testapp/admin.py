@@ -1,6 +1,6 @@
 """
 Admin configuration for test models.
-Showcases various Django admin features with Django Suit.
+Showcases various Django admin features with Django Suit5.
 """
 from django.contrib import admin
 from django.utils.html import format_html

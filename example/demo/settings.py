@@ -8,7 +8,7 @@ import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Add the parent directory to the path so we can import django-suit
+# Add the parent directory to the path so we can import django-suit5
 sys.path.insert(0, os.path.dirname(BASE_DIR))
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -21,7 +21,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
-    'suit',  # Django Suit - must be before django.contrib.admin
+    'suit5',  # Django Suit5 - must be before django.contrib.admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,9 +89,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-# Django Suit configuration
+# Django Suit5 configuration
 SUIT_CONFIG = {
-    'ADMIN_NAME': 'Django Suit Demo',
+    'ADMIN_NAME': 'Django Suit5 Demo',
     'HEADER_DATE_FORMAT': 'l, F j, Y',
     'HEADER_TIME_FORMAT': 'H:i',
     'SHOW_REQUIRED_ASTERISK': True,

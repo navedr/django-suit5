@@ -1,5 +1,5 @@
 """
-Test models for Django Suit demo.
+Test models for Django Suit5 demo.
 Showcases various field types and relationships.
 """
 from django.db import models

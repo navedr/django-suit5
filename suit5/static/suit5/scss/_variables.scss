@@ -1,0 +1,240 @@
+// Django Suit5 CSS Variables
+// Converted from LESS to SCSS with CSS Custom Properties
+// Includes Dark Theme Support
+
+:root {
+  // Layout - Light Theme (default)
+  --suit-bg-color: #EDEFF1;
+  --suit-footer-bg: #D5D7D8;
+  --suit-bg-light: #F6F7F8;
+  --suit-text-color: #333;
+  --suit-text-muted: #666;
+
+  // Colors
+  --suit-grey: #999;
+  --suit-red: #b94a48;
+  --suit-blue: #08c;
+  --suit-link-color: #08c;
+  --suit-link-hover-color: #005580;
+
+  // Header
+  --suit-header-bg-1: #3f4345;
+  --suit-header-bg-2: #373b3d;
+  --suit-header-height: 45px;
+  --suit-header-text: #d4d4d4;
+  --suit-header-link: #92D1EE;
+
+  // Dimensions
+  --suit-left-column-width: 200px;
+  --suit-right-column-width: 180px;
+  --suit-padding: 20px;
+
+  // Borders
+  --suit-border-radius: 4px;
+  --suit-border-color: #e7e7e7;
+  --suit-border-color-light: #EDEDED;
+
+  // Component colors
+  --suit-box-bg: #F6F7F8;
+  --suit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07);
+  --suit-table-bg: #fff;
+  --suit-table-header-bg: linear-gradient(to bottom, #f3f3f3, #e5e5e5);
+  --suit-table-border: #eee;
+  --suit-table-stripe-bg: #fafafa;
+
+  // Form colors
+  --suit-form-label-bg: #fff;
+  --suit-form-control-bg: #fafbfc;
+  --suit-form-control-border: #e8e8e8;
+  --suit-input-bg: #fff;
+  --suit-input-border: #ced4da;
+  --suit-input-focus-border: #86b7fe;
+
+  // Left nav colors
+  --suit-nav-bg: #fff;
+  --suit-nav-active-bg: linear-gradient(to bottom, #83b3c3, #5295b0);
+  --suit-nav-hover-bg: #f5f5f5;
+  --suit-nav-text: #666;
+  --suit-nav-active-text: #fff;
+  --suit-nav-submenu-bg: #f6f7f8;
+
+  // Alert/Status colors
+  --suit-success-bg: #dff0d8;
+  --suit-info-bg: #d9edf7;
+  --suit-warning-bg: #fcf8e3;
+  --suit-error-bg: #f2dede;
+
+  // Button colors
+  --suit-btn-primary-bg: linear-gradient(to bottom, #83b3c3, #5295b0);
+  --suit-btn-default-bg: linear-gradient(to bottom, #f3f3f3, #e5e5e5);
+
+  // Shadows
+  --suit-white-shadow: 0 1px rgba(255, 255, 255, 0.5);
+  --suit-inset-shadow: inset 1px 1px 0 rgba(255, 255, 255, 1);
+}
+
+// Manual dark theme class (for user preference toggle)
+// Note: Auto dark mode detection removed - use .dark-theme class for manual toggle
+.dark-theme {
+  // Override Bootstrap's CSS variables
+  --bs-body-bg: #1a1a2e;
+  --bs-body-color: #e4e4e7;
+
+  // Django Suit5 CSS variables
+  --suit-bg-color: #1a1a2e;
+  --suit-footer-bg: #16213e;
+  --suit-bg-light: #1f1f38;
+  --suit-text-color: #e4e4e7;
+  --suit-text-muted: #a1a1aa;
+
+  // Direct overrides for immediate effect
+  background-color: #1a1a2e !important;
+  color: #e4e4e7;
+  --suit-grey: #71717a;
+  --suit-red: #ef4444;
+  --suit-blue: #3b82f6;
+  --suit-link-color: #60a5fa;
+  --suit-link-hover-color: #93c5fd;
+  --suit-header-bg-1: #0f0f1a;
+  --suit-header-bg-2: #1a1a2e;
+  --suit-header-text: #d4d4d8;
+  --suit-header-link: #7dd3fc;
+  --suit-border-color: #374151;
+  --suit-border-color-light: #2d2d44;
+  --suit-box-bg: #1f1f38;
+  --suit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --suit-table-bg: #1a1a2e;
+  --suit-table-header-bg: linear-gradient(to bottom, #252540, #1f1f38);
+  --suit-table-border: #374151;
+  --suit-table-stripe-bg: #1f1f38;
+  --suit-form-label-bg: #1a1a2e;
+  --suit-form-control-bg: #1f1f38;
+  --suit-form-control-border: #374151;
+  --suit-input-bg: #252540;
+  --suit-input-border: #4b5563;
+  --suit-input-focus-border: #3b82f6;
+  --suit-nav-bg: #1a1a2e;
+  --suit-nav-active-bg: linear-gradient(to bottom, #3b82f6, #2563eb);
+  --suit-nav-hover-bg: #252540;
+  --suit-nav-text: #a1a1aa;
+  --suit-nav-active-text: #fff;
+  --suit-nav-submenu-bg: #1f1f38;
+  --suit-success-bg: #14532d;
+  --suit-info-bg: #1e3a5f;
+  --suit-warning-bg: #422006;
+  --suit-error-bg: #450a0a;
+  --suit-btn-primary-bg: linear-gradient(to bottom, #3b82f6, #2563eb);
+  --suit-btn-default-bg: linear-gradient(to bottom, #374151, #1f2937);
+  --suit-white-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  --suit-inset-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+// SCSS Variables (for use in calculations and mixins)
+$bgcolor: var(--suit-bg-color);
+$footer-bgcolor: var(--suit-footer-bg);
+$bgcolor-light: var(--suit-bg-light);
+$text-color: var(--suit-text-color);
+
+$grey: var(--suit-grey);
+$red: var(--suit-red);
+$blue: var(--suit-blue);
+
+$header-bgcolor-1: var(--suit-header-bg-1);
+$header-bgcolor-2: var(--suit-header-bg-2);
+$header-height: 45px;
+
+$left-column-width: 200px;
+$right-column-width: 180px;
+$padding: 20px;
+
+$border-radius: 4px;
+$border-color: var(--suit-border-color);
+$border-color-light: var(--suit-border-color-light);
+
+// Bootstrap row status colors (static for darken/lighten functions)
+$bs-tr-error-color: #f2dede;
+$bs-tr-warning-color: #fcf8e3;
+$bs-tr-info-color: #d9edf7;
+$bs-tr-success-color: #dff0d8;
+$tr-selected-color: #83B3C3;
+
+// Date/time input dimensions
+$date-input-width: 80px;
+$time-input-width: 60px;
+$date-icon-offset: 20px;
+$date-input-offset: 14px;
+
+// Utility classes
+.white-shadow {
+  text-shadow: var(--suit-white-shadow);
+}
+
+.white-shadow-max {
+  text-shadow: 0 1px rgba(255, 255, 255, 1);
+
+  .dark-theme & {
+    text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.grey-box-shadow {
+  box-shadow: var(--suit-box-shadow);
+}
+
+.greyer-box-shadow {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
+.white-inset {
+  box-shadow: var(--suit-inset-shadow);
+}
+
+.color-grey {
+  color: var(--suit-grey);
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.f11 {
+  font-size: 11px;
+}
+
+.f12 {
+  font-size: 12px;
+}
+
+.f14 {
+  font-size: 14px;
+}
+
+.blue-gradient {
+  background: var(--suit-btn-primary-bg);
+}
+
+.grey-gradient {
+  background: var(--suit-btn-default-bg);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.auto-width {
+  width: auto;
+}
+
+.clear {
+  clear: both;
+}
+
+.hide-text {
+  text-indent: 200%;
+  white-space: nowrap;
+  overflow: hidden;
+}

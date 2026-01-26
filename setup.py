@@ -1,18 +1,18 @@
 from setuptools import setup
 
-with open("README.rst", "r") as fh:
+with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='django-suit',
-    version=__import__('suit').VERSION,
-    description='Modern theme for Django admin interface.',
+    name='django-suit5',
+    version=__import__('suit5').VERSION,
+    description='Modern theme for Django admin interface built with Bootstrap 5.',
     long_description=long_description,
-    long_description_content_type="text/x-rst",
-    author='Kaspars Sprogis (darklow)',
+    long_description_content_type="text/markdown",
+    author='Naved Rangwala (navedr)',
     author_email='info@djangosuit.com',
     url='http://djangosuit.com',
-    packages=['suit', 'suit.templatetags'],
+    packages=['suit5', 'suit5.templatetags'],
     zip_safe=False,
     include_package_data=True,
     classifiers=[

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Setup script for the Django Suit demo project.
+Setup script for the Django Suit5 demo project.
 Creates database, superuser, and sample data.
 """
 import os
@@ -276,12 +276,12 @@ def create_site_settings():
     settings, created = SiteSettings.objects.get_or_create(
         pk=1,
         defaults={
-            'site_name': 'Django Suit Demo Store',
+            'site_name': 'Django Suit5 Demo Store',
             'tagline': 'Your one-stop shop for everything',
             'contact_email': 'contact@example.com',
             'contact_phone': '+1-555-0100',
             'address': '123 Demo Street\nDemo City, DC 12345',
-            'meta_description': 'Django Suit demo e-commerce store',
+            'meta_description': 'Django Suit5 demo e-commerce store',
         }
     )
     if created:
@@ -292,7 +292,7 @@ def create_site_settings():
 
 def main():
     """Run all setup tasks."""
-    print("\n=== Django Suit Demo Setup ===\n")
+    print("\n=== Django Suit5 Demo Setup ===\n")
 
     from django.core.management import call_command
     print("Running migrations...")
