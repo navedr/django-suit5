@@ -569,8 +569,9 @@ h3 {
     float: left;
 
     h2 {
-      margin-left: 5px;
+      //margin-left: 5px;
       font-size: 12px;
+      padding: 5px 10px;
     }
 
     > a {
@@ -656,7 +657,7 @@ h3 {
   }
 
   .selector-filter {
-    margin-right: 14px;
+    //margin-right: 14px;
     position: relative;
     margin-bottom: -1px;
 
