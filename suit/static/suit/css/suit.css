@@ -1492,15 +1492,22 @@ tr.form-row:nth-last-child(3) td .inline-sortable .sortable-down,
 
 h2.legend,
 .form-horizontal fieldset .legend {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 14px;
   line-height: 1.4;
   padding: 8px 10px;
   margin: 0;
   color: #333;
-  background-color: transparent;
-  border: none;
-  text-shadow: none;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 4px 4px 0 0;
+}
+h2.legend .description,
+.form-horizontal fieldset .legend .description {
+  font-weight: normal;
+  font-size: 12px;
+  color: #888;
+  margin-left: 12px;
 }
 
 .form-horizontal fieldset {
@@ -1525,16 +1532,13 @@ h2.legend,
   display: table-caption;
   caption-side: top;
 }
-.form-horizontal fieldset .legend .description {
-  font-weight: normal;
-  font-size: 12px;
-  display: inline;
-  margin-left: 15px;
-  color: var(--suit-grey);
-}
 .form-horizontal fieldset.collapse {
+  display: table !important;
   overflow: visible;
   height: auto;
+}
+.form-horizontal fieldset.collapse:not(.show) {
+  display: table !important;
 }
 .form-horizontal fieldset.collapsed {
   background-color: var(--suit-bg-light);
@@ -1574,11 +1578,19 @@ h2.legend,
 .form-horizontal fieldset.wide .control-label {
   min-width: 200px;
 }
-.form-horizontal fieldset.collapsed * {
-  display: none;
-}
-.form-horizontal fieldset.collapsed .legend, .form-horizontal fieldset.collapsed .legend *, .form-horizontal fieldset.collapsed {
+.form-horizontal fieldset.collapsed {
   display: block !important;
+}
+.form-horizontal fieldset.collapsed > *:not(.legend) {
+  display: none !important;
+}
+.form-horizontal fieldset.collapsed .legend {
+  display: block !important;
+  border-radius: 4px;
+  border-bottom: none;
+}
+.form-horizontal fieldset.collapsed .legend * {
+  display: inline !important;
 }
 .form-horizontal fieldset.collapsed .collapse-toggle {
   background: transparent;
@@ -1686,15 +1698,27 @@ h2.legend,
 .form-horizontal .control-group .field-box .controls label {
   float: left;
   display: inline-block;
-  margin: 5px 10px 0 0;
+  margin: 0 10px 0 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 28px;
+  vertical-align: middle;
 }
 .form-horizontal .control-group .field-box .controls label.required {
   margin-right: 15px;
 }
 .form-horizontal .control-group .field-box .controls .multi-field-box {
-  margin-top: 5px;
   float: left;
   margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+.form-horizontal .control-group .field-box .controls .multi-field-box > label {
+  margin: 0 10px 0 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 28px;
+  float: none;
 }
 .form-horizontal .control-group .field-box .controls .multi-field-box .multi-field-controls {
   float: left;
@@ -2065,33 +2089,37 @@ h3 {
   font-size: 11px;
   margin-left: 5px;
   vertical-align: middle;
-  color: transparent;
 }
-.datetimeshortcuts a:first-child {
-  margin-right: 4px;
+.datetimeshortcuts a {
+  color: var(--suit-link-color);
+  text-decoration: none;
+  margin-right: 5px;
 }
-.datetimeshortcuts a:last-child {
-  margin-left: -6px;
-  margin-right: 10px;
+.datetimeshortcuts a:hover {
+  text-decoration: underline;
 }
-
-.datetime > div:not(.input-group) .datetimeshortcuts .date-icon,
-.datetime > div:not(.input-group) .datetimeshortcuts .clock-icon,
-.controls > .datetimeshortcuts .date-icon,
-.controls > .datetimeshortcuts .clock-icon,
-.controls > .datetime > .datetimeshortcuts .date-icon,
-.controls > .datetime > .datetimeshortcuts .clock-icon {
+.datetimeshortcuts .date-icon,
+.datetimeshortcuts .clock-icon {
   display: inline-block;
   vertical-align: middle;
+  width: 16px;
+  height: 16px;
   opacity: 0.6;
+  cursor: pointer;
+  font-family: "bootstrap-icons" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1;
 }
-.datetime > div:not(.input-group) .datetimeshortcuts .date-icon:hover,
-.datetime > div:not(.input-group) .datetimeshortcuts .clock-icon:hover,
-.controls > .datetimeshortcuts .date-icon:hover,
-.controls > .datetimeshortcuts .clock-icon:hover,
-.controls > .datetime > .datetimeshortcuts .date-icon:hover,
-.controls > .datetime > .datetimeshortcuts .clock-icon:hover {
+.datetimeshortcuts .date-icon:hover,
+.datetimeshortcuts .clock-icon:hover {
   opacity: 1;
+}
+.datetimeshortcuts .date-icon::before {
+  content: "\f1f4";
+}
+.datetimeshortcuts .clock-icon::before {
+  content: "\f293";
 }
 
 .vDateField,
@@ -2101,30 +2129,14 @@ h3 {
 }
 
 .suit-date {
+  display: inline-flex;
+  align-items: center;
   position: relative;
-}
-.suit-date .datetimeshortcuts {
-  margin-left: 32px;
-  color: var(--suit-bg-light);
-}
-.suit-date .datetimeshortcuts a:last-child {
-  padding: 0 5px;
-  position: absolute;
-  left: 100px;
-  z-index: 2;
-}
-.suit-date .datetimeshortcuts a:last-child img {
-  visibility: hidden;
-}
-.suit-date .datetimeshortcuts .date-icon,
-.suit-date .datetimeshortcuts .clock-icon {
-  display: inline-block;
-  width: 26px;
-  height: 26px;
-  margin: 1px 0 0 -5px;
 }
 .suit-date input {
   vertical-align: middle;
+  min-width: auto;
+  border-radius: 3px 0 0 3px;
 }
 .suit-date input.vDateField {
   width: 80px;
@@ -2132,18 +2144,53 @@ h3 {
 .suit-date input.vTimeField {
   width: 60px;
 }
-.suit-date .input-group-text,
 .suit-date .add-on {
-  position: absolute;
-  left: 94px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 8px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
 }
-.suit-date.suit-time .input-group-text,
-.suit-date.suit-time .add-on {
-  left: 74px;
+.suit-date .add-on i {
+  font-size: 14px;
+  color: #666;
+  opacity: 0.8;
 }
-.suit-date.suit-time .datetimeshortcuts a:last-child {
-  position: absolute;
-  left: 80px;
+.suit-date .add-on:hover {
+  background-color: #e9e9e9;
+}
+.suit-date .add-on:hover i {
+  opacity: 1;
+}
+.suit-date .datetimeshortcuts {
+  display: none;
+}
+.suit-date + .datetimeshortcuts,
+.suit-date ~ .datetimeshortcuts {
+  margin-left: 8px;
+  font-size: 12px;
+  vertical-align: middle;
+}
+.suit-date + .datetimeshortcuts a,
+.suit-date ~ .datetimeshortcuts a {
+  color: var(--suit-link-color);
+  text-decoration: none;
+  margin-right: 5px;
+}
+.suit-date + .datetimeshortcuts a:hover,
+.suit-date ~ .datetimeshortcuts a:hover {
+  text-decoration: underline;
+}
+
+.suit-time input.vTimeField {
+  width: 60px;
+}
+.suit-time .datetimeshortcuts {
+  display: none;
 }
 
 .autosize {
@@ -2225,6 +2272,53 @@ label.required::after {
   color: var(--suit-text-color);
 }
 
+.input-append,
+.input-prepend {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+.input-append input,
+.input-prepend input {
+  border-radius: 3px 0 0 3px;
+}
+.input-append .add-on,
+.input-prepend .add-on {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  font-size: 13px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+  color: #666;
+  cursor: pointer;
+}
+.input-append .add-on i,
+.input-prepend .add-on i {
+  font-size: 14px;
+  opacity: 0.7;
+}
+.input-append .add-on:hover,
+.input-prepend .add-on:hover {
+  background-color: #e9e9e9;
+}
+.input-append .add-on:hover i,
+.input-prepend .add-on:hover i {
+  opacity: 1;
+}
+
+.input-prepend input {
+  border-radius: 0 3px 3px 0;
+}
+.input-prepend .add-on {
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 3px 0 0 3px;
+}
+
 .box,
 .well {
   border-radius: 4px;
@@ -2282,46 +2376,42 @@ label.required::after {
 }
 .save-box .btn {
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: block;
-  padding: 8px 16px;
+  padding: 10px 16px;
   font-size: 13px;
-  border-radius: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 .save-box .btn.btn-high, .save-box .btn.btn-primary, .save-box .btn[name=_save] {
-  background: linear-gradient(to bottom, #5bc0de, #2f96b4);
-  border: 1px solid #2f96b4;
+  background: #3498db;
+  border: none;
   color: #fff;
-  font-weight: normal;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+  font-weight: 500;
 }
 .save-box .btn.btn-high:hover, .save-box .btn.btn-primary:hover, .save-box .btn[name=_save]:hover {
-  background: linear-gradient(to bottom, #4ab4d3, #2888a3);
+  background: #2980b9;
 }
 .save-box .btn.btn-secondary, .save-box .btn.btn-default, .save-box .btn[name=_continue], .save-box .btn[name=_addanother] {
-  background: linear-gradient(to bottom, #fff, #e6e6e6);
-  border: 1px solid #ccc;
-  color: #333;
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #555;
 }
 .save-box .btn.btn-secondary:hover, .save-box .btn.btn-default:hover, .save-box .btn[name=_continue]:hover, .save-box .btn[name=_addanother]:hover {
-  background: linear-gradient(to bottom, #e6e6e6, #d9d9d9);
-  border-color: #bbb;
-}
-.save-box .btn:last-child {
-  margin-bottom: 0;
+  background: #f8f8f8;
+  border-color: #ccc;
 }
 .save-box a {
   display: block;
-  padding: 8px 0;
+  padding: 10px 0;
   text-decoration: none;
   font-size: 13px;
-  color: var(--suit-link-color);
+  color: #c0392b;
 }
 .save-box a:hover {
   text-decoration: underline;
-}
-.save-box a.text-error, .save-box a.text-danger, .save-box a.deletelink {
-  color: var(--suit-red);
+  color: #a93226;
 }
 
 .tools-box,
@@ -2596,12 +2686,13 @@ label.required::after {
 .clockbox {
   margin: 5px auto;
   font-size: 11px;
-  width: 16em;
+  width: 200px;
   text-align: center;
   background: var(--suit-table-bg);
   position: relative;
   z-index: 100;
   border-radius: 4px;
+  border: 1px solid var(--suit-input-border);
 }
 .calendarbox h2,
 .calendarbox caption,
@@ -2611,11 +2702,16 @@ label.required::after {
   background: var(--suit-table-header-bg);
   border-bottom: 1px solid var(--suit-border-color);
   margin: 0;
-  padding: 3px 15px;
+  padding: 5px 35px;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
   color: var(--suit-text-color);
+  position: relative;
+}
+.calendarbox caption,
+.clockbox caption {
+  caption-side: top !important;
 }
 
 .clockbox {
@@ -2636,7 +2732,7 @@ label.required::after {
 .calendar th {
   font-size: 10px;
   color: var(--suit-text-muted);
-  padding: 2px 3px;
+  padding: 2px 3px !important;
   text-align: center;
   background: var(--suit-table-header-bg);
   border-bottom: 1px solid var(--suit-border-color);
@@ -2644,7 +2740,7 @@ label.required::after {
 .calendar td {
   font-size: 11px;
   text-align: center;
-  padding: 0;
+  padding: 0 !important;
   border-top: 1px solid var(--suit-table-border);
   border-bottom: none;
 }
@@ -2715,24 +2811,38 @@ label.required::after {
   position: absolute;
   font-weight: bold;
   font-size: 14px;
-  text-decoration: none;
+  text-decoration: none !important;
   padding: 3px 8px 4px;
-  background: var(--suit-btn-primary-bg);
+  background: linear-gradient(to bottom, #83b3c3, #5295b0) !important;
   text-shadow: 0 1px #4f7f92;
-  color: white;
+  color: white !important;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  z-index: 10;
 }
-.calendarbox .calendarnav-previous:hover,
-.calendarbox .calendarnav-next:hover {
-  background: #5295b0;
+.calendarbox .calendarnav-previous:hover, .calendarbox .calendarnav-previous:focus, .calendarbox .calendarnav-previous:active,
+.calendarbox .calendarnav-next:hover,
+.calendarbox .calendarnav-next:focus,
+.calendarbox .calendarnav-next:active {
+  background: #5295b0 !important;
+  color: white !important;
+  text-decoration: none !important;
+  outline: none;
+  box-shadow: none;
+}
+.calendarbox .calendarnav-previous:visited,
+.calendarbox .calendarnav-next:visited {
+  color: white !important;
 }
 
-.calendarnav-previous {
+.calendarbox .calendarnav-previous {
   top: 0;
   left: 0;
   border-radius: 4px 0 0 0;
 }
 
-.calendarnav-next {
+.calendarbox .calendarnav-next {
   top: 0;
   right: 0;
   border-radius: 0 4px 0 0;
@@ -2773,6 +2883,10 @@ ul.timelist,
 .dark-theme .calendar td.today a {
   background: #422006;
   color: #fbbf24;
+}
+
+.timezonewarning {
+  display: none;
 }
 
 div .datepicker {
@@ -3051,10 +3165,14 @@ a.append-icon i {
   clear: both;
 }
 
-.alert-error {
-  background-color: var(--bs-danger-bg-subtle, #f8d7da);
-  border-color: var(--bs-danger-border-subtle, #f5c2c7);
-  color: var(--bs-danger-text-emphasis, #842029);
+.alert {
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert .btn-close {
+  padding: 15px;
 }
 
 .pull-left {

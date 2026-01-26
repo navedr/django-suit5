@@ -4,13 +4,14 @@
 .clockbox {
   margin: 5px auto;
   font-size: 11px;
-  width: 16em;
+  width: 200px;
   text-align: center;
   background: var(--suit-table-bg);
   position: relative;
   z-index: 100;
   @extend .greyer-box-shadow;
   border-radius: $border-radius;
+  border: 1px solid var(--suit-input-border);
 
   h2,
   caption {
@@ -20,11 +21,18 @@
     @extend .white-shadow;
     border-bottom: 1px solid var(--suit-border-color);
     margin: 0;
-    padding: 3px 15px;
+    // Extra horizontal padding to accommodate the nav buttons
+    padding: 5px 35px;
     font-size: 12px;
     font-weight: bold;
     text-align: center;
     color: var(--suit-text-color);
+    position: relative;
+  }
+
+  // Override Bootstrap's caption-side: bottom
+  caption {
+    caption-side: top !important;
   }
 }
 
@@ -47,7 +55,7 @@
   th {
     font-size: 10px;
     color: var(--suit-text-muted);
-    padding: 2px 3px;
+    padding: 2px 3px!important;
     text-align: center;
     background: var(--suit-table-header-bg);
     border-bottom: 1px solid var(--suit-border-color);
@@ -57,7 +65,7 @@
   td {
     font-size: 11px;
     text-align: center;
-    padding: 0;
+    padding: 0!important;
     border-top: 1px solid var(--suit-table-border);
     border-bottom: none;
 
@@ -139,24 +147,38 @@
   position: absolute;
   font-weight: bold;
   font-size: 14px;
-  text-decoration: none;
+  text-decoration: none !important;
   padding: 3px 8px 4px;
-  background: var(--suit-btn-primary-bg);
+  background: linear-gradient(to bottom, #83b3c3, #5295b0) !important;
   text-shadow: 0 1px #4f7f92;
-  color: white;
+  color: white !important;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  z-index: 10;
 
-  &:hover {
-    background: #5295b0;
+  &:hover,
+  &:focus,
+  &:active {
+    background: #5295b0 !important;
+    color: white !important;
+    text-decoration: none !important;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:visited {
+    color: white !important;
   }
 }
 
-.calendarnav-previous {
+.calendarbox .calendarnav-previous {
   top: 0;
   left: 0;
   border-radius: $border-radius 0 0 0;
 }
 
-.calendarnav-next {
+.calendarbox .calendarnav-next {
   top: 0;
   right: 0;
   border-radius: 0 $border-radius 0 0;
@@ -201,4 +223,8 @@ ul.timelist,
 .dark-theme .calendar td.today a {
   background: #422006;
   color: #fbbf24;
+}
+
+.timezonewarning {
+  display: none;
 }

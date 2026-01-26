@@ -27,7 +27,9 @@
       "Bash(/usr/local/bin/python3.7:*)",
       "Bash(python manage.py makemigrations:*)",
       "Bash(curl:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(python:*)",
+      "Bash(source:*)"
     ]
   }
 }

@@ -5,8 +5,23 @@ from django.contrib.admin.views.main import ChangeList
 from django.forms import ModelForm
 from django.contrib import admin
 from django.db import models
-from suit.widgets import NumberInput, SuitSplitDateTimeWidget
+from suit.widgets import NumberInput, SuitDateWidget, SuitTimeWidget, SuitSplitDateTimeWidget
 from suit.compat import ct_admin
+
+
+# class SuitDateWidgetMixin:
+#     """
+#     Mixin that applies Suit's date/time widgets to DateField, TimeField, and DateTimeField.
+#     Use this mixin in your ModelAdmin to get the styled date widgets.
+#     """
+#     def formfield_for_dbfield(self, db_field, request, **kwargs):
+#         if isinstance(db_field, models.DateField) and not isinstance(db_field, models.DateTimeField):
+#             kwargs['widget'] = SuitDateWidget
+#         elif isinstance(db_field, models.TimeField):
+#             kwargs['widget'] = SuitTimeWidget
+#         elif isinstance(db_field, models.DateTimeField):
+#             kwargs['widget'] = SuitSplitDateTimeWidget
+#         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
 
 class SortableModelAdminBase(object):

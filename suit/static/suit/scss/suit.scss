@@ -246,12 +246,14 @@ $cc-padding: ($padding * 2);
   clear: both;
 }
 
-// BS2 to BS5 compatibility alias for alert-error
-.alert-error {
-  // Maps to Bootstrap 5's alert-danger
-  background-color: var(--bs-danger-bg-subtle, #f8d7da);
-  border-color: var(--bs-danger-border-subtle, #f5c2c7);
-  color: var(--bs-danger-text-emphasis, #842029);
+.alert {
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+  .btn-close {
+    padding: 15px;
+  }
 }
 
 // BS2 compatibility aliases

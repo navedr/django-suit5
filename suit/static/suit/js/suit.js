@@ -183,6 +183,28 @@
         });
     };
 
+    /**
+     * Make Suit date/time widget icons trigger Django's calendar/clock
+     */
+    $.fn.suit_date_widget = function () {
+        $(this).on('click', '.suit-date .add-on, .suit-time .add-on', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $addOn = $(this);
+            var $wrapper = $addOn.closest('.suit-date, .suit-time');
+
+            // Find the Django-added calendar/clock link
+            var $shortcutsSpan = $wrapper.find('.datetimeshortcuts');
+            if ($shortcutsSpan.length) {
+                // Click the icon link (last anchor in shortcuts span)
+                var $iconLink = $shortcutsSpan.find('a:last');
+                if ($iconLink.length) {
+                    $iconLink[0].click();
+                }
+            }
+        });
+    };
+
     $(function () {
 
         // Fixed submit buttons
@@ -193,6 +215,9 @@
 
         // Handle change list filter null values
         $('.search-filter').suit_search_filters();
+
+        // Make date/time widget icons clickable
+        $(document).suit_date_widget();
 
     });
 

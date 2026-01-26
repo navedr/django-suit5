@@ -18,10 +18,12 @@
   <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
   {% block suit_jquery %}<script src="{% static 'suit/js/jquery-3.7.1.min.js' %}"></script>{% endblock %}
   <script type="text/javascript">var Suit = { $: $.noConflict() }; if (!$) $ = Suit.$; </script>
+  <!-- Django admin core JS for date/time widgets -->
+  <script src="{% static 'admin/js/core.js' %}"></script>
   <!-- Bootstrap 5 Bundle (includes Popper) -->
   <script src="{% static 'suit/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
   {% if 'SHOW_REQUIRED_ASTERISK'|suit_conf %}
-  <style type="text/css">.required:after { content: '*'; margin: 0 0 0 5px; position: absolute; color: #ccc;}</style>
+  <style type="text/css">.required:after { content: '*'; margin: 0 0 0 2px; position: absolute; color: #ccc;}</style>
   {% endif %}
   {% block extrahead %}{% endblock %}
   {% block blockbots %}
@@ -29,7 +31,7 @@
 </head>
 {% load i18n %}
 
-<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
 
 <!-- Sticky footer wrap -->
 <div id="wrap">
