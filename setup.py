@@ -1,11 +1,16 @@
+import re
 from setuptools import setup
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+# Read version from suit5/__init__.py without importing
+with open("suit5/__init__.py", "r") as fh:
+    version = re.search(r"^VERSION\s*=\s*['\"]([^'\"]+)['\"]", fh.read(), re.MULTILINE).group(1)
+
 setup(
     name='django-suit5',
-    version=__import__('suit5').VERSION,
+    version=version,
     description='Modern theme for Django admin interface built with Bootstrap 5.',
     long_description=long_description,
     long_description_content_type="text/markdown",
