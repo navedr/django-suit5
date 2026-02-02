@@ -227,7 +227,7 @@
 
       &.sorted {
         padding-right: 55px;
-        background: linear-gradient(to bottom, #e7e7e7, #ddd);
+        background: var(--suit-table-header-sorted-bg);
       }
     }
 

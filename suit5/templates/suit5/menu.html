@@ -2,12 +2,14 @@
 {% load i18n suit_menu %}
 {% load url from suit_compat %}
 
-<div class="left-nav" id="left-nav">
-  <ul>
+<nav class="left-nav" id="left-nav">
+  <ul class="nav flex-column">
     {% block menu_home %}
       {% url 'admin:index' as index_url %}
-      <li{% if index_url == request.path %} class="active"{% endif %}>
-        <a href="{{ index_url }}"><i class="bi bi-house"></i>{% trans 'Home' %}
+      <li class="nav-item">
+        <a href="{{ index_url }}" class="nav-link{% if index_url == request.path %} active{% endif %}">
+          <i class="bi bi-house"></i>
+          <span>{% trans 'Home' %}</span>
         </a>
       </li>
     {% endblock %}
@@ -16,22 +18,42 @@
     {% if app_list %}
       {% for app in app_list %}
         {% if app.separator %}
-          <li class="separator"></li>
+          <li class="nav-item separator"></li>
         {% else %}
-          <li{{ app.is_active|yesno:' class=active,' }}>
-            <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}><i class="{% firstof app.icon 'bi bi-chevron-right' %}"></i>{% trans app.label|capfirst %}
-            </a>
+          <li class="nav-item{% if app.is_active %} active{% endif %}">
             {% if app.models %}
-              <ul>
-                {% for model in app.models %}
-                  <li{{ model.is_active|yesno:' class=active,' }}>
-                    <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
-                {% endfor %}
-              </ul>
+              {# Parent item with submenu - use collapse toggle #}
+              <a href="#collapse-{{ forloop.counter }}"
+                 class="nav-link nav-link-parent{% if app.is_active %} active{% endif %}"
+                 data-bs-toggle="collapse"
+                 role="button"
+                 aria-expanded="{{ app.is_active|yesno:'true,false' }}"
+                 aria-controls="collapse-{{ forloop.counter }}">
+                <i class="{% firstof app.icon 'bi bi-folder' %}"></i>
+                <span>{% trans app.label|capfirst %}</span>
+                <i class="bi bi-chevron-down chevron-icon"></i>
+              </a>
+              <div class="collapse{% if app.is_active %} show{% endif %}" id="collapse-{{ forloop.counter }}">
+                <ul class="nav flex-column nav-submenu">
+                  {% for model in app.models %}
+                    <li class="nav-item">
+                      <a href="{{ model.url }}" class="nav-link{% if model.is_active %} active{% endif %}"{{ model.blank|yesno:' target=_blank,' }}>
+                        {{ model.label }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% else %}
+              {# Simple link without submenu #}
+              <a href="{{ app.url }}" class="nav-link{% if app.is_active %} active{% endif %}"{{ app.blank|yesno:' target=_blank,' }}>
+                <i class="{% firstof app.icon 'bi bi-chevron-right' %}"></i>
+                <span>{% trans app.label|capfirst %}</span>
+              </a>
             {% endif %}
           </li>
         {% endif %}
       {% endfor %}
     {% endif %}
   </ul>
-</div>
+</nav>

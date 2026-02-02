@@ -37,15 +37,10 @@
 // Base body styles
 body {
   background-color: var(--suit-bg-color);
-  min-width: 960px;
   color: var(--suit-text-color);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-
-  &.popup {
-    min-width: inherit;
-  }
 }
 
 #wrap {
@@ -54,11 +49,20 @@ body {
   .popup & {
     background: none;
   }
+
+  // Hide left background pattern on mobile
+  @media (max-width: ($breakpoint-lg - 1px)) {
+    background: none;
+  }
 }
 
 .dark-theme #wrap {
   background: none;
-  border-left: $left-column-width solid var(--suit-nav-bg);
+  //border-left: $left-column-width solid var(--suit-nav-bg);
+
+  @media (max-width: ($breakpoint-lg - 1px)) {
+    border-left: none;
+  }
 }
 
 // Links
@@ -216,6 +220,11 @@ $cc-padding: ($padding * 2);
   .popup & {
     flex-direction: column;
   }
+
+  // On mobile, single column layout
+  @media (max-width: ($breakpoint-lg - 1px)) {
+    flex-direction: column;
+  }
 }
 
 #suit-left {
@@ -223,6 +232,11 @@ $cc-padding: ($padding * 2);
   min-width: $left-column-width;
   flex-shrink: 0;
   order: -1; // Ensure it appears first (on the left)
+
+  // Hide on mobile - content moves to offcanvas
+  @media (max-width: ($breakpoint-lg - 1px)) {
+    display: none;
+  }
 }
 
 #suit-center {
@@ -232,6 +246,11 @@ $cc-padding: ($padding * 2);
 
   .popup & {
     padding-bottom: 0;
+  }
+
+  // Reduce padding on mobile
+  @media (max-width: ($breakpoint-md - 1px)) {
+    padding: 10px;
   }
 }
 
@@ -276,18 +295,37 @@ $cc-padding: ($padding * 2);
 
 // Compact form controls (professional styling)
 input.form-control,
-select.form-select,
 .form-control,
-.form-select,
 input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="number"],
 input[type="url"],
 input[type="tel"],
-input[type="search"],
-select {
+input[type="search"] {
   padding: 5px 10px;
+  font-size: 13px;
+  height: auto;
+  line-height: 1.4;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  min-width: 180px;
+  color: var(--suit-text-color);
+  background-color: var(--suit-input-bg);
+
+  &:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px rgba(102, 175, 233, 0.5);
+  }
+}
+
+// Select dropdowns - extra right padding for caret
+select,
+select.form-select,
+.form-select {
+  padding: 5px 30px 5px 10px;
   font-size: 13px;
   height: auto;
   line-height: 1.4;

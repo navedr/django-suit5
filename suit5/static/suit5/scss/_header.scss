@@ -38,6 +38,11 @@
         line-height: 1.4;
       }
     }
+
+    // Hide date/time on small screens
+    @media (max-width: ($breakpoint-md - 1px)) {
+      display: none;
+    }
   }
 
   #branding {
@@ -64,6 +69,13 @@
       &:hover h1 {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
       }
+    }
+
+    // On mobile, remove min-width and border
+    @media (max-width: ($breakpoint-lg - 1px)) {
+      min-width: auto;
+      border-right: none;
+      padding: 0 15px;
     }
   }
 
@@ -97,11 +109,55 @@
       display: inline-block;
       margin: 0 5px;
     }
+
+    // Hide welcome message on small screens, keep user links
+    @media (max-width: ($breakpoint-md - 1px)) {
+      .welcome-msg {
+        display: none;
+      }
+
+      .user-links {
+        margin-left: 0;
+      }
+    }
+
+    // Hide user tools completely on very small screens
+    @media (max-width: ($breakpoint-sm - 1px)) {
+      display: none;
+    }
   }
 
   // Use Bootstrap Icons for header icons
   i {
     color: white;
+  }
+
+  // Hamburger menu toggle button (mobile only)
+  .navbar-toggler {
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: ($breakpoint-lg - 1px)) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 

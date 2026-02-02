@@ -39,6 +39,7 @@
   --suit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07);
   --suit-table-bg: #fff;
   --suit-table-header-bg: #e5e5e5;
+  --suit-table-header-sorted-bg: linear-gradient(to bottom, #e5e5e5, #d5d5d5);
   --suit-table-border: #eee;
   --suit-table-stripe-bg: #fafafa;
 
@@ -105,6 +106,7 @@
   --suit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
   --suit-table-bg: #1a1a2e;
   --suit-table-header-bg: linear-gradient(to bottom, #252540, #1f1f38);
+  --suit-table-header-sorted-bg: linear-gradient(to bottom, #2d2d4a, #252540);
   --suit-table-border: #374151;
   --suit-table-stripe-bg: #1f1f38;
   --suit-form-label-bg: #1a1a2e;
@@ -146,6 +148,15 @@ $header-height: 45px;
 $left-column-width: 200px;
 $right-column-width: 180px;
 $padding: 20px;
+
+// Responsive breakpoints (matching Bootstrap 5)
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Mobile sidebar width (for offcanvas)
+$mobile-sidebar-width: 280px;
 
 $border-radius: 4px;
 $border-color: var(--suit-border-color);

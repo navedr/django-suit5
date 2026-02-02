@@ -205,6 +205,54 @@
         });
     };
 
+    /**
+     * Offcanvas - close when clicking nav links (mobile navigation)
+     */
+    $.fn.suit_offcanvas_nav = function () {
+        var $offcanvas = $(this);
+        var offcanvasEl = $offcanvas[0];
+        if (!offcanvasEl) return;
+
+        // Get Bootstrap offcanvas instance
+        var bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+
+        // Close offcanvas when clicking a nav link (not a collapse toggle)
+        $offcanvas.on('click', '.nav-link:not([data-bs-toggle="collapse"])', function () {
+            bsOffcanvas.hide();
+        });
+    };
+
+    /**
+     * Initialize nav collapse state - expand only menu containing active link
+     */
+    $.fn.suit_nav_collapse_init = function () {
+        $(this).each(function () {
+            var $nav = $(this);
+
+            // Collapse all menus first
+            $nav.find('[data-bs-toggle="collapse"]').each(function () {
+                var $toggle = $(this);
+                var targetId = $toggle.attr('href') || $toggle.data('bs-target');
+                if (!targetId) return;
+
+                var $target = $(targetId);
+
+                // Check if this submenu contains an active link
+                var hasActiveLink = $target.find('.nav-link.active').length > 0;
+
+                if (hasActiveLink) {
+                    // Expand this menu
+                    $target.addClass('show');
+                    $toggle.attr('aria-expanded', 'true');
+                } else {
+                    // Collapse this menu
+                    $target.removeClass('show');
+                    $toggle.attr('aria-expanded', 'false');
+                }
+            });
+        });
+    };
+
     $(function () {
 
         // Fixed submit buttons
@@ -218,6 +266,12 @@
 
         // Make date/time widget icons clickable
         $(document).suit_date_widget();
+
+        // Mobile offcanvas navigation
+        $('#sidebarOffcanvas').suit_offcanvas_nav();
+
+        // Initialize nav collapse state - expand only active menu
+        $('.left-nav').suit_nav_collapse_init();
 
     });
 

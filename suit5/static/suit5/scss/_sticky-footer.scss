@@ -13,20 +13,31 @@ body {
   height: 100%;
   // Negative indent footer by its height
   margin: 0 auto -60px;
+
+  // Taller footer on mobile due to stacking
+  @media (max-width: ($breakpoint-md - 1px)) {
+    margin-bottom: -140px;
+  }
 }
 
 // Set the fixed height of the footer here
 #push,
 #footer {
   height: 60px;
+
+  // Taller on mobile due to stacking
+  @media (max-width: ($breakpoint-md - 1px)) {
+    height: auto;
+    min-height: 140px;
+  }
 }
 
 // Responsive adjustments
-@media (max-width: 767px) {
+@media (max-width: ($breakpoint-md - 1px)) {
   #footer {
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }

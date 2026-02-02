@@ -9,23 +9,53 @@
 
   .content {
     border-top: 5px solid var(--suit-border-color);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
 
     .tools {
-      float: left;
-      padding: 15px 0 0 20px;
+      padding: 15px 0 15px 20px;
+      order: 1;
     }
 
     .branding {
-      padding: 15px 0 0 0;
-      margin: 0 auto;
-      width: 200px;
+      padding: 15px 0;
       text-align: center;
+      order: 2;
     }
 
     .copyright {
-      padding: 9px 20px 0 0;
-      float: right;
+      padding: 9px 20px 15px 0;
       text-align: right;
+      order: 3;
+    }
+
+    // Stack vertically on mobile
+    @media (max-width: ($breakpoint-md - 1px)) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .tools,
+      .branding,
+      .copyright {
+        padding: 10px 15px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .tools {
+        order: 1;
+      }
+
+      .copyright {
+        order: 2;
+      }
+
+      .branding {
+        order: 3;
+      }
     }
   }
 }

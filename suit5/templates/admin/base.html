@@ -44,6 +44,11 @@
         {% if not is_popup %}
           <!-- Header -->
           <div id="header" class="header">
+            <!-- Hamburger toggle (mobile only) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas" aria-label="Toggle navigation">
+              <i class="bi bi-list"></i>
+            </button>
+
             <div id="branding">
               <a href="{% url 'admin:index' %}"><h1 id="site-name">{% block branding %}{{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</h1></a>
             </div>
@@ -74,10 +79,10 @@
             {% if user.is_active and user.is_staff %}
               <div id="user-tools">
                 {% block welcome-msg %}
-                  {% trans 'Welcome,' %}
+                  <span class="welcome-msg">{% trans 'Welcome,' %}
                   <strong>
                     {% filter force_escape %}
-                      {% firstof user.first_name user.username %}{% endfilter %}</strong>.
+                      {% firstof user.first_name user.username %}{% endfilter %}</strong>.</span>
                 {% endblock %}
                 <span class="user-links">
                 {% block userlinks %}
@@ -92,7 +97,7 @@
                 {% endblock %}
                 </span>
                 {% block theme_toggle %}
-                <button type="button" class="theme-toggle ms-3" onclick="toggleTheme()" title="Toggle dark/light mode" style="display: none">
+                <button type="button" class="theme-toggle ms-3" onclick="toggleTheme()" title="Toggle dark/light mode">
                   <i class="bi bi-moon-stars" id="theme-icon"></i>
                 </button>
                 {% endblock %}
@@ -158,7 +163,8 @@
 
         {% block content-left %}
           {% if not is_popup %}
-            <div id="suit-left" class="suit-column">
+            <!-- Desktop sidebar (visible on lg+) -->
+            <div id="suit-left" class="suit-column d-none d-lg-block">
               {% block quick-search %}
                 {% with 'SEARCH_URL'|suit_conf as search_url %}
                   {% if search_url %}
@@ -173,6 +179,27 @@
 
               {% include 'suit5/menu.html' %}
 
+            </div>
+
+            <!-- Mobile sidebar (offcanvas, visible on <lg) -->
+            <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">{{ 'ADMIN_NAME'|suit_conf }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                {% block quick-search-mobile %}
+                  {% with 'SEARCH_URL'|suit_conf as search_url %}
+                    {% if search_url %}
+                      <form class="form-search nav-quick-search mb-3" autocomplete="off" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
+                        <input type="text" name="q" class="input-medium search-query form-control" id="quick-search-mobile" placeholder="{% trans 'Search' %}...">
+                      </form>
+                    {% endif %}
+                  {% endwith %}
+                {% endblock %}
+
+                {% include 'suit5/menu.html' %}
+              </div>
             </div>
           {% endif %}
         {% endblock %}
