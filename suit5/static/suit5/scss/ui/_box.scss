@@ -79,13 +79,13 @@
     &.btn-high,
     &.btn-primary,
     &[name="_save"] {
-      background: #3498db;
+      background: var(--suit-btn-primary-bg);
       border: none;
-      color: #fff;
+      color: var(--suit-nav-active-text);
       font-weight: 500;
 
       &:hover {
-        background: #2980b9;
+        filter: brightness(0.9);
       }
     }
 
@@ -93,13 +93,13 @@
     &.btn-default,
     &[name="_continue"],
     &[name="_addanother"] {
-      background: #fff;
-      border: 1px solid #ddd;
-      color: #555;
+      background: var(--suit-table-bg);
+      border: 1px solid var(--suit-border-color);
+      color: var(--suit-text-muted);
 
       &:hover {
-        background: #f8f8f8;
-        border-color: #ccc;
+        background: var(--suit-bg-light);
+        border-color: var(--suit-input-border);
       }
     }
   }
@@ -109,11 +109,11 @@
     padding: 10px 0;
     text-decoration: none;
     font-size: 13px;
-    color: #c0392b;
+    color: var(--suit-red);
 
     &:hover {
       text-decoration: underline;
-      color: #a93226;
+      filter: brightness(0.85);
     }
   }
 }
@@ -124,7 +124,7 @@
   background: var(--suit-table-bg);
   border-radius: $border-radius;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-  border: 1px solid #ddd;
+  border: 1px solid var(--suit-border-color);
   margin-bottom: 15px;
   overflow: hidden;
 
@@ -134,7 +134,7 @@
     margin: 0;
     padding: 8px 12px;
     background: var(--suit-table-header-bg);
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--suit-border-color);
     color: var(--suit-text-color);
   }
 
