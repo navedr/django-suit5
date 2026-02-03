@@ -9,7 +9,7 @@ with open("suit5/__init__.py", "r") as fh:
     version = re.search(r"^VERSION\s*=\s*['\"]([^'\"]+)['\"]", fh.read(), re.MULTILINE).group(1)
 
 setup(
-    name='django-suit5',
+    name='django_suit5',
     version=version,
     description='Modern theme for Django admin interface built with Bootstrap 5.',
     long_description=long_description,
