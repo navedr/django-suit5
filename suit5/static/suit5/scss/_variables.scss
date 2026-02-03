@@ -74,13 +74,9 @@
   --suit-inset-shadow: inset 1px 1px 0 rgba(255, 255, 255, 1);
 }
 
-// Manual dark theme class (for user preference toggle)
-// Note: Auto dark mode detection removed - use .dark-theme class for manual toggle
-.dark-theme {
-  // Override Bootstrap's CSS variables
-  --bs-body-bg: #1a1a2e;
-  --bs-body-color: #e4e4e7;
-
+// Dark theme using Bootstrap's native color mode
+// Uses data-bs-theme="dark" attribute for automatic Bootstrap component styling
+[data-bs-theme="dark"] {
   // Django Suit5 CSS variables
   --suit-bg-color: #1a1a2e;
   --suit-footer-bg: #16213e;
@@ -183,7 +179,7 @@ $date-input-offset: 14px;
 .white-shadow-max {
   text-shadow: 0 1px rgba(255, 255, 255, 1);
 
-  .dark-theme & {
+  [data-bs-theme="dark"] & {
     text-shadow: 0 1px rgba(0, 0, 0, 0.5);
   }
 }

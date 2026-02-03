@@ -56,7 +56,7 @@ body {
   }
 }
 
-.dark-theme #wrap {
+[data-bs-theme="dark"] #wrap {
   background: none;
   //border-left: $left-column-width solid var(--suit-nav-bg);
 
@@ -409,7 +409,7 @@ select[multiple] {
     color: #fff;
   }
 
-  .dark-theme & {
+  [data-bs-theme="dark"] & {
     background: #3b82f6;
     border-color: #2563eb;
 
@@ -442,7 +442,7 @@ select[multiple] {
     color: #fff;
   }
 
-  .dark-theme & {
+  [data-bs-theme="dark"] & {
     background: #2d7a92;
     border-color: #266d82;
 
@@ -464,7 +464,7 @@ select[multiple] {
     color: #fff;
   }
 
-  .dark-theme & {
+  [data-bs-theme="dark"] & {
     background: #2d6b2d;
     border-color: #276227;
 
@@ -486,7 +486,7 @@ select[multiple] {
     color: #fff;
   }
 
-  .dark-theme & {
+  [data-bs-theme="dark"] & {
     background: #ca8a04;
     border-color: #a16207;
 
@@ -508,7 +508,7 @@ select[multiple] {
     color: #fff;
   }
 
-  .dark-theme & {
+  [data-bs-theme="dark"] & {
     background: #dc2626;
     border-color: #b91c1c;
 

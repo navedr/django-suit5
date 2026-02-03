@@ -81,7 +81,7 @@
       background: #ffffaa;
       font-weight: bold;
 
-      .dark-theme & {
+      [data-bs-theme="dark"] & {
         background: #422006;
         color: #fbbf24;
       }
@@ -220,7 +220,7 @@ ul.timelist,
 }
 
 // Dark theme calendar today highlight
-.dark-theme .calendar td.today a {
+[data-bs-theme="dark"] .calendar td.today a {
   background: #422006;
   color: #fbbf24;
 }

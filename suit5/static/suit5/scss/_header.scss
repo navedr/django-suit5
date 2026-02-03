@@ -162,7 +162,7 @@
 }
 
 // Dark theme header adjustments
-.dark-theme .header {
+[data-bs-theme="dark"] .header {
   #branding {
     border-right-color: #1a1a2e;
   }

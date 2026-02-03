@@ -463,7 +463,7 @@ tr.form-row:nth-last-child(3),
 }
 
 // Dark theme table adjustments
-.dark-theme {
+[data-bs-theme="dark"] {
   .table thead th,
   .table thead td {
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05);

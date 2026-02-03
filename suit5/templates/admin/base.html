@@ -32,7 +32,7 @@
   // Apply theme immediately to prevent flash of wrong theme
   (function() {
     if (localStorage.getItem('suit-theme') === 'dark') {
-      document.documentElement.classList.add('dark-theme');
+      document.documentElement.setAttribute('data-bs-theme', 'dark');
     }
   })();
   </script>{% endblock %}
@@ -279,33 +279,30 @@
   {% block theme_toggle_js %}<script>
   function toggleTheme() {
     const html = document.documentElement;
-    const body = document.body;
     const icon = document.getElementById('theme-icon');
-    const isDark = html.classList.toggle('dark-theme');
-    body.classList.toggle('dark-theme', isDark);
+    const isDark = html.getAttribute('data-bs-theme') === 'dark';
 
     if (isDark) {
-      icon.classList.remove('bi-moon-stars');
-      icon.classList.add('bi-sun');
-      localStorage.setItem('suit-theme', 'dark');
-    } else {
+      html.removeAttribute('data-bs-theme');
       icon.classList.remove('bi-sun');
       icon.classList.add('bi-moon-stars');
       localStorage.setItem('suit-theme', 'light');
+    } else {
+      html.setAttribute('data-bs-theme', 'dark');
+      icon.classList.remove('bi-moon-stars');
+      icon.classList.add('bi-sun');
+      localStorage.setItem('suit-theme', 'dark');
     }
   }
 
-  // Sync body class and icon on DOMContentLoaded (html class already set in head)
+  // Sync icon on DOMContentLoaded (data-bs-theme already set in head)
   document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('suit-theme');
     const icon = document.getElementById('theme-icon');
 
-    if (savedTheme === 'dark') {
-      document.body.classList.add('dark-theme');
-      if (icon) {
-        icon.classList.remove('bi-moon-stars');
-        icon.classList.add('bi-sun');
-      }
+    if (savedTheme === 'dark' && icon) {
+      icon.classList.remove('bi-moon-stars');
+      icon.classList.add('bi-sun');
     }
   });
   </script>{% endblock theme_toggle_js %}

@@ -91,6 +91,6 @@
 }
 
 // Dark theme login adjustments
-.dark-theme .login #content-main h1 {
+[data-bs-theme="dark"] .login #content-main h1 {
   text-shadow: none;
 }

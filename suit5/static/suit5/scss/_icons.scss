@@ -140,7 +140,7 @@
 .icon-white {
   color: #fff;
 
-  .dark-theme & {
+  [data-bs-theme="dark"] & {
     color: var(--suit-text-color);
   }
 }

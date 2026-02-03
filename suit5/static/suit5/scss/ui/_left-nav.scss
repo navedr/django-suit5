@@ -128,7 +128,7 @@
 }
 
 // Dark theme adjustments
-.dark-theme .left-nav {
+[data-bs-theme="dark"] .left-nav {
   > .nav > .nav-item > .nav-link.active {
     text-shadow: none;
 
@@ -188,7 +188,7 @@
 }
 
 // Dark theme offcanvas
-.dark-theme .offcanvas {
+[data-bs-theme="dark"] .offcanvas {
   .offcanvas-body {
     background-color: var(--suit-nav-bg);
   }
