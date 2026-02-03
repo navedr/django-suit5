@@ -28,6 +28,14 @@
   {% block extrahead %}{% endblock %}
   {% block blockbots %}
     <meta name="robots" content="NONE,NOARCHIVE"/>{% endblock %}
+  {% block theme_init_js %}<script>
+  // Apply theme immediately to prevent flash of wrong theme
+  (function() {
+    if (localStorage.getItem('suit-theme') === 'dark') {
+      document.documentElement.classList.add('dark-theme');
+    }
+  })();
+  </script>{% endblock %}
 </head>
 {% load i18n %}
 
@@ -270,11 +278,13 @@
   <!-- Theme Toggle Script -->
   {% block theme_toggle_js %}<script>
   function toggleTheme() {
+    const html = document.documentElement;
     const body = document.body;
     const icon = document.getElementById('theme-icon');
-    body.classList.toggle('dark-theme');
+    const isDark = html.classList.toggle('dark-theme');
+    body.classList.toggle('dark-theme', isDark);
 
-    if (body.classList.contains('dark-theme')) {
+    if (isDark) {
       icon.classList.remove('bi-moon-stars');
       icon.classList.add('bi-sun');
       localStorage.setItem('suit-theme', 'dark');
@@ -285,7 +295,7 @@
     }
   }
 
-  // Load saved theme preference (default to light)
+  // Sync body class and icon on DOMContentLoaded (html class already set in head)
   document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('suit-theme');
     const icon = document.getElementById('theme-icon');
@@ -297,7 +307,6 @@
         icon.classList.add('bi-sun');
       }
     }
-    // Light theme is the default - no class needed
   });
   </script>{% endblock theme_toggle_js %}
 
