@@ -22,7 +22,9 @@
 <div class="module">
 
 {% if action_list %}
+    {% block history_table %}
     <table id="change-history" class="table table-bordered table-condensed table-striped">
+        {% block history_table_header %}
         <thead>
         <tr>
             <th scope="col"><span>{% trans 'Date/time' %}</span></th>
@@ -30,8 +32,10 @@
             <th scope="col"><span>{% trans 'Action' %}</span></th>
         </tr>
         </thead>
+        {% endblock %}
         <tbody>
         {% for action in action_list %}
+        {% block history_table_row %}
         <tr>
             <th scope="row">{{ action.action_time|date:"DATETIME_FORMAT" }}</th>
             {% if '1.10'|django_version_lt %}
@@ -42,11 +46,15 @@
             <td>{{ action.get_change_message }}</td>
             {% endif %}
         </tr>
+        {% endblock %}
         {% endfor %}
         </tbody>
     </table>
+    {% endblock %}
 {% else %}
+    {% block history_empty %}
     <p>{% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}</p>
+    {% endblock %}
 {% endif %}
 </div>
 </div>

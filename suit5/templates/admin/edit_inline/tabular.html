@@ -1,11 +1,16 @@
 {% load i18n admin_static admin_modify suit_tags admin_urls %}
+{% block inline_wrapper %}
 <div class="inline-group {{ inline_admin_formset.opts.suit_classes }}" id="{{ inline_admin_formset.formset.prefix }}-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
 <fieldset class="module">
+   {% block inline_header %}
    <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
+   {% endblock %}
    {{ inline_admin_formset.formset.non_form_errors }}
+   {% block inline_table %}
    <table class="table table-bordered table-condensed table-striped">
+     {% block inline_table_header %}
      <thead><tr>
      {% for field in inline_admin_formset.fields %}
        {% if not field.widget.is_hidden %}
@@ -17,9 +22,12 @@
      {% if inline_admin_formset.opts.show_change_link and inline_admin_formset.opts.has_registered_model %}<th class="text-center">{% trans "Change" %}</th>{% endif %}
      {% if '1.7'|django_version_gt and inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th>{% endif %}
      </tr></thead>
+     {% endblock inline_table_header %}
 
+     {% block inline_table_body %}
      <tbody>
      {% for inline_admin_form in inline_admin_formset %}
+        {% block inline_form_row %}
         {% if inline_admin_form.form.non_field_errors %}
         <tr><td colspan="{{ inline_admin_form|cell_count }}"><div class="control-group error"><div class="help-block">{{ inline_admin_form.form.non_field_errors }}</div></div></td></tr>
         {% endif %}
@@ -71,12 +79,17 @@
           <td class="delete">{% if inline_admin_form.original %}{{ inline_admin_form.deletion_field.field }}{% endif %}</td>
         {% endif %}
         </tr>
+        {% endblock inline_form_row %}
      {% endfor %}
      </tbody>
+     {% endblock inline_table_body %}
    </table>
+   {% endblock inline_table %}
 </fieldset>
   </div>
+  {% block inline_footer %}{% endblock %}
 </div>
+{% endblock inline_wrapper %}
 
 <script type="text/javascript">
 (function($) {

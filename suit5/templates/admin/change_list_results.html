@@ -1,15 +1,20 @@
 {% load i18n admin_static suit_list %}
+{% block hidden_fields %}
 {% if result_hidden_fields %}
     <div class="hiddenfields">{# DIV for HTML validation #}
         {% for item in result_hidden_fields %}{{ item }}{% endfor %}
     </div>
 {% endif %}
+{% endblock %}
 {% if results %}
+    {% block results_table %}
     <div class="results">
         <table id="result_list" class="table table-striped table-bordered table-hover table-condensed">
+            {% block results_table_header %}
             <thead>
             <tr>
                 {% for header in result_headers|headers_handler:cl %}
+                    {% block result_header_cell %}
                     <th scope="col" {{ header.class_attrib }}>
                         {% if header.sortable %}
                             {% if header.sort_priority > 0 %}
@@ -27,11 +32,15 @@
                         <div class="text">{% if header.sortable %}
                             <a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>{% else %}<span>{{ header.text|capfirst }}</span>{% endif %}
                         </div>
-                    </th>{% endfor %}
+                    </th>
+                    {% endblock %}{% endfor %}
             </tr>
             </thead>
+            {% endblock %}
+            {% block results_table_body %}
             <tbody>
             {% for result in results|cells_handler:cl %}
+                {% block result_row %}
                 {% if result.form.non_field_errors %}
                     <tr>
                         <td colspan="{{ result|length }}">{{ result.form.non_field_errors }}</td>
@@ -39,8 +48,11 @@
                 {% endif %}
                 <tr{% result_row_attrs cl forloop.counter %}>
                     {% for item in result %}{{ item }}{% endfor %}</tr>
+                {% endblock %}
             {% endfor %}
             </tbody>
+            {% endblock %}
         </table>
     </div>
+    {% endblock %}
 {% endif %}

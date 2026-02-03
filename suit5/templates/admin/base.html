@@ -1,6 +1,6 @@
 {% load admin_static %}{% load suit_tags %}{% load url from suit_compat %}<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
-<head>
+{% block html_start %}<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>{% endblock %}
+{% block head %}<head>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +8,11 @@
   {% block before_suit_styles %}{% endblock %}
   <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% endblock %}"/>
   <!-- Bootstrap 5 -->
-  <link rel="stylesheet" type="text/css" href="{% static 'suit5/bootstrap5/css/bootstrap.min.css' %}" media="all"/>
+  {% block bootstrap_css %}<link rel="stylesheet" type="text/css" href="{% static 'suit5/bootstrap5/css/bootstrap.min.css' %}" media="all"/>{% endblock %}
   <!-- Bootstrap Icons -->
-  <link rel="stylesheet" type="text/css" href="{% static 'suit5/icons/bootstrap-icons.min.css' %}" media="all"/>
+  {% block bootstrap_icons_css %}<link rel="stylesheet" type="text/css" href="{% static 'suit5/icons/bootstrap-icons.min.css' %}" media="all"/>{% endblock %}
   <!-- Django Suit5 -->
-  <link rel="stylesheet" type="text/css" href="{% static 'suit5/css/suit.css' %}" media="all">
+  {% block suit_css %}<link rel="stylesheet" type="text/css" href="{% static 'suit5/css/suit.css' %}" media="all">{% endblock %}
   {% block extrastyle %}{% endblock %}
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>{% endif %}
   <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
@@ -33,25 +33,33 @@
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
 
+{% block body_start %}{% endblock %}
+
 <!-- Sticky footer wrap -->
 <div id="wrap">
 
+  {% block before_container %}{% endblock %}
   <!-- Container -->
   {% block container %}
     <div id="container">
 
+      {% block before_header %}{% endblock %}
       {% block header %}
         {% if not is_popup %}
           <!-- Header -->
           <div id="header" class="header">
             <!-- Hamburger toggle (mobile only) -->
+            {% block mobile_toggle %}
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas" aria-label="Toggle navigation">
               <i class="bi bi-list"></i>
             </button>
+            {% endblock %}
 
+            {% block branding_wrapper %}
             <div id="branding">
               <a href="{% url 'admin:index' %}"><h1 id="site-name">{% block branding %}{{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</h1></a>
             </div>
+            {% endblock %}
 
             {% block header_time %}
             <div class="header-content header-content-first">
@@ -77,6 +85,7 @@
             {% endblock %}
 
             {% if user.is_active and user.is_staff %}
+              {% block user_tools_wrapper %}
               <div id="user-tools">
                 {% block welcome-msg %}
                   <span class="welcome-msg">{% trans 'Welcome,' %}
@@ -102,12 +111,14 @@
                 </button>
                 {% endblock %}
               </div>
+              {% endblock user_tools_wrapper %}
             {% endif %}
             {% block nav-global %}{% endblock %}
           </div>
         {% endif %}
         <!-- END Header -->
       {% endblock %}
+      {% block after_header %}{% endblock %}
 
 
       <div class="suit-columns {{ is_popup|yesno:'one-column,two-columns' }}">
@@ -177,16 +188,19 @@
                 {% endwith %}
               {% endblock %}
 
-              {% include 'suit5/menu.html' %}
+              {% block menu %}{% include 'suit5/menu.html' %}{% endblock %}
 
             </div>
 
             <!-- Mobile sidebar (offcanvas, visible on <lg) -->
+            {% block mobile_sidebar %}
             <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+              {% block mobile_sidebar_header %}
               <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">{{ 'ADMIN_NAME'|suit_conf }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
+              {% endblock %}
               <div class="offcanvas-body">
                 {% block quick-search-mobile %}
                   {% with 'SEARCH_URL'|suit_conf as search_url %}
@@ -198,9 +212,10 @@
                   {% endwith %}
                 {% endblock %}
 
-                {% include 'suit5/menu.html' %}
+                {% block mobile_menu %}{% include 'suit5/menu.html' %}{% endblock %}
               </div>
             </div>
+            {% endblock %}
           {% endif %}
         {% endblock %}
 
@@ -215,10 +230,12 @@
 
 </div>
 
+{% block before_footer %}{% endblock %}
 {% block footer %}
   {% if not is_popup %}
   <div id="footer" class="footer">
     <div class="content">
+      {% block footer_content %}
       <div class="tools">
         {% block footer_links %}
           <a href="http://djangosuit.com/support/" target="_blank" class="icon"><i class="bi bi-question-circle"></i> Support</a>
@@ -241,15 +258,17 @@
           {% endif %}
         {% endwith %}
       {% endblock %}</div>
+      {% endblock footer_content %}
     </div>
   </div>
   {% endif %}
 {% endblock %}
+{% block after_footer %}{% endblock %}
 
-  <script src="{% static 'suit5/js/suit.js' %}"></script>
+  {% block suit_js %}<script src="{% static 'suit5/js/suit.js' %}"></script>{% endblock %}
 
   <!-- Theme Toggle Script -->
-  <script>
+  {% block theme_toggle_js %}<script>
   function toggleTheme() {
     const body = document.body;
     const icon = document.getElementById('theme-icon');
@@ -280,7 +299,7 @@
     }
     // Light theme is the default - no class needed
   });
-  </script>
+  </script>{% endblock theme_toggle_js %}
 
   {% block extrajs %}{% endblock %}
 

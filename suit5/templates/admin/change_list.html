@@ -54,19 +54,23 @@
 {% block content %}
 
   <div id="content-main">
+    {% block before_changelist %}{% endblock %}
 
     <div class="inner-center-column">
       <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
 
+        {% block toolbar %}
         <div class="toolbar-content clearfix">
           {% block object-tools %}
             <div class="object-tools">
               {% block object-tools-items %}
                 {% if has_add_permission %}
+                  {% block add_button %}
                   <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class="btn btn-success">
                     <i class="bi bi-plus-circle text-white"></i>&nbsp;
                     {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
                   </a>
+                  {% endblock %}
                 {% endif %}
               {% endblock %}
             </div>
@@ -74,6 +78,7 @@
 
           {% block search %}{% search_form cl %}{% endblock %}
         </div>
+        {% endblock toolbar %}
 
         {% block date_hierarchy %}
           {% if cl.date_hierarchy %}
@@ -95,29 +100,43 @@
             <div>{{ cl.formset.management_form }}</div>
           {% endif %}
 
+          {% block before_result_list %}{% endblock %}
           {% block result_list %}
             {% if cl.result_count %}
+              {% block actions_top %}
               {% if action_form and actions_on_top and cl.full_result_count %}
                 {% admin_actions %}{% endif %}
+              {% endblock %}
+              {% block result_list_content %}
               {% result_list_with_context cl %}
+              {% endblock %}
 
+              {% block actions_bottom %}
               {% if action_form and actions_on_bottom and cl.full_result_count %}
                 {% admin_actions %}{% endif %}
+              {% endblock %}
             {% else %}
+              {% block empty_result_list %}
               {% suit_bc_value 1.5 'pop' 1.6 '_popup' as POPUP_VAR %}
               <div class="alert alert-block alert-info">
                 {% if cl.full_result_count %}
+                  {% block empty_result_list_filtered %}
                   <h4>{% trans 'Nothing found' %}!</h4>
                   <br>
                   <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">{% trans 'Reset search and filters' %}</a>
+                  {% endblock %}
                 {% else %}
+                  {% block empty_result_list_no_items %}
                   {% blocktrans with cl.opts.verbose_name_plural|capfirst as name_plural %}{{ name_plural }} are not created yet{% endblocktrans %}.
                   {% if has_add_permission %}<a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?{{ POPUP_VAR }}=1{% endif %}">
                     {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>{% endif %}
+                  {% endblock %}
                 {% endif %}
               </div>
+              {% endblock empty_result_list %}
             {% endif %}
           {% endblock %}
+          {% block after_result_list %}{% endblock %}
 
           {% block pagination %}
             {% if cl.result_count %}
@@ -133,5 +152,6 @@
         </form>
       </div>
     </div>
+    {% block after_changelist %}{% endblock %}
   </div>
 {% endblock %}

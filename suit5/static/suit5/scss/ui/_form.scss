@@ -154,7 +154,7 @@ h2.legend,
       border-bottom: 1px solid #eee;
       border-right: 1px solid #eee;
       width: auto;
-      color: #666;
+      color: var(--suit-text-muted);
       text-align: right;
       font-size: 12px;
       vertical-align: top;
@@ -163,7 +163,7 @@ h2.legend,
       label {
         padding: 0;
         margin: 0;
-        color: #666;
+        color: var(--suit-text-muted);
         font-weight: normal;
       }
     }
@@ -218,7 +218,7 @@ h2.legend,
     &:last-of-type {
       .control-label {
         padding-bottom: 10px;
-        border: 0;
+        //border: 0;
         border-bottom-left-radius: $border-radius;
       }
 
@@ -260,7 +260,7 @@ h2.legend,
         display: inline-block;
         margin: 0 10px 0 0;
         font-size: 12px;
-        color: #666;
+        color: var(--suit-text-muted);
         line-height: 28px;
         vertical-align: middle;
 
@@ -278,7 +278,7 @@ h2.legend,
         > label {
           margin: 0 10px 0 0;
           font-size: 12px;
-          color: #666;
+          color: var(--suit-text-muted);
           line-height: 28px;
           float: none;
         }
@@ -824,7 +824,7 @@ h3 {
 
     i {
       font-size: 14px;
-      color: #666;
+      color: var(--suit-text-muted);
       opacity: 0.8;
     }
 
@@ -987,7 +987,7 @@ label.required::after {
     border: 1px solid #ccc;
     border-left: none;
     border-radius: 0 3px 3px 0;
-    color: #666;
+    color: var(--suit-text-muted);
     cursor: pointer;
 
     i {

@@ -13,12 +13,16 @@
 
 {% block content %}
   <div id="content-main">
+    {% block before_app_list %}{% endblock %}
     {% if app_list %}
+      {% block app_list %}
       {% for app in app_list %}
+        {% block app_list_item %}
         <div class="module">
           <table class="table-overview applist" summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}">
             <caption><a href="{{ app.app_url }}" class="section">{% trans app.name %}</a></caption>
             {% for model in app.models %}
+              {% block model_list_item %}
               <tr>
                 <th scope="row">{{ model.name }}</th>
                 {% if model.admin_url %}
@@ -37,29 +41,43 @@
                   <td>&nbsp;</td>
                 {% endif %}
               </tr>
+              {% endblock model_list_item %}
             {% endfor %}
           </table>
         </div>
+        {% endblock app_list_item %}
       {% endfor %}
+      {% endblock app_list %}
     {% else %}
+      {% block no_app_list %}
       <p>{% trans "You don't have permission to edit anything." %}</p>
+      {% endblock %}
     {% endif %}
+    {% block after_app_list %}{% endblock %}
   </div>
 {% endblock %}
 
 
 {% block sidebar %}
   <div id="content-related">
+    {% block before_recent_actions %}{% endblock %}
+    {% block recent_actions %}
     <div class="module" id="recent-actions-module">
+      {% block recent_actions_title %}
       <h4 class="italic-title">{% trans 'My Actions' %}</h4>
+      {% endblock %}
 
       {% load log %}
       {% get_admin_log 10 as admin_log for_user user %}
+      {% block recent_actions_content %}
       {% if not admin_log %}
+        {% block recent_actions_empty %}
         <p>{% trans 'None available' %}</p>
+        {% endblock %}
       {% else %}
         <ul class="actionlist">
           {% for entry in admin_log %}
+            {% block recent_actions_item %}
             <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}text-error{% endif %}">
 
               <i class="{% if entry.is_addition %}bi bi-plus{% endif %}{% if entry.is_change %}bi bi-pencil{% endif %}{% if entry.is_deletion %}bi bi-trash{% endif %} icon-alpha5"></i>
@@ -83,9 +101,13 @@
                 <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
               {% endif %}
             </li>
+            {% endblock recent_actions_item %}
           {% endfor %}
         </ul>
       {% endif %}
+      {% endblock recent_actions_content %}
     </div>
+    {% endblock recent_actions %}
+    {% block after_recent_actions %}{% endblock %}
   </div>
 {% endblock %}

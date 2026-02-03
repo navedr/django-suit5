@@ -1,10 +1,15 @@
 {% load i18n admin_static admin_urls suit_tags %}
+{% block inline_wrapper %}
 <div class="inline-group {{ inline_admin_formset.opts.suit_classes }}" id="{{ inline_admin_formset.formset.prefix }}-group">
+  {% block inline_header %}
   <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
+  {% endblock %}
 {{ inline_admin_formset.formset.management_form }}
 {{ inline_admin_formset.formset.non_form_errors }}
 
-{% for inline_admin_form in inline_admin_formset %}<div class="inline-related{% if forloop.last and '2.1'|django_version_lt or forloop.last and '2.1'|django_version_gte and inline_admin_formset.has_add_permission %} empty-form last-related{% endif %}" id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
+{% block inline_forms %}
+{% for inline_admin_form in inline_admin_formset %}{% block inline_form_item %}<div class="inline-related{% if forloop.last and '2.1'|django_version_lt or forloop.last and '2.1'|django_version_gte and inline_admin_formset.has_add_permission %} empty-form last-related{% endif %}" id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
+  {% block inline_form_header %}
   <h3><b>{{ inline_admin_formset.opts.verbose_name|title }}:</b>&nbsp;<span class="inline_label">{% if inline_admin_form.original %}
     {% if '1.8'|django_version_gte and inline_admin_form.model_admin.show_change_link and inline_admin_form.model_admin.has_registered_model %} <a href="{% url inline_admin_form.model_admin.opts|admin_urlname:'change' inline_admin_form.original.pk|admin_urlquote %}" class="inlinechangelink">{{ inline_admin_form.original }}</a>
     {% else %}
@@ -14,14 +19,24 @@
     {% if inline_admin_form.show_url %}<a href="../../../r/{{ inline_admin_form.original_content_type_id }}/{{ inline_admin_form.original.id }}/">{% trans "View on site" %}</a>{% endif %}
     {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}<span class="delete">{{ inline_admin_form.deletion_field.field }} {{ inline_admin_form.deletion_field.label_tag }}</span>{% endif %}
   </h3>
+  {% endblock inline_form_header %}
+  {% block inline_form_errors %}
   {% if inline_admin_form.form.non_field_errors %}{{ inline_admin_form.form.non_field_errors }}{% endif %}
+  {% endblock %}
+  {% block inline_form_fieldsets %}
   {% for fieldset in inline_admin_form %}
     {% include "admin/includes/fieldset.html" %}
   {% endfor %}
+  {% endblock %}
+  {% block inline_form_hidden_fields %}
   {% if inline_admin_form.has_auto_field or inline_admin_form.needs_explicit_pk_field %}{{ inline_admin_form.pk_field.field }}{% endif %}
   {{ inline_admin_form.fk_field.field }}
-</div>{% endfor %}
+  {% endblock %}
+</div>{% endblock inline_form_item %}{% endfor %}
+{% endblock inline_forms %}
+{% block inline_footer %}{% endblock %}
 </div>
+{% endblock inline_wrapper %}
 
 <script type="text/javascript">
 (function($) {

@@ -1,6 +1,8 @@
 {% load i18n %}
 
+{% block actions_wrapper %}
 <div class="actions">
+    {% block actions_form_fields %}
     {% for field in action_form %}
         {% if field.label %}
             <label><span class="action-label">{{ field.label }}</span>
@@ -10,9 +12,13 @@
             </label>
         {% endif %}
     {% endfor %}
+    {% endblock %}
 &nbsp;
+    {% block actions_go_button %}
     <button type="submit" class="btn" title="{% trans "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}">{% trans "Go" %}</button>
+    {% endblock %}
     &nbsp;
+    {% block actions_selection_counter %}
     {% if actions_selection_counter %}
         <script type="text/javascript">var _actions_icnt = "{{ cl.result_list|length|default:"0" }}";</script>
         <span class="action-counter">{{ selection_note }}</span>
@@ -26,4 +32,6 @@
             <span class="clear"><a href="javascript:;">{% trans "Clear selection" %}</a></span>
         {% endif %}
     {% endif %}
+    {% endblock %}
 </div>
+{% endblock actions_wrapper %}

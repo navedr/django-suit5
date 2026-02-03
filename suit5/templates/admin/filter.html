@@ -1,11 +1,19 @@
 {% load i18n %}
+{% block filter_select %}
 <select data-name="{{ field_name }}" class="auto-width search-filter{% if spec.lookup_val or spec.used_parameters %} active{% endif %}" style="max-width: 200px">
+  {% block filter_options %}
   {% for choice in choices %}
     {% if forloop.first %}
+      {% block filter_option_default %}
       <option value="">{{ title|capfirst }}</option>
       <option value="">---</option>
+      {% endblock %}
     {% else %}
+      {% block filter_option %}
       <option{% if choice.additional %} data-additional="{{ choice.additional }}"{% endif %} data-name="{{ choice.name }}" value="{{ choice.val }}" {{ choice.selected|yesno:' selected="selected",' }}>{% if choice.selected %}{{ title|capfirst }}: {% endif %}{{ choice.display }}</option>
+      {% endblock %}
     {% endif %}
   {% endfor %}
+  {% endblock %}
 </select>
+{% endblock %}

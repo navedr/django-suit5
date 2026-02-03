@@ -45,33 +45,49 @@
         {% endif %}
 
         <div id="content-main">
+            {% block login_header %}
             <h1><i class="bi bi-lock-fill text-white"></i> {{ 'ADMIN_NAME'|suit_conf }}</h1>
+            {% endblock %}
 
+            {% block login_form %}
             <form action="{{ app_path }}" method="post" id="login-form"><div class="d-none">{% csrf_token %}</div>
+                {% block login_form_fields %}
+                {% block login_username_field %}
                 <div class="form-row control-group{% if not form.this_is_the_login_form.errors and form.username.errors %} error{% endif %}">
                     <label for="id_username" class="control-label required">{{ form.username.label }}:</label> {{ form.username }}
                   {% if not form.this_is_the_login_form.errors and form.username.errors %}<div class="help-block">{{ form.username.errors }}</div>{% endif %}
                 </div>
+                {% endblock %}
+                {% block login_password_field %}
                 <div class="form-row control-group{% if not form.this_is_the_login_form.errors and form.password.errors %} error{% endif %}">
                     <label for="id_password" class="control-label required">{% trans 'Password' %}:</label> {{ form.password }}
                   {% if not form.this_is_the_login_form.errors and form.password.errors %}<div class="help-block">{{ form.password.errors }}</div>{% endif %}
                     <input type="hidden" name="this_is_the_login_form" value="1"/>
                     <input type="hidden" name="next" value="{{ next }}"/>
                 </div>
+                {% endblock %}
+                {% endblock login_form_fields %}
+                {% block login_password_reset_link %}
                 {% url 'admin_password_reset' as password_reset_url %}
                 {% if password_reset_url %}
                     <div class="password-reset-link">
                         <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
                     </div>
                 {% endif %}
+                {% endblock %}
+                {% block login_submit %}
                 <div class="submit-row">
                     <input type="submit" value="{% trans 'Log in' %}" class="btn btn-info"/>
                 </div>
+                {% endblock %}
             </form>
+            {% endblock login_form %}
 
+            {% block login_footer %}
             <script type="text/javascript">
                 document.getElementById('id_username').focus()
             </script>
+            {% endblock %}
         </div>
     {% endblock %}
 {% endblock %}

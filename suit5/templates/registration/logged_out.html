@@ -6,8 +6,12 @@
     <div class="breadcrumbs"><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></div>{% endblock %}
 
 {% block content %}
+    {% block logged_out_message %}
     <h3 class="italic-title">{% trans "Thanks for spending some quality time with the Web site today." %}</h3>
+    {% endblock %}
 
     <br>
+    {% block logged_out_actions %}
     <div class="f14">&nbsp; <a href="{% url 'admin:index' %}">{% trans 'Log in again' %}</a></div>
+    {% endblock %}
 {% endblock %}

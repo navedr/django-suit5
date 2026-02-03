@@ -2,7 +2,9 @@
 {% load i18n suit_menu %}
 {% load url from suit_compat %}
 
+{% block nav_wrapper %}
 <nav class="left-nav" id="left-nav">
+  {% block before_menu %}{% endblock %}
   <ul class="nav flex-column">
     {% block menu_home %}
       {% url 'admin:index' as index_url %}
@@ -14,15 +16,18 @@
       </li>
     {% endblock %}
 
+    {% block menu_items %}
     {% get_menu request as app_list %}
     {% if app_list %}
       {% for app in app_list %}
         {% if app.separator %}
-          <li class="nav-item separator"></li>
+          {% block menu_separator %}<li class="nav-item separator"></li>{% endblock %}
         {% else %}
+          {% block menu_app_item %}
           <li class="nav-item{% if app.is_active %} active{% endif %}">
             {% if app.models %}
               {# Parent item with submenu - use collapse toggle #}
+              {% block menu_app_with_models %}
               <a href="#collapse-{{ forloop.counter }}"
                  class="nav-link nav-link-parent{% if app.is_active %} active{% endif %}"
                  data-bs-toggle="collapse"
@@ -36,24 +41,33 @@
               <div class="collapse{% if app.is_active %} show{% endif %}" id="collapse-{{ forloop.counter }}">
                 <ul class="nav flex-column nav-submenu">
                   {% for model in app.models %}
+                    {% block menu_model_item %}
                     <li class="nav-item">
                       <a href="{{ model.url }}" class="nav-link{% if model.is_active %} active{% endif %}"{{ model.blank|yesno:' target=_blank,' }}>
                         {{ model.label }}
                       </a>
                     </li>
+                    {% endblock menu_model_item %}
                   {% endfor %}
                 </ul>
               </div>
+              {% endblock menu_app_with_models %}
             {% else %}
               {# Simple link without submenu #}
+              {% block menu_app_simple %}
               <a href="{{ app.url }}" class="nav-link{% if app.is_active %} active{% endif %}"{{ app.blank|yesno:' target=_blank,' }}>
                 <i class="{% firstof app.icon 'bi bi-chevron-right' %}"></i>
                 <span>{% trans app.label|capfirst %}</span>
               </a>
+              {% endblock menu_app_simple %}
             {% endif %}
           </li>
+          {% endblock menu_app_item %}
         {% endif %}
       {% endfor %}
     {% endif %}
+    {% endblock menu_items %}
   </ul>
+  {% block after_menu %}{% endblock %}
 </nav>
+{% endblock nav_wrapper %}

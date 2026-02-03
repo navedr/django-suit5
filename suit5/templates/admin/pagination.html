@@ -1,11 +1,15 @@
 {% load suit_list i18n %}
 
+{% block pagination_save_button %}
 {% if cl.formset and cl.result_count %}
     <input type="submit" name="_save" class="default btn btn-info float-end changelist-save" value="{% trans 'Save' %}"/>
 {% endif %}
+{% endblock %}
 
+{% block pagination_wrapper %}
 <div class="pagination-block">
 
+  {% block pagination_links %}
   {% if pagination_required %}
     <div class="pagination">
       <ul>
@@ -15,7 +19,9 @@
       </ul>
     </div>
   {% endif %}
+  {% endblock %}
 
+  {% block pagination_info %}
   <div class="pagination-info muted">
     {% paginator_info cl %}
     &nbsp; / &nbsp;
@@ -25,4 +31,6 @@
     {% if show_all_url %}&nbsp;&nbsp;
       <a href="{{ show_all_url }}" class="showall">{% trans 'Show all' %}</a>{% endif %}
   </div>
+  {% endblock %}
 </div>
+{% endblock pagination_wrapper %}
