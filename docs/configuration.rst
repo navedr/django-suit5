@@ -58,6 +58,9 @@ Configuration sample you can use as a start::
 
       # misc
       # 'LIST_PER_PAGE': 15
+
+      # theme
+      # 'ALLOW_THEME_TOGGLE': True,  # Default True
   }
 
 
@@ -242,5 +245,17 @@ Set change_list view ``list_per_page`` parameter globally for whole admin. You c
 
   SUIT_CONFIG = {
       'LIST_PER_PAGE': 20
+  }
+
+Theme
+-----
+
+ALLOW_THEME_TOGGLE
+^^^^^^^^^^
+
+Enable or disable the dark/light theme toggle button in the header. When enabled, users can switch between light and dark modes. The selected theme is persisted in the browser's localStorage. Default: ``True``::
+
+  SUIT_CONFIG = {
+      'ALLOW_THEME_TOGGLE': True
   }
 

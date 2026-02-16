@@ -1,4 +1,4 @@
-{% load admin_static %}{% load suit_tags %}{% load url from suit_compat %}<!DOCTYPE html>
+{% load admin_static %}{% load suit_tags %}{% load url from suit_compat %}{% suit_dark_theme as show_theme_toggle %}<!DOCTYPE html>
 {% block html_start %}<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>{% endblock %}
 {% block head %}<head>{% endblock %}
   <meta charset="utf-8">
@@ -28,14 +28,14 @@
   {% block extrahead %}{% endblock %}
   {% block blockbots %}
     <meta name="robots" content="NONE,NOARCHIVE"/>{% endblock %}
-  {% block theme_init_js %}<script>
+  {% if show_theme_toggle %}{% block theme_init_js %}<script>
   // Apply theme immediately to prevent flash of wrong theme
   (function() {
     if (localStorage.getItem('suit-theme') === 'dark') {
       document.documentElement.setAttribute('data-bs-theme', 'dark');
     }
   })();
-  </script>{% endblock %}
+  </script>{% endblock %}{% endif %}
 </head>
 {% load i18n %}
 
@@ -113,11 +113,11 @@
                   <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
                 {% endblock %}
                 </span>
-                {% block theme_toggle %}
-                <button type="button" class="theme-toggle ms-3" onclick="toggleTheme()" title="Toggle dark/light mode">
+                {% if show_theme_toggle %}{% block theme_toggle %}
+                <button type="button" class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
                   <i class="bi bi-moon-stars" id="theme-icon"></i>
                 </button>
-                {% endblock %}
+                {% endblock %}{% endif %}
               </div>
               {% endblock user_tools_wrapper %}
             {% endif %}
@@ -276,7 +276,7 @@
   {% block suit_js %}<script src="{% static 'suit5/js/suit.js' %}"></script>{% endblock %}
 
   <!-- Theme Toggle Script -->
-  {% block theme_toggle_js %}<script>
+  {% if show_theme_toggle %}{% block theme_toggle_js %}<script>
   function toggleTheme() {
     const html = document.documentElement;
     const icon = document.getElementById('theme-icon');
@@ -305,7 +305,7 @@
       icon.classList.add('bi-sun');
     }
   });
-  </script>{% endblock theme_toggle_js %}
+  </script>{% endblock theme_toggle_js %}{% endif %}
 
   {% block extrajs %}{% endblock %}
 

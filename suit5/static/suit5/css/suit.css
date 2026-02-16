@@ -666,6 +666,13 @@ body {
   display: flex;
   align-items: center;
 }
+@media (max-width: 767px) {
+  .header {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 45px;
+  }
+}
 .header .header-content {
   display: flex;
   align-items: center;
@@ -753,16 +760,20 @@ body {
   margin: 0 5px;
 }
 @media (max-width: 767px) {
-  .header #user-tools .welcome-msg {
-    display: none;
+  .header #user-tools {
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    justify-content: end;
   }
   .header #user-tools .user-links {
-    margin-left: 0;
+    margin-left: 5px;
   }
-}
-@media (max-width: 575px) {
-  .header #user-tools {
-    display: none;
+  .header #user-tools .separator {
+    margin: 0 3px;
   }
 }
 .header i {
@@ -3759,19 +3770,8 @@ textarea {
     padding-left: 10px;
     padding-right: 10px;
   }
-  .header #user-tools {
-    max-width: 65vw;
-    padding-top: 5px;
-  }
-  .header #user-tools .user-links {
-    float: right;
-  }
   .breadcrumb {
     font-size: 12px;
-  }
-  .user-links > *:nth-child(2),
-  .user-links > *:nth-child(3) {
-    display: none;
   }
   #changelist-form .results,
   .inline-group {
@@ -3794,14 +3794,17 @@ textarea {
   .submit-row button[name=_addanother] {
     display: none;
   }
-  .form-horizontal .control-group .control-label {
-    min-width: auto;
-  }
   .dashboard #content #content-main {
     float: none;
     display: table;
     margin-left: auto;
     margin-right: auto;
+  }
+  .form-horizontal .control-group .control-label {
+    min-width: auto;
+  }
+  .form-horizontal .control-group .controls textarea, .form-horizontal .control-group .controls textarea.form-control {
+    width: 100%;
   }
 }
 

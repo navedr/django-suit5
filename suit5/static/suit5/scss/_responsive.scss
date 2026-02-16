@@ -5,64 +5,62 @@
 // refinements that go beyond those base responsive rules.
 
 @media (max-width: ($breakpoint-md - 1px)) {
-    .suit-columns {
-        padding-left: 10px;
-        padding-right: 10px;
+  .suit-columns {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+  }
+
+
+  #changelist-form .results,
+  .inline-group {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+
+  .inner-two-columns {
+    .inner-right-column {
+      float: none;
+      width: auto;
     }
 
-    .header #user-tools {
-        max-width: 65vw;
-        padding-top: 5px;
+    .inner-right-column.fixed {
+      position: static;
     }
 
-    .header #user-tools .user-links {
-        float: right;
+    .inner-center-column {
+      margin-right: 0;
+    }
+  }
+
+
+  .submit-row button {
+    height: 50px;
+  }
+
+  .submit-row button[name="_addanother"] {
+    display: none;
+  }
+
+  .dashboard #content #content-main {
+    float: none;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .form-horizontal .control-group {
+    .control-label {
+      min-width: auto;
     }
 
-    .breadcrumb {
-        font-size: 12px;
+    .controls {
+      textarea, textarea.form-control {
+        width: 100%;
+      }
     }
-
-    .user-links > *:nth-child(2),
-    .user-links > *:nth-child(3) {
-        display: none;
-    }
-
-    #changelist-form .results,
-    .inline-group {
-        max-width: 100%;
-        overflow-x: auto;
-    }
-
-    .inner-two-columns .inner-right-column {
-        float: none;
-        width: auto;
-    }
-
-    .inner-two-columns .inner-right-column.fixed {
-        position: static;
-    }
-
-    .inner-two-columns .inner-center-column {
-        margin-right: 0;
-    }
-
-    .submit-row button {
-        height: 50px;
-    }
-
-    .submit-row button[name="_addanother"] {
-        display: none;
-    }
-
-    .form-horizontal .control-group .control-label {
-        min-width: auto;
-    }
-
-    .dashboard #content #content-main {
-        float: none;
-        display: table;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  }
 }

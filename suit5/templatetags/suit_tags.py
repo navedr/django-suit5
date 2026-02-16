@@ -105,6 +105,11 @@ def admin_extra_filters(cl):
 
 
 @simple_tag
+def suit_dark_theme():
+    return get_config('ALLOW_THEME_TOGGLE')
+
+
+@simple_tag
 def suit_django_version():
     return django_version
 

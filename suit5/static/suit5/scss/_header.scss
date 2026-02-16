@@ -8,6 +8,13 @@
   display: flex;
   align-items: center;
 
+  // On mobile, allow header to wrap into two rows
+  @media (max-width: ($breakpoint-md - 1px)) {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: $header-height;
+  }
+
   .header-content {
     display: flex;
     align-items: center;
@@ -110,20 +117,23 @@
       margin: 0 5px;
     }
 
-    // Hide welcome message on small screens, keep user links
+    // On mobile, drop to second row below #branding
     @media (max-width: ($breakpoint-md - 1px)) {
-      .welcome-msg {
-        display: none;
-      }
+      width: 100%;
+      height: auto;
+      margin-left: 0;
+      padding: 4px 10px;
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      justify-content: end;
 
       .user-links {
-        margin-left: 0;
+        margin-left: 5px;
       }
-    }
 
-    // Hide user tools completely on very small screens
-    @media (max-width: ($breakpoint-sm - 1px)) {
-      display: none;
+      .separator {
+        margin: 0 3px;
+      }
     }
   }
 

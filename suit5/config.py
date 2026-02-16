@@ -32,7 +32,8 @@ def default_config():
         # ),
 
         # misc
-        'LIST_PER_PAGE': 20
+        'LIST_PER_PAGE': 20,
+        'ALLOW_THEME_TOGGLE': True
     }
 
 
