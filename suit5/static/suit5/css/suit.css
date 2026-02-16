@@ -3754,41 +3754,10 @@ textarea {
     margin-right: 0;
   }
 }
-@media only screen and (max-width: 767px) {
-  body {
-    min-width: auto;
-  }
-  #wrap {
-    background: none;
-  }
+@media (max-width: 767px) {
   .suit-columns {
     padding-left: 10px;
     padding-right: 10px;
-  }
-  #suit-center {
-    padding-left: 0;
-  }
-  #suit-left {
-    position: absolute;
-    background: white;
-    margin-left: auto;
-    display: none;
-    left: 0;
-    right: unset;
-    border: 1px solid silver;
-    z-index: 1000;
-  }
-  .header {
-    height: 55px;
-  }
-  .header #branding {
-    min-width: unset;
-  }
-  .brand-name {
-    display: none;
-  }
-  .header-content-first {
-    display: none;
   }
   .header #user-tools {
     max-width: 65vw;
@@ -3798,15 +3767,11 @@ textarea {
     float: right;
   }
   .breadcrumb {
-    font-size: 9pt;
+    font-size: 12px;
   }
-  .menu-link {
-    display: inline-block;
-    margin-top: 10px;
-    margin-left: 10px;
-  }
-  .user-links > *:nth-child(2), .user-links > *:nth-child(3) {
-    display: none !important;
+  .user-links > *:nth-child(2),
+  .user-links > *:nth-child(3) {
+    display: none;
   }
   #changelist-form .results,
   .inline-group {
@@ -3814,14 +3779,14 @@ textarea {
     overflow-x: auto;
   }
   .inner-two-columns .inner-right-column {
-    float: unset;
-    width: unset;
+    float: none;
+    width: auto;
   }
   .inner-two-columns .inner-right-column.fixed {
     position: static;
   }
   .inner-two-columns .inner-center-column {
-    margin-right: unset;
+    margin-right: 0;
   }
   .submit-row button {
     height: 50px;
@@ -3830,35 +3795,14 @@ textarea {
     display: none;
   }
   .form-horizontal .control-group .control-label {
-    min-width: unset;
+    min-width: auto;
   }
   .dashboard #content #content-main {
-    float: unset;
+    float: none;
     display: table;
     margin-left: auto;
     margin-right: auto;
   }
-}
-.control-group .add-related, .inline-group .add-related {
-  display: none;
-}
-
-#main-formfield-content_type-object_id-group .vTextField, #main-formfield-content_type-object_id-group select {
-  width: 10em;
-}
-
-#main-formfield-content_type-object_id-group .vIntegerField {
-  width: 2em;
-}
-
-#main-formfield-content_type-object_id-group .field-required,
-#main-formfield-content_type-object_id-group .field-visible,
-#main-formfield-content_type-object_id-group .delete {
-  text-align: center;
-}
-
-body.pwa .user-links {
-  display: none !important;
 }
 
 /*# sourceMappingURL=suit.css.map */
