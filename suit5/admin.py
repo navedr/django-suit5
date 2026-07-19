@@ -31,7 +31,7 @@ class SortableModelAdminBase(object):
     sortable = 'order'
 
     class Media:
-        js = ('suit/js/sortables.js',)
+        js = ('suit5/js/sortables.js',)
 
 
 class SortableListForm(ModelForm):
@@ -212,4 +212,3 @@ if 'cms' in settings.INSTALLED_APPS:
         }
     except ImportError:
         pass
-

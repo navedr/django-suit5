@@ -12,7 +12,7 @@
   {% block fieldset_content %}
   {% for line in fieldset %}
     {% block fieldset_line %}
-    {% with singlefield=line.fields|length_is:'1' %}
+    {% with singlefield=line.fields|is_single_field %}
       <div class="control-group form-row{% if line.errors %} {{ singlefield|yesno:'error,first-error' }} errors{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %} {{ field.field.field.widget.attrs.rowclass }}{% endfor %}{{ singlefield|yesno:',multi-field-row' }}">
         {% for field in line %}
           {% spaceless %}

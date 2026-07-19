@@ -3,6 +3,8 @@ from django import template
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import ForeignKey
 from django.template.defaulttags import NowNode
+from django.utils import timezone
+from django.utils.formats import date_format
 from django.utils.safestring import mark_safe
 from suit5.config import get_config
 from suit5 import utils
@@ -34,14 +36,33 @@ def suit_conf(name):
     return mark_safe(value) if isinstance(value, str) else value
 
 
+@register.simple_tag(takes_context=True)
+def suit_conf_value(context, name):
+    """Return a config value for the current admin site."""
+    value = get_config(name, request=context.get('request'))
+    return mark_safe(value) if isinstance(value, str) else value
+
+
+class SuitNowNode(NowNode):
+    def __init__(self, config_name):
+        self.config_name = config_name
+
+    def render(self, context):
+        format_string = get_config(self.config_name, request=context.get('request'))
+        now = timezone.now()
+        if timezone.is_aware(now):
+            now = timezone.localtime(now)
+        return date_format(now, format_string, use_l10n=False)
+
+
 @register.tag
 def suit_date(parser, token):
-    return NowNode(get_config('HEADER_DATE_FORMAT'))
+    return SuitNowNode('HEADER_DATE_FORMAT')
 
 
 @register.tag
 def suit_time(parser, token):
-    return NowNode(get_config('HEADER_TIME_FORMAT'))
+    return SuitNowNode('HEADER_TIME_FORMAT')
 
 
 @register.filter
@@ -104,9 +125,14 @@ def admin_extra_filters(cl):
     return dict((k, v) for k, v in cl.params.items() if k not in used_parameters)
 
 
-@simple_tag
-def suit_dark_theme():
-    return get_config('ALLOW_THEME_TOGGLE')
+@register.simple_tag(takes_context=True)
+def suit_dark_theme(context):
+    return get_config('ALLOW_THEME_TOGGLE', request=context.get('request'))
+
+
+@register.filter
+def is_single_field(fields):
+    return len(fields) == 1
 
 
 @simple_tag

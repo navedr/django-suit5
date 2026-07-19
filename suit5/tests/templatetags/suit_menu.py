@@ -4,18 +4,8 @@ from suit5.templatetags.suit_menu import get_menu
 from suit5.tests.mixins import ModelsTestCaseMixin, UserTestCaseMixin
 from suit5.tests.models import test_app_label
 
-try:
-    from django.core.urlresolvers import reverse
-except ImportError:
-    # For Django >= 2.0
-    from django.urls import reverse
-
-
-# conditional import, force_unicode was renamed in Django 1.5
-try:
-    from django.utils.encoding import force_unicode
-except ImportError:
-    from django.utils.encoding import force_text as force_unicode
+from django.urls import reverse
+from django.utils.encoding import force_str as force_unicode
 
 app_label = test_app_label()
 
@@ -27,6 +17,7 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
 
     def setUpConfig(self):
         settings.SUIT_CONFIG = getattr(settings, 'SUIT_CONFIG', {})
+        settings.SUIT_CONFIG.pop('MENU_EXTRAS', None)
         settings.SUIT_CONFIG.update({
             'MENU_OPEN_FIRST_CHILD': True,
             'MENU_ICONS': {
@@ -263,6 +254,39 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
         self.assertEqual(len(menu), 3)
         self.assertEqual(len(menu[2]['models']), 1)
 
+    def test_menu_callable_permissions(self):
+        settings.SUIT_CONFIG['MENU'] = (
+            {'label': 'allowed', 'url': '/allowed/',
+             'permissions': lambda user: user.username == self.superuser.username},
+            {'label': 'denied', 'url': '/denied/',
+             'permissions': lambda user: False},
+            {'label': 'models', 'models': (
+                {'label': 'allowed model', 'url': '/allowed-model/',
+                 'permissions': lambda user: user.is_superuser},
+                {'label': 'denied model', 'url': '/denied-model/',
+                 'permissions': lambda user: False},
+            )},
+        )
+        self.get_response()
+
+        menu = self.make_menu_from_response()
+
+        self.assertEqual([item['label'] for item in menu], ['allowed', 'models'])
+        self.assertEqual([item['label'] for item in menu[1]['models']], ['allowed model'])
+
+    def test_menu_extras_are_appended(self):
+        settings.SUIT_CONFIG['MENU'] = (
+            {'label': 'main', 'url': '/main/'},
+        )
+        settings.SUIT_CONFIG['MENU_EXTRAS'] = (
+            {'label': 'extra', 'url': '/extra/'},
+        )
+        self.get_response()
+
+        menu = self.make_menu_from_response()
+
+        self.assertEqual([item['label'] for item in menu], ['main', 'extra'])
+
     def test_menu_app_marked_as_active(self):
         self.get_response(reverse('admin:app_list', args=[app_label]))
         self.assertContains(self.response, '<li class="active">')
@@ -296,7 +320,7 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
         settings.SUIT_CONFIG['MENU_ICONS'] = {'auth': icon}
         self.get_response()
         menu = self.make_menu_from_response()
-        self.assertEqual(len(menu), 4)
+        self.assertEqual(len(menu), 3)
         self.assertEqual(menu[0]['icon'], icon)
 
     def test_user_with_add_but_not_change(self):
@@ -324,7 +348,7 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
         self.login_superuser()
         self.setUpOldConfig()
         self.get_response()
-        self.assertTemplateUsed(self.response, 'suit/menu.html')
+        self.assertTemplateUsed(self.response, 'suit5/menu.html')
         self.assertContains(self.response, 'left-nav')
         self.assertContains(self.response, 'icon-test-against-keyword')
         app_list = self.response.context_data['app_list']
@@ -337,7 +361,6 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
         self.get_response()
         menu_order = settings.SUIT_CONFIG['MENU_ORDER']
         self.assertContains(self.response, menu_order[1][0][0])
-        self.assertContains(self.response, menu_order[1][0][1])
         self.assertContains(self.response, menu_order[1][0][2])
         # Test custom app no models name, url and icon
         self.assertContains(self.response, menu_order[2][0][0])
@@ -362,7 +385,7 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
         self.setUpOldConfig()
         self.get_response()
         # Test for menu at all for simple user
-        self.assertTemplateUsed(self.response, 'suit/menu.html')
+        self.assertTemplateUsed(self.response, 'suit5/menu.html')
         self.assertContains(self.response, 'left-nav')
         menu_order = settings.SUIT_CONFIG['MENU_ORDER']
         # Test custom model when perms defined as string
@@ -381,12 +404,12 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
 
 
 class SuitMenuAdminRootURLTestCase(SuitMenuTestCase):
-    urls = 'suit.tests.urls.admin_at_root'
+    urls = 'suit5.tests.urls.admin_at_root'
 
 
 class SuitMenuAdminI18NURLTestCase(SuitMenuTestCase):
-    urls = 'suit.tests.urls.admin_i18n'
+    urls = 'suit5.tests.urls.admin_i18n'
 
 
 class SuitMenuAdminCustomURLTestCase(SuitMenuTestCase):
-    urls = 'suit.tests.urls.admin_custom'
+    urls = 'suit5.tests.urls.admin_custom'

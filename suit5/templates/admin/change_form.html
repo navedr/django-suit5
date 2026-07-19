@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_static admin_modify suit_tags admin_urls %}
+{% load i18n static admin_modify suit_tags admin_urls %}
 {% load url from suit_compat %}
 
 {% block extrahead %}{{ block.super }}
@@ -14,7 +14,8 @@
 {% block extrajs %}
   {{ block.super }}
 
-  {% if 'CONFIRM_UNSAVED_CHANGES'|suit_conf %}
+  {% suit_conf_value 'CONFIRM_UNSAVED_CHANGES' as confirm_unsaved_changes %}
+  {% if confirm_unsaved_changes %}
     <!-- Warn on leaving unsaved form -->
     <script src="{% static 'suit5/js/suit-form-confirm.js' %}"></script>
     <script type="text/javascript">

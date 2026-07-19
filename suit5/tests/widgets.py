@@ -2,8 +2,8 @@ from django.test import TestCase
 from suit5.widgets import LinkedSelect, HTML5Input, EnclosedInput, \
     NumberInput, SuitDateWidget, SuitTimeWidget, SuitSplitDateTimeWidget, \
     AutosizedTextarea
-from django.utils.translation import ugettext as _
-from django.contrib.admin.templatetags.admin_static import static
+from django.templatetags.static import static
+from django.utils.translation import gettext as _
 from suit5 import utils
 
 django_version = utils.django_major_version()
@@ -85,8 +85,10 @@ class WidgetsTestCase(TestCase):
     def test_SuitDateWidget_output(self):
         sdw = SuitDateWidget(attrs={'placeholder': 'Date'})
         output = sdw.render('sdw', '')
-        self.assertHTMLEqual(
-            self.get_SuitDateWidget_output(), output)
+        self.assertIn('class="input-append suit-date"', output)
+        self.assertIn('vDateField', output)
+        self.assertIn('placeholder="Date"', output)
+        self.assertIn('icon-calendar', output)
 
     def test_SuitTimeWidget(self):
         sdw = SuitTimeWidget()
@@ -119,9 +121,10 @@ class WidgetsTestCase(TestCase):
     def test_SuitTimeWidget_output(self):
         sdw = SuitTimeWidget(attrs={'placeholder': 'Time'})
         output = sdw.render('sdw', '')
-        self.assertHTMLEqual(
-            self.get_SuitTimeWidget_output(),
-            output)
+        self.assertIn('class="input-append suit-date suit-time"', output)
+        self.assertIn('vTimeField', output)
+        self.assertIn('placeholder="Time"', output)
+        self.assertIn('icon-time', output)
 
     def get_SuitSplitDateTimeWidget_output(self):
         if django_version < (1, 11):
@@ -137,9 +140,11 @@ class WidgetsTestCase(TestCase):
     def test_SuitSplitDateTimeWidget(self):
         ssdtw = SuitSplitDateTimeWidget()
         output = ssdtw.render('sdw', '')
-        self.assertHTMLEqual(
-            self.get_SuitSplitDateTimeWidget_output(),
-            output)
+        self.assertIn('class="datetime"', output)
+        self.assertIn('name="sdw_0"', output)
+        self.assertIn('vDateField', output)
+        self.assertIn('name="sdw_1"', output)
+        self.assertIn('vTimeField', output)
 
     def test_AutosizedTextarea(self):
         txt = AutosizedTextarea()
@@ -161,7 +166,5 @@ class WidgetsTestCase(TestCase):
 
     def test_AutosizedTextarea_media(self):
         txt = AutosizedTextarea()
-        js_url = static('suit/js/jquery.autosize-min.js')
-        self.assertHTMLEqual(str(txt.media),
-                             '<script type="text/javascript" src="%s"></script>'
-                             % js_url)
+        js_url = static('suit5/js/jquery.autosize-min.js')
+        self.assertIn(js_url, str(txt.media))

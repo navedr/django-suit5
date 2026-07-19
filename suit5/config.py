@@ -3,6 +3,9 @@ from django.conf import settings
 from . import VERSION
 
 
+DEFAULT_CONFIG_NAME = 'SUIT_CONFIG'
+
+
 def default_config():
     return {
         'VERSION': VERSION,
@@ -37,12 +40,40 @@ def default_config():
     }
 
 
-def get_config(param=None):
-    config_key = 'SUIT_CONFIG'
-    if hasattr(settings, config_key):
-        config = getattr(settings, config_key, {})
-    else:
-        config = default_config()
+def get_config_name(request=None):
+    """Return the settings key for the admin site handling ``request``.
+
+    Custom ``AdminSite`` subclasses can set ``settings_name`` to use a separate
+    Suit5 configuration. For backwards compatibility, a non-default admin
+    namespace also falls back to ``SUIT_CONFIG_<NAMESPACE>`` when that setting
+    exists.
+    """
+    resolver_match = getattr(request, 'resolver_match', None)
+    if resolver_match is None:
+        return DEFAULT_CONFIG_NAME
+
+    view = resolver_match.func
+    admin_site = getattr(view, 'admin_site', None)
+    if admin_site is None:
+        model_admin = getattr(view, 'model_admin', None)
+        admin_site = getattr(model_admin, 'admin_site', None)
+
+    settings_name = getattr(admin_site, 'settings_name', None)
+    if settings_name:
+        return settings_name
+
+    namespace = resolver_match.namespace
+    if namespace and namespace != 'admin':
+        namespaced_config = '{}_{}'.format(DEFAULT_CONFIG_NAME, namespace.upper())
+        if hasattr(settings, namespaced_config):
+            return namespaced_config
+
+    return DEFAULT_CONFIG_NAME
+
+
+def get_config(param=None, request=None, config_key=None):
+    config_key = config_key or get_config_name(request)
+    config = getattr(settings, config_key, None) or default_config()
     if param:
         value = config.get(param)
         if value is None:

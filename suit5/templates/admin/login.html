@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_static suit_tags %}
+{% load i18n static suit_tags %}
 {% load url from suit_compat %}
 
 {% block extrastyle %}{{ block.super }}
@@ -46,7 +46,7 @@
 
         <div id="content-main">
             {% block login_header %}
-            <h1><i class="bi bi-lock-fill text-white"></i> {{ 'ADMIN_NAME'|suit_conf }}</h1>
+            <h1><i class="bi bi-lock-fill text-white"></i> {{ suit_admin_name }}</h1>
             {% endblock %}
 
             {% block login_form %}

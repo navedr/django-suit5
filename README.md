@@ -17,8 +17,8 @@ Django Suit5 is a modern, sleek admin interface theme for Django. It provides a 
 
 ## Requirements
 
-- Django 2.2+
-- Python 3.7+
+- Django 3.2+
+- Python 3.8+
 
 ## Installation
 
@@ -48,6 +48,29 @@ SUIT_CONFIG = {
     'CONFIRM_UNSAVED_CHANGES': True,
 }
 ```
+
+### Multiple admin sites
+
+Custom admin sites can select a separate Suit5 configuration with
+``settings_name``:
+
+```python
+from django.contrib.admin import AdminSite
+
+
+class DealerAdminSite(AdminSite):
+    settings_name = 'SUIT_CONFIG_DEALER'
+
+
+SUIT_CONFIG_DEALER = {
+    'ADMIN_NAME': 'Dealer portal',
+    'SEARCH_URL': '',
+    'MENU': (...),
+}
+```
+
+For backwards compatibility, an admin site using the ``dealer`` URL namespace
+will also use ``SUIT_CONFIG_DEALER`` automatically when that setting exists.
 
 ## Development
 

@@ -23,7 +23,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}cms/css/jquery.dialog.css" />
 
 {{ block.super }}
-<script type="text/javascript" src="{% admin_static_url %}js/jquery.min.js"></script>
+<script type="text/javascript" src="{% static_url %}js/jquery.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}cms/js/csrf.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}cms/js/libs/jquery.livequery.js"></script>
 
@@ -46,7 +46,7 @@
 {% if cl.is_filtered %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}cms/jstree/themes/default/style.css" />
 {% endif %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}suit/css/djangocms.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}suit5/css/djangocms.css">
 {% endblock %}
 
 
@@ -124,7 +124,7 @@
 {% if cl.has_access_to_multiple_sites %}
 	<div id="site-selector">{% trans "Pages on:" %}
 		<select id="site-select">{% for site in cl.sites %}
-			<option {% ifequal site.pk cl.current_site.pk %}selected {% endifequal %}value="{{ site.pk }}">{{ site.name }}</option>{% endfor %}
+			<option {% if site.pk == cl.current_site.pk %}selected {% endif %}value="{{ site.pk }}">{{ site.name }}</option>{% endfor %}
 		</select>
 	</div>
 {% else %}

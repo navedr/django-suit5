@@ -3,9 +3,9 @@
 {% load url from suit_compat %}
 {% block extrahead %}{{ block.super }}
 
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}suit/css/djangocms.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}suit5/css/djangocms.css">
 
-  {% block jquery %}<script type="text/javascript" src="{% admin_static_url %}js/jquery.min.js"></script>{% endblock jquery %}
+  {% block jquery %}<script type="text/javascript" src="{% static_url %}js/jquery.min.js"></script>{% endblock jquery %}
 <script type="text/javascript" src="{{ STATIC_URL }}cms/js/csrf.js"></script>
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
 
@@ -71,7 +71,7 @@
 
 {% endblock %}
  
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_static_url %}css/forms.css" />{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static_url %}css/forms.css" />{% endblock %}
  
 {% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
  

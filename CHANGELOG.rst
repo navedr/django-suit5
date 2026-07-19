@@ -4,6 +4,31 @@ Changelog
 Only important changes are mentioned below. See `commit log <https://github.com/darklow/django-suit/commits/develop>`_, `closed issues <https://github.com/darklow/django-suit/issues?direction=desc&sort=updated&state=closed>`_ and `closed pull
 requests <https://github.com/darklow/django-suit/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aclosed>`_ for full changes.
 
+v0.3.3 (2026-07-18)
+--------------------
+
+* [Fix] Django 5.x / Python 3.12 compatibility: replaced removed ``ugettext`` and
+  ``admin.templatetags.admin_static`` imports in ``widgets.py``.
+* [Fix] Removed dead Python 2 ``django.utils.six`` / ``basestring`` fallback in
+  ``suit_menu.py`` that raised ``NameError`` on import under Python 3.
+* [Fix] Replaced removed ``inspect.getargspec`` with ``getfullargspec`` in ``suit_list.py``.
+* [Fix] Replaced removed ``{% load admin_static %}`` with ``{% load static %}`` across
+  all shipped templates.
+* [Fix] Replaced removed ``{% ifequal %}``/``{% endifequal %}`` tags with ``{% if %}``
+  across all shipped templates.
+* [Fix] Replaced the removed ``length_is`` template filter and updated admin pagination
+  for Django's one-based page numbers.
+* [Fix] Ignore inaccessible native menu models instead of crashing while deriving their URLs.
+* [Fix] Corrected stale widget, sortable, CMS, and error-template paths from ``suit/``
+  to ``suit5/``.
+* [Feature] Custom ``AdminSite`` instances can select separate settings dictionaries with
+  ``settings_name``; namespaced ``SUIT_CONFIG_<NAMESPACE>`` settings remain supported.
+* [Feature] Added ``MENU_EXTRAS`` and callable menu permissions for optional integrations.
+* [Fix] Render third-party form-based changelist filters with Suit5-compatible Bootstrap markup.
+* [Tests] Modernized the bundled test project and URL configurations so the full suite runs.
+* Verified with 126 tests and live admin page checks on Django 5.2.15 / Python 3.12.
+
+
 v0.2.28 (2019-10-02)
 --------------------
 

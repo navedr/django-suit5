@@ -1,7 +1,11 @@
+from types import SimpleNamespace
+
+from django.contrib.admin import AdminSite
 from django.contrib.admin import ModelAdmin
 from django.conf import settings
+from django.test import override_settings
 from suit5 import VERSION
-from suit5.config import default_config, get_config
+from suit5.config import default_config, get_config, get_config_name
 from suit5.templatetags.suit_tags import admin_url
 from suit5.tests.models import Book
 from suit5.tests.mixins import UserTestCaseMixin, ModelsTestCaseMixin
@@ -54,6 +58,35 @@ class ConfigTestCase(UserTestCaseMixin):
         self.assertEqual(ModelAdmin.actions_on_top, False)
         self.assertEqual(ModelAdmin.actions_on_bottom, True)
         self.assertEqual(ModelAdmin.list_per_page, get_config('LIST_PER_PAGE'))
+
+    @override_settings(
+        SUIT_CONFIG={'ADMIN_NAME': 'Internal'},
+        SUIT_CONFIG_DEALER={'ADMIN_NAME': 'Dealer'},
+    )
+    def test_admin_site_can_select_its_own_config(self):
+        class DealerSite(AdminSite):
+            settings_name = 'SUIT_CONFIG_DEALER'
+
+        view = lambda request: None
+        view.admin_site = DealerSite(name='dealer')
+        request = SimpleNamespace(
+            resolver_match=SimpleNamespace(func=view, namespace='dealer'),
+        )
+
+        self.assertEqual(get_config_name(request), 'SUIT_CONFIG_DEALER')
+        self.assertEqual(get_config('ADMIN_NAME', request=request), 'Dealer')
+
+    @override_settings(
+        SUIT_CONFIG={'ADMIN_NAME': 'Internal'},
+        SUIT_CONFIG_DEALER={'ADMIN_NAME': 'Legacy dealer'},
+    )
+    def test_admin_namespace_supports_legacy_config_name(self):
+        request = SimpleNamespace(
+            resolver_match=SimpleNamespace(func=lambda request: None, namespace='dealer'),
+        )
+
+        self.assertEqual(get_config_name(request), 'SUIT_CONFIG_DEALER')
+        self.assertEqual(get_config('ADMIN_NAME', request=request), 'Legacy dealer')
 
 
 class ConfigWithModelsTestCase(ModelsTestCaseMixin, UserTestCaseMixin):

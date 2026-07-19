@@ -9,4 +9,5 @@ docs/_build/
 /dist/
 node_modules
 venv/
+venv312/
 *.sqlite3

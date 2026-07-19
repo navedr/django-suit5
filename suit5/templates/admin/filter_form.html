@@ -1,0 +1,10 @@
+{% with choices.0 as choice %}
+  <span class="suit-form-filter{% if spec.used_parameters %} active{% endif %}">
+    {% for field in choice.form %}
+      <span class="suit-form-filter-field">
+        <label class="suit-form-filter-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </span>
+    {% endfor %}
+  </span>
+{% endwith %}

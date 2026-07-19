@@ -11,7 +11,7 @@
 {% if not add %}
 <script type="text/javascript" src="{{ STATIC_URL }}cms/js/change_form.js"></script>
 {% endif %}
-<script type="text/javascript" src="{% admin_static_url %}js/urlify.js"></script>
+<script type="text/javascript" src="{% static_url %}js/urlify.js"></script>
 
 {% if add %}
 <script type="text/javascript">
@@ -35,8 +35,8 @@
 </script>
 {% endif %}
 
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}suit/css/djangocms.css">
-<script type="text/javascript" src="{{ STATIC_URL }}suit/js/djangocms.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}suit5/css/djangocms.css">
+<script type="text/javascript" src="{{ STATIC_URL }}suit5/js/djangocms.js"></script>
 {#{% block jqyery %}{% endblock %}#}
 {% endblock %}
 
@@ -121,7 +121,7 @@
     {% if show_language_tabs %}
       <ul class="nav nav-tabs nav-tabs-suit" data-tab-prefix="tab-content">
         {% for lang_code, lang_name in language_tabs %}
-        <li class="{% ifequal lang_code language %}active{% else %}{% if not lang_code in filled_languages %} notfilled{% endif %}{% endifequal %}"><a href="javascript:;" onclick="trigger_lang_button(this,'./?language={{lang_code}}');">{{lang_name}}</a></li>
+        <li class="{% if lang_code == language %}active{% else %}{% if not lang_code in filled_languages %} notfilled{% endif %}{% endif %}"><a href="javascript:;" onclick="trigger_lang_button(this,'./?language={{lang_code}}');">{{lang_name}}</a></li>
         {% endfor %}
       </ul>
     {% endif %}

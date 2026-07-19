@@ -10,11 +10,7 @@ except ImportError:
     # For Django >= 2.0
     from django.urls import reverse, resolve
 
-try:
-    from django.utils.six import string_types
-except ImportError:
-    # For Django < 1.4.2
-    string_types = basestring,
+string_types = (str,)
 
 import re
 import warnings
@@ -108,11 +104,12 @@ class Menu(object):
         super(Menu, self).__init__()
 
     def init_config(self):
-        self.conf_exclude = get_config('MENU_EXCLUDE')
-        self.conf_open_first_child = get_config('MENU_OPEN_FIRST_CHILD')
-        self.conf_icons = get_config('MENU_ICONS')
-        self.conf_menu_order = get_config('MENU_ORDER')
-        self.conf_menu = get_config('MENU')
+        self.conf_exclude = get_config('MENU_EXCLUDE', request=self.request)
+        self.conf_open_first_child = get_config('MENU_OPEN_FIRST_CHILD', request=self.request)
+        self.conf_icons = get_config('MENU_ICONS', request=self.request)
+        self.conf_menu_order = get_config('MENU_ORDER', request=self.request)
+        self.conf_menu = get_config('MENU', request=self.request)
+        self.conf_menu_extras = get_config('MENU_EXTRAS', request=self.request)
 
     def get_app_list(self):
         menu = None
@@ -122,6 +119,9 @@ class Menu(object):
             menu = self.make_menu_from_old_format(self.conf_menu_order)
         else:
             menu = self.make_menu_from_native_only()
+
+        if self.conf_menu_extras:
+            menu = (menu or []) + self.make_menu(self.conf_menu_extras)
 
         # Add icons and match active
         if menu:
@@ -253,7 +253,9 @@ class Menu(object):
         native_models = native_app.get('models', {})
         if native_models:
             for model in native_models:
-                models.append(self.convert_native_model(model, app_name))
+                converted_model = self.convert_native_model(model, app_name)
+                if converted_model:
+                    models.append(converted_model)
 
         # Skip native apps with no models
         if not models:
@@ -343,6 +345,8 @@ class Menu(object):
         return '.'.join(url_parts[len(root_url_parts):][:2])
 
     def convert_native_model(self, model, app_name):
+        if not self.get_native_model_url(model):
+            return
         return {
             'label': model['name'],
             'url': self.get_native_model_url(model),
@@ -407,6 +411,8 @@ class Menu(object):
                 dict[key] = None
 
     def user_has_permission(self, perms):
+        if callable(perms):
+            return perms(self.request.user)
         perms = perms if isinstance(perms, (list, tuple)) else (perms,)
         return self.request.user.has_perms(perms)
 

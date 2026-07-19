@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.templatetags.admin_list import result_list
 from suit5.templatetags.suit_list import paginator_number, paginator_info, \
@@ -50,7 +51,7 @@ class SuitListTestCase(UserTestCaseMixin, ModelsTestCaseMixin):
         output = paginator_number(self.changelist, '.')
         self.assertTrue('...' in output)
 
-        output = paginator_number(self.changelist, 0)
+        output = paginator_number(self.changelist, self.changelist.page_num)
         self.assertTrue('active' in output)
 
     def test_paginator_info(self):
@@ -83,6 +84,24 @@ class SuitListTestCase(UserTestCaseMixin, ModelsTestCaseMixin):
         for i, spec in enumerate(self.changelist.filter_specs):
             filter_output = suit_list_filter_select(self.changelist, spec)
             self.assertTrue('value="%s"' % filter_matches[i] in filter_output)
+
+    def test_suit_list_form_filter(self):
+        class FilterForm(forms.Form):
+            status = forms.ChoiceField(choices=(('', 'All'), ('open', 'Open')))
+
+        class FormFilterSpec:
+            title = 'Status'
+            parameter_name = 'status'
+            used_parameters = {}
+
+            def choices(self, changelist):
+                return ({'form': FilterForm()},)
+
+        filter_output = suit_list_filter_select(self.changelist, FormFilterSpec())
+
+        self.assertIn('suit-form-filter', filter_output)
+        self.assertIn('Status', filter_output)
+        self.assertIn('name="status"', filter_output)
 
     def test_suit_list_headers_handler(self):
         result_headers = [{'class_attrib': ' class="test"'}, {}]

@@ -60,7 +60,48 @@
 
 // Search container styling
 .search-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
   margin-top: -5px;
+
+  .search-filters {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .suit-form-filter,
+  .suit-form-filter-field {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .suit-form-filter-label {
+    margin: 0;
+    color: var(--suit-text-muted);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .suit-form-filter select,
+  .suit-form-filter input {
+    min-width: 140px;
+    max-width: 240px;
+    height: 34px;
+    margin: 0;
+    padding: 4px 8px;
+    border: 1px solid var(--suit-border-color);
+    border-radius: 4px;
+    background-color: var(--suit-input-bg);
+  }
+
+  .suit-form-filter .material-symbols-outlined {
+    display: none;
+  }
 
   input,
   select {

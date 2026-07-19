@@ -1,10 +1,10 @@
-{% load admin_static %}{% load suit_tags %}{% load url from suit_compat %}{% suit_dark_theme as show_theme_toggle %}<!DOCTYPE html>
+{% load static %}{% load suit_tags %}{% load url from suit_compat %}{% suit_dark_theme as show_theme_toggle %}{% suit_conf_value 'ADMIN_NAME' as suit_admin_name %}{% suit_conf_value 'SHOW_REQUIRED_ASTERISK' as suit_show_required_asterisk %}{% suit_conf_value 'SEARCH_URL' as suit_search_url %}{% suit_conf_value 'VERSION' as suit_version %}<!DOCTYPE html>
 {% block html_start %}<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>{% endblock %}
 {% block head %}<head>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block title %}{{ title }} | {{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</title>
+  <title>{% block title %}{{ title }} | {{ suit_admin_name }}{% endblock %}</title>
   {% block before_suit_styles %}{% endblock %}
   <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% endblock %}"/>
   <!-- Bootstrap 5 -->
@@ -22,7 +22,7 @@
   <script src="{% static 'admin/js/core.js' %}"></script>
   <!-- Bootstrap 5 Bundle (includes Popper) -->
   <script src="{% static 'suit5/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
-  {% if 'SHOW_REQUIRED_ASTERISK'|suit_conf %}
+  {% if suit_show_required_asterisk %}
   <style type="text/css">.required:after { content: '*'; margin: 0 0 0 2px; position: absolute; color: #ccc;}</style>
   {% endif %}
   {% block extrahead %}{% endblock %}
@@ -65,7 +65,7 @@
 
             {% block branding_wrapper %}
             <div id="branding">
-              <a href="{% url 'admin:index' %}"><h1 id="site-name">{% block branding %}{{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</h1></a>
+              <a href="{% url 'admin:index' %}"><h1 id="site-name">{% block branding %}{{ suit_admin_name }}{% endblock %}</h1></a>
             </div>
             {% endblock %}
 
@@ -185,7 +185,7 @@
             <!-- Desktop sidebar (visible on lg+) -->
             <div id="suit-left" class="suit-column d-none d-lg-block">
               {% block quick-search %}
-                {% with 'SEARCH_URL'|suit_conf as search_url %}
+                {% with search_url=suit_search_url %}
                   {% if search_url %}
                     <form class="form-search nav-quick-search" autocomplete="off" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
                       <input type="text" name="q" class="input-medium search-query" id="quick-search">
@@ -205,13 +205,13 @@
             <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
               {% block mobile_sidebar_header %}
               <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">{{ 'ADMIN_NAME'|suit_conf }}</h5>
+                <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">{{ suit_admin_name }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               {% endblock %}
               <div class="offcanvas-body">
                 {% block quick-search-mobile %}
-                  {% with 'SEARCH_URL'|suit_conf as search_url %}
+                  {% with search_url=suit_search_url %}
                     {% if search_url %}
                       <form class="form-search nav-quick-search mb-3" autocomplete="off" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
                         <input type="text" name="q" class="input-medium search-query form-control" id="quick-search-mobile" placeholder="{% trans 'Search' %}...">
@@ -259,10 +259,10 @@
       </div>
 
       <div class="branding">{% block footer_branding %}
-        {% with 'ADMIN_NAME'|suit_conf as admin_name %}
+        {% with admin_name=suit_admin_name %}
           {{ admin_name }}
           {% if admin_name == 'Django Suit5' %}
-            v{{ 'VERSION'|suit_conf }}
+            v{{ suit_version }}
           {% endif %}
         {% endwith %}
       {% endblock %}</div>

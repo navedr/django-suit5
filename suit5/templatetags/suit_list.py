@@ -1,5 +1,5 @@
 from copy import copy
-from inspect import getargspec
+from inspect import getfullargspec
 from django import template
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
@@ -38,12 +38,12 @@ def paginator_number(cl, i):
                 '.</a></li>')
     elif i == cl.page_num:
         return mark_safe(
-            '<li class="active"><a href="">%d</a></li> ' % (i + 1))
+            '<li class="active"><a href="">%d</a></li> ' % i)
     else:
         return mark_safe('<li><a href="%s"%s>%d</a></li> ' % (
             escape(cl.get_query_string({PAGE_VAR: i})),
-            (i == cl.paginator.num_pages - 1 and ' class="end"' or ''),
-            i + 1))
+            (i == cl.paginator.num_pages and ' class="end"' or ''),
+            i))
 
 
 @register.simple_tag
@@ -56,7 +56,8 @@ def paginator_info(cl):
         entries_to = paginator.count
     else:
         entries_from = (
-            (paginator.per_page * cl.page_num) + 1) if paginator.count > 0 else 0
+            (paginator.per_page * (cl.page_num - 1)) + 1
+        ) if paginator.count > 0 else 0
         entries_to = entries_from - 1 + paginator.per_page
         if paginator.count < entries_to:
             entries_to = paginator.count
@@ -76,32 +77,14 @@ def pagination(cl):
     if not pagination_required:
         page_range = []
     else:
-        ON_EACH_SIDE = 3
-        ON_ENDS = 2
-
-        # If there are 10 or fewer pages, display links to every page.
-        # Otherwise, do some fancy
-        if paginator.num_pages <= 8:
-            page_range = range(paginator.num_pages)
-        else:
-            # Insert "smart" pagination links, so that there are always ON_ENDS
-            # links at either end of the list of pages, and there are always
-            # ON_EACH_SIDE links at either end of the "current page" link.
-            page_range = []
-            if page_num > (ON_EACH_SIDE + ON_ENDS):
-                page_range.extend(range(0, ON_EACH_SIDE - 1))
-                page_range.append(DOT)
-                page_range.extend(range(page_num - ON_EACH_SIDE, page_num + 1))
-            else:
-                page_range.extend(range(0, page_num + 1))
-            if page_num < (paginator.num_pages - ON_EACH_SIDE - ON_ENDS - 1):
-                page_range.extend(
-                    range(page_num + 1, page_num + ON_EACH_SIDE + 1))
-                page_range.append(DOT)
-                page_range.extend(
-                    range(paginator.num_pages - ON_ENDS, paginator.num_pages))
-            else:
-                page_range.extend(range(page_num + 1, paginator.num_pages))
+        page_range = [
+            DOT if page == paginator.ELLIPSIS else page
+            for page in paginator.get_elided_page_range(
+                page_num,
+                on_each_side=3,
+                on_ends=2,
+            )
+        ]
 
     need_show_all_link = cl.can_show_all and not cl.show_all and cl.multi_page
     return {
@@ -117,12 +100,17 @@ def pagination(cl):
 
 @register.simple_tag
 def suit_list_filter_select(cl, spec):
-    tpl = get_template(spec.template)
     choices = list(spec.choices(cl))
+    form_based = any('form' in choice and 'query_string' not in choice for choice in choices)
+    tpl = get_template('admin/filter_form.html' if form_based else spec.template)
     field_key = spec.field_path if hasattr(spec, 'field_path') else \
         spec.parameter_name
     matched_key = field_key
     for choice in choices:
+        # Third-party filters can render a bound form instead of Django's
+        # query-string choice dictionaries (django-unfold is one example).
+        if 'query_string' not in choice:
+            continue
         query_string = choice['query_string'][1:]
         query_parts = parse_qs(query_string)
 
@@ -214,7 +202,7 @@ def result_row_attrs(context, cl, row_index):
     instance = cl.result_list[row_index]
 
     # Backwards compatibility for suit_row_attributes without request argument
-    args = getargspec(suit_row_attributes)
+    args = getfullargspec(suit_row_attributes)
     if 'request' in args[0]:
         new_attrs = suit_row_attributes(instance, context['request'])
     else:
