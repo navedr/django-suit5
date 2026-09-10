@@ -1,0 +1,148 @@
+// A compact, centered directory of the admin's available sections.
+.dashboard {
+    --dashboard-border: #d6e0e4;
+    --dashboard-accent: #36778e;
+    --dashboard-panel: #fff;
+    --dashboard-ink: #263943;
+    --dashboard-muted: #647580;
+}
+
+[data-bs-theme="dark"] .dashboard,
+.dashboard[data-bs-theme="dark"] {
+    --dashboard-border: #3a4258;
+    --dashboard-accent: #89bed0;
+    --dashboard-panel: #22263b;
+    --dashboard-ink: #e3e9f0;
+    --dashboard-muted: #a2aebd;
+}
+
+.dashboard #content .dashboard-header {
+    max-width: 1120px;
+    margin: 8px auto 28px;
+    text-align: center;
+
+    h1 {
+        margin: 0 0 18px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 22px;
+        line-height: 1.3;
+        font-weight: 600;
+        letter-spacing: -.4px;
+        color: var(--dashboard-ink);
+        text-shadow: none;
+    }
+}
+
+.dashboard-search {
+    position: relative;
+    width: 420px;
+    max-width: 100%;
+    margin: auto;
+
+    > i {
+        position: absolute;
+        top: 50%;
+        left: 13px;
+        transform: translateY(-50%);
+        color: var(--dashboard-muted);
+        pointer-events: none;
+    }
+
+    #dashboard-filter {
+        width: 100%;
+        height: 38px;
+        padding: 8px 12px 8px 36px;
+        border: 1px solid var(--dashboard-border);
+        border-radius: 6px;
+        background: var(--dashboard-panel);
+        color: var(--dashboard-ink);
+        box-shadow: 0 2px 4px rgba(20, 40, 50, .04);
+        font-size: 13px;
+        &::placeholder { color: var(--dashboard-muted); }
+        &:focus {
+            border-color: var(--dashboard-accent);
+            box-shadow: 0 0 0 2px var(--suit-nav-hover-bg);
+        }
+    }
+}
+
+.dashboard #content #content-main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    align-items: start;
+    gap: 12px;
+    float: none;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.dashboard-app {
+    min-width: 0;
+    border: 1px solid var(--dashboard-border);
+    border-radius: 6px;
+    background: var(--dashboard-panel);
+    overflow: hidden;
+
+    > summary {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto 12px;
+        align-items: center;
+        gap: 12px;
+        min-height: 62px;
+        padding: 12px 16px;
+        list-style: none;
+        color: var(--dashboard-ink);
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        &::-webkit-details-marker { display: none; }
+        &:hover { background: var(--suit-nav-hover-bg); }
+        &:focus-visible { outline: 2px solid var(--dashboard-accent); outline-offset: -2px; }
+        > i { font-size: 11px; color: var(--dashboard-muted); }
+    }
+
+    &[open] > summary {
+        border-bottom: 1px solid var(--dashboard-border);
+        color: var(--dashboard-accent);
+        > i { transform: rotate(90deg); }
+    }
+
+    .dashboard-app-count {
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 11px;
+        font-weight: 400;
+        color: var(--dashboard-muted);
+        border-left: 1px solid var(--dashboard-border);
+        padding-left: 12px;
+    }
+
+    > .module { margin: 0; border: 0; }
+}
+
+.dashboard #content-main .dashboard-app .table-overview {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+    th, td { padding: 9px 12px; font-size: 12px; }
+    th { font-weight: 500; overflow-wrap: anywhere; }
+    td { width: 1%; white-space: nowrap; }
+}
+
+.dashboard-app[hidden],
+.dashboard-app tr[hidden] { display: none !important; }
+
+#dashboard-filter-status {
+    text-align: center;
+    color: var(--dashboard-muted);
+    padding: 16px;
+}
+
+@media (max-width: 575px) {
+    .dashboard #content .dashboard-header { margin-top: 4px; margin-bottom: 20px; }
+    .dashboard #content .dashboard-header h1 { font-size: 20px; }
+    .dashboard #content #content-main { gap: 10px; }
+}

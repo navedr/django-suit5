@@ -10,17 +10,32 @@
 {% block bodyclass %}dashboard{% endblock %}
 
 {% block breadcrumbs %}{% endblock %}
+{% block content_title %}{% endblock %}
 
 {% block content %}
+  <header class="dashboard-header">
+    <h1>{% trans "Admin Control Center" %}</h1>
+    <div class="dashboard-search">
+      <i class="bi bi-search" aria-hidden="true"></i>
+      <label class="visually-hidden" for="dashboard-filter">{% trans "Filter sections and models" %}</label>
+      <input type="search" id="dashboard-filter" placeholder="{% trans 'Find a section or model…' %}" autocomplete="off" aria-controls="content-main">
+    </div>
+  </header>
+  <p id="dashboard-filter-status" role="status" aria-live="polite" hidden>{% trans "No matches. Try another name or clear the filter." %}</p>
   <div id="content-main">
     {% block before_app_list %}{% endblock %}
     {% if app_list %}
       {% block app_list %}
       {% for app in app_list %}
         {% block app_list_item %}
+        <details class="dashboard-app">
+          <summary>
+            <span class="dashboard-app-name">{% trans app.name %}</span>
+            <span class="dashboard-app-count" aria-label="{% blocktrans count total=app.models|length %}{{ total }} model{% plural %}{{ total }} models{% endblocktrans %}">{{ app.models|length }}</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </summary>
         <div class="module">
           <table class="table-overview applist" summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}">
-            <caption><a href="{{ app.app_url }}" class="section">{% trans app.name %}</a></caption>
             {% for model in app.models %}
               {% block model_list_item %}
               <tr>
@@ -45,6 +60,7 @@
             {% endfor %}
           </table>
         </div>
+        </details>
         {% endblock app_list_item %}
       {% endfor %}
       {% endblock app_list %}
@@ -55,59 +71,8 @@
     {% endif %}
     {% block after_app_list %}{% endblock %}
   </div>
+  <script src="{% static 'suit5/js/dashboard.js' %}?v={{ suit_version }}" defer></script>
 {% endblock %}
 
 
-{% block sidebar %}
-  <div id="content-related">
-    {% block before_recent_actions %}{% endblock %}
-    {% block recent_actions %}
-    <div class="module" id="recent-actions-module">
-      {% block recent_actions_title %}
-      <h4 class="italic-title">{% trans 'My Actions' %}</h4>
-      {% endblock %}
-
-      {% load log %}
-      {% get_admin_log 10 as admin_log for_user user %}
-      {% block recent_actions_content %}
-      {% if not admin_log %}
-        {% block recent_actions_empty %}
-        <p>{% trans 'None available' %}</p>
-        {% endblock %}
-      {% else %}
-        <ul class="actionlist">
-          {% for entry in admin_log %}
-            {% block recent_actions_item %}
-            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}text-error{% endif %}">
-
-              <i class="{% if entry.is_addition %}bi bi-plus{% endif %}{% if entry.is_change %}bi bi-pencil{% endif %}{% if entry.is_deletion %}bi bi-trash{% endif %} icon-alpha5"></i>
-
-              {% spaceless %}
-                {% if entry.is_addition %}{% trans 'added'|capfirst %}{% endif %}
-                {% if entry.is_change %}{% trans 'changed'|capfirst %}{% endif %}
-                {% if entry.is_deletion %}{% trans 'deleted'|capfirst %}{% endif %}
-
-                {% if entry.content_type %}
-                  <span class="mini quiet">{% filter capfirst %}
-                    {% trans entry.content_type.name %}{% endfilter %}</span>
-                {% else %}
-                  <span class="mini quiet">{% trans 'Unknown content' %}</span>
-                {% endif %}
-              {% endspaceless %}&nbsp;
-
-              {% if entry.is_deletion or not entry.get_admin_url %}
-                <span class="color-grey">{{ entry.object_repr }}</span>
-              {% else %}
-                <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
-              {% endif %}
-            </li>
-            {% endblock recent_actions_item %}
-          {% endfor %}
-        </ul>
-      {% endif %}
-      {% endblock recent_actions_content %}
-    </div>
-    {% endblock recent_actions %}
-    {% block after_recent_actions %}{% endblock %}
-  </div>
-{% endblock %}
+{% block sidebar %}{% endblock %}
