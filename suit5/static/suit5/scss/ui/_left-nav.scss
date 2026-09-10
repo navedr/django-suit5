@@ -232,3 +232,34 @@
     display: none;
   }
 }
+
+// JavaScript enables flyouts only on wide screens with a precise hover pointer.
+.left-nav.desktop-flyouts > .nav > .nav-item:not(.nav-current) {
+  > .collapse {
+    display: none !important;
+    position: fixed;
+    width: 240px;
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 16px);
+    overflow-y: auto;
+    z-index: 1040;
+    border: 1px solid var(--suit-border-color);
+    border-radius: 4px;
+    background: var(--suit-nav-submenu-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+
+    .nav-submenu {
+      box-shadow: none;
+      border: 0;
+      .nav-link { padding: 7px 14px; }
+    }
+  }
+
+  &.flyout-open > .collapse { display: block !important; }
+  > .nav-link .chevron-icon { transform: rotate(-90deg); }
+  .nav-link:focus-visible { outline: 2px solid var(--suit-link-color); outline-offset: -2px; }
+}
+
+.left-nav.desktop-flyouts > .nav > .nav-current > .collapse {
+  display: block !important;
+}

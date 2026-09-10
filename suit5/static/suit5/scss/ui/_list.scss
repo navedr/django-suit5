@@ -1,5 +1,10 @@
 // List & Object Tools Styles
 
+#changelist-form .results {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .object-tools {
   float: right;
   margin-bottom: 10px;

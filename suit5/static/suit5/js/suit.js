@@ -222,6 +222,85 @@
         });
     };
 
+    // Desktop flyouts keep Bootstrap collapse behavior on touch devices.
+    $.fn.suit_nav_flyouts = function () {
+        var nav = this[0];
+        if (!nav) return;
+        var desktop = window.matchMedia('(min-width: 992px) and (hover: hover) and (pointer: fine)');
+        var openItem = null, timer;
+        var items = Array.from(nav.querySelectorAll(':scope > .nav > .nav-item'));
+        function close() {
+            clearTimeout(timer);
+            if (!openItem) return;
+            openItem.classList.remove('flyout-open');
+            openItem.querySelector('.nav-link-parent').setAttribute('aria-expanded', 'false');
+            openItem = null;
+        }
+        function position() {
+            if (!openItem) return;
+            var panel = openItem.querySelector('.collapse');
+            var rect = openItem.getBoundingClientRect();
+            panel.style.left = Math.max(8, Math.min(rect.right, window.innerWidth - panel.offsetWidth - 8)) + 'px';
+            panel.style.top = Math.max(8, Math.min(rect.top, window.innerHeight - panel.offsetHeight - 8)) + 'px';
+        }
+        function open(item) {
+            clearTimeout(timer);
+            if (item.classList.contains('nav-current')) {
+                close();
+                return;
+            }
+            if (openItem !== item) close();
+            openItem = item;
+            item.classList.add('flyout-open');
+            item.querySelector('.nav-link-parent').setAttribute('aria-expanded', 'true');
+            position();
+        }
+        items.forEach(function (item) {
+            var toggle = item.querySelector('.nav-link-parent');
+            if (!toggle) return;
+            item.addEventListener('mouseenter', function () { if (desktop.matches) open(item); });
+            item.addEventListener('mouseleave', function () {
+                if (desktop.matches) timer = setTimeout(close, 180);
+            });
+            item.addEventListener('focusout', function (event) {
+                if (desktop.matches && !item.contains(event.relatedTarget)) close();
+            });
+            toggle.addEventListener('click', function (event) {
+                if (!desktop.matches) return;
+                event.preventDefault();
+                event.stopPropagation();
+                open(item);
+            });
+            item.addEventListener('keydown', function (event) {
+                if (!desktop.matches) return;
+                if (event.key === 'Escape' || event.key === 'ArrowLeft') {
+                    event.preventDefault(); close(); toggle.focus();
+                } else if (event.target === toggle && ['ArrowRight', 'ArrowDown', ' '].indexOf(event.key) !== -1) {
+                    event.preventDefault(); open(item);
+                    item.querySelector('.nav-submenu .nav-link').focus();
+                }
+            });
+        });
+        function sync() {
+            close();
+            nav.classList.toggle('desktop-flyouts', desktop.matches);
+            items.forEach(function (item) {
+                var toggle = item.querySelector('.nav-link-parent');
+                if (!toggle) return;
+                var panel = item.querySelector('.collapse');
+                var current = !!panel.querySelector('.nav-link.active');
+                item.classList.toggle('nav-current', current);
+                panel.style.left = ''; panel.style.top = '';
+                toggle.setAttribute('aria-expanded', desktop.matches ? String(current) : String(panel.classList.contains('show')));
+            });
+        }
+        desktop.addEventListener('change', sync);
+        window.addEventListener('resize', position);
+        window.addEventListener('scroll', position, true);
+        document.addEventListener('click', function (event) { if (!nav.contains(event.target)) close(); });
+        sync();
+    };
+
     /**
      * Initialize nav collapse state - expand only menu containing active link
      */
@@ -272,6 +351,7 @@
 
         // Initialize nav collapse state - expand only active menu
         $('.left-nav').suit_nav_collapse_init();
+        $('#suit-left .left-nav').suit_nav_flyouts();
 
     });
 

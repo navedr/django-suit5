@@ -43,7 +43,7 @@
 
   li {
     margin: 0 5px;
-    a {
+    a:not(.btn) {
       text-decoration: none;
       color: var(--suit-link-color);
       margin-right: 5px;
@@ -52,6 +52,11 @@
         text-decoration: underline;
         color: var(--suit-link-hover-color);
       }
+    }
+
+    a.btn {
+      text-shadow: none;
+      margin-right: 5px;
     }
 
     &.active,

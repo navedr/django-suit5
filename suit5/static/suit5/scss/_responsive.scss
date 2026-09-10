@@ -4,7 +4,12 @@
 // _header.scss at $breakpoint-lg/$breakpoint-md. This file adds phone-specific
 // refinements that go beyond those base responsive rules.
 
-@media (max-width: ($breakpoint-md - 1px)) {
+@media (max-width: ($breakpoint-lg - 1px)) {
+  #changelist-form .results,
+  .inline-group {
+    max-width: 100%;
+    overflow-x: auto;
+  }
   .toolbar-content > .object-tools {
     float: none;
     display: flex;
@@ -23,6 +28,24 @@
     }
   }
 
+}
+
+@media (max-width: 374px) {
+  .form-horizontal .control-group {
+    display: block;
+    > div { display: block; }
+    .control-label,
+    .controls {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      text-align: left;
+      box-sizing: border-box;
+    }
+  }
+}
+
+@media (max-width: ($breakpoint-md - 1px)) {
   .inner-two-columns > form.form-horizontal {
     display: flex;
     flex-direction: column;
