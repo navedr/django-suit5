@@ -1,9 +1,9 @@
 from copy import copy
 from inspect import getfullargspec
-from django import template
+from django import VERSION as DJANGO_VERSION, template
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
-from django.contrib.admin.templatetags.admin_list import result_list
+from django.contrib.admin.templatetags.admin_list import pagination as admin_pagination, result_list
 from django.contrib.admin.views.main import ALL_VAR, PAGE_VAR
 from django.utils.html import escape
 from suit5.compat import tpl_context_class
@@ -25,6 +25,8 @@ except ImportError:
 register = template.Library()
 
 DOT = '.'
+# Django 3.2 changed admin changelists from zero-based to one-based pages.
+PAGE_NUMBER_OFFSET = 1 if DJANGO_VERSION < (3, 2) else 0
 
 
 @register.simple_tag
@@ -38,12 +40,12 @@ def paginator_number(cl, i):
                 '.</a></li>')
     elif i == cl.page_num:
         return mark_safe(
-            '<li class="active"><a href="">%d</a></li> ' % i)
+            '<li class="active"><a href="">%d</a></li> ' % (i + PAGE_NUMBER_OFFSET))
     else:
         return mark_safe('<li><a href="%s"%s>%d</a></li> ' % (
             escape(cl.get_query_string({PAGE_VAR: i})),
-            (i == cl.paginator.num_pages and ' class="end"' or ''),
-            i))
+            (i + PAGE_NUMBER_OFFSET == cl.paginator.num_pages and ' class="end"' or ''),
+            i + PAGE_NUMBER_OFFSET))
 
 
 @register.simple_tag
@@ -56,7 +58,7 @@ def paginator_info(cl):
         entries_to = paginator.count
     else:
         entries_from = (
-            (paginator.per_page * (cl.page_num - 1)) + 1
+            (paginator.per_page * (cl.page_num + PAGE_NUMBER_OFFSET - 1)) + 1
         ) if paginator.count > 0 else 0
         entries_to = entries_from - 1 + paginator.per_page
         if paginator.count < entries_to:
@@ -70,6 +72,11 @@ def pagination(cl):
     """
     Generates the series of links to the pages in a paginated list.
     """
+    if DJANGO_VERSION < (3, 2):
+        # Older Django has no get_elided_page_range(); use its native range
+        # generation, which also preserves zero-based query-string values.
+        return admin_pagination(cl)
+
     paginator, page_num = cl.paginator, cl.page_num
 
     pagination_required = (not cl.show_all or not cl.can_show_all) \

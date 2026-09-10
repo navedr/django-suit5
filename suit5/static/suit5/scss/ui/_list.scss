@@ -91,7 +91,7 @@
   .suit-form-filter input {
     min-width: 140px;
     max-width: 240px;
-    height: 34px;
+    height: var(--suit-control-height);
     margin: 0;
     padding: 4px 8px;
     border: 1px solid var(--suit-border-color);

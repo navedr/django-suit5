@@ -28,6 +28,10 @@
   --suit-left-column-width: 200px;
   --suit-right-column-width: 180px;
   --suit-padding: 20px;
+  --suit-font-size: 12px;
+  --suit-line-height: 18px;
+  --suit-control-height: 28px;
+  --suit-control-width: 220px;
 
   // Borders
   --suit-border-radius: 4px;
@@ -45,10 +49,12 @@
 
   // Form colors
   --suit-form-label-bg: #fff;
-  --suit-form-control-bg: #fafbfc;
+  --suit-form-control-bg: #F6F7F8;
   --suit-form-control-border: #e8e8e8;
   --suit-input-bg: #fff;
-  --suit-input-border: #ced4da;
+  --suit-input-border: #ccc;
+  --suit-choice-bg: #e4e4e4;
+  --suit-choice-border: #aaa;
   --suit-input-focus-border: #86b7fe;
 
   // Left nav colors
@@ -110,6 +116,8 @@
   --suit-form-control-border: #374151;
   --suit-input-bg: #252540;
   --suit-input-border: #4b5563;
+  --suit-choice-bg: #1f1f38;
+  --suit-choice-border: #4b5563;
   --suit-input-focus-border: #3b82f6;
   --suit-nav-bg: #1a1a2e;
   --suit-nav-active-bg: linear-gradient(to bottom, #3b82f6, #2563eb);

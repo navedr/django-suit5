@@ -12,12 +12,14 @@
   <!-- Bootstrap Icons -->
   {% block bootstrap_icons_css %}<link rel="stylesheet" type="text/css" href="{% static 'suit5/icons/bootstrap-icons.min.css' %}" media="all"/>{% endblock %}
   <!-- Django Suit5 -->
-  {% block suit_css %}<link rel="stylesheet" type="text/css" href="{% static 'suit5/css/suit.css' %}" media="all">{% endblock %}
+  {% block suit_select2_css %}<link rel="stylesheet" href="{% static 'admin/css/vendor/select2/select2.min.css' %}">{% endblock %}
+  {% block suit_css %}<link rel="stylesheet" type="text/css" href="{% static 'suit5/css/suit.css' %}?v={{ suit_version }}" media="all">{% endblock %}
   {% block extrastyle %}{% endblock %}
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>{% endif %}
   <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
   {% block suit_jquery %}<script src="{% static 'suit5/js/jquery-3.7.1.min.js' %}"></script>{% endblock %}
   <script type="text/javascript">var Suit = { $: $.noConflict() }; if (!$) $ = Suit.$; </script>
+  {% block suit_select2_js %}<script src="{% static 'admin/js/vendor/select2/select2.full.min.js' %}"></script>{% endblock %}
   <!-- Django admin core JS for date/time widgets -->
   <script src="{% static 'admin/js/core.js' %}"></script>
   <!-- Bootstrap 5 Bundle (includes Popper) -->
@@ -274,6 +276,7 @@
 {% block after_footer %}{% endblock %}
 
   {% block suit_js %}<script src="{% static 'suit5/js/suit.js' %}"></script>{% endblock %}
+  {% block suit_multiselect_js %}<script src="{% static 'suit5/js/multiselect.js' %}"></script>{% endblock %}
 
   <!-- Theme Toggle Script -->
   {% if show_theme_toggle %}{% block theme_toggle_js %}<script>

@@ -5,6 +5,21 @@
 // refinements that go beyond those base responsive rules.
 
 @media (max-width: ($breakpoint-md - 1px)) {
+  .inner-two-columns > form.form-horizontal {
+    display: flex;
+    flex-direction: column;
+
+    > .inner-center-column {
+      order: 0;
+      min-width: 0;
+    }
+
+    > .inner-right-column {
+      order: 1;
+      margin-top: 15px;
+    }
+  }
+
   .suit-columns {
     padding-left: 10px;
     padding-right: 10px;
