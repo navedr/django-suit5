@@ -5,6 +5,24 @@
 // refinements that go beyond those base responsive rules.
 
 @media (max-width: ($breakpoint-md - 1px)) {
+  .toolbar-content > .object-tools {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  #toolbar .search-container {
+    width: 100%;
+    gap: 4px;
+
+    .search-filters {
+      width: 100%;
+      gap: 4px;
+    }
+  }
+
   .inner-two-columns > form.form-horizontal {
     display: flex;
     flex-direction: column;
