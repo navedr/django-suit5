@@ -61,6 +61,7 @@
 
         {% block toolbar %}
         <div class="toolbar-content clearfix">
+          {% block search_heading %}<h1 class="suit-changelist-title">{{ cl.opts.verbose_name_plural|capfirst }}</h1>{% endblock %}
           {% block object-tools %}
             <div class="object-tools">
               {% block object-tools-items %}

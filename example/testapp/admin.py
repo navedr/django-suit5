@@ -11,15 +11,15 @@ from .models import (
 
 
 # Inlines
-class ProductImageInline(admin.TabularInline):
-    """Tabular inline for product images."""
+class ProductImageInline(admin.StackedInline):
+    """Stacked inline used to verify compact inline section headings."""
     model = ProductImage
     extra = 1
     fields = ['image', 'alt_text', 'is_primary', 'sort_order']
 
 
 class ProductAttributeInline(admin.TabularInline):
-    """Tabular inline for product attributes."""
+    """Tabular inline used to verify inline titles and table headers."""
     model = ProductAttribute
     extra = 2
     fields = ['name', 'value']

@@ -43,6 +43,7 @@ Configuration sample you can use as a start::
 
       # menu
       # 'SEARCH_URL': '/admin/auth/user/',
+      # 'SEARCH_AUTOFOCUS': False,  # Default False
       # 'MENU_ICONS': {
       #    'sites': 'icon-leaf',
       #    'auth': 'icon-lock',
@@ -129,6 +130,17 @@ We have big plans for this field in the future, by making it global search field
 
       # Set to empty string if you want to hide search from menu
       'SEARCH_URL': ''
+  }
+
+SEARCH_AUTOFOCUS
+^^^^^^^^^^^^^^^^
+
+Set to ``True`` to put the keyboard focus in the changelist search field when
+the page opens. It is disabled by default so navigating through the sidebar
+does not open browser search-history suggestions::
+
+  SUIT_CONFIG = {
+      'SEARCH_AUTOFOCUS': True,
   }
 
 MENU_OPEN_FIRST_CHILD
@@ -258,4 +270,3 @@ Enable or disable the dark/light theme toggle button in the header. When enabled
   SUIT_CONFIG = {
       'ALLOW_THEME_TOGGLE': True
   }
-

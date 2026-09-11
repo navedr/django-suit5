@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 django.setup()
 
 from django.contrib.auth.models import User
-from testapp.models import Category, Product, Customer, Order, OrderItem, SiteSettings
+from testapp.models import Category, Product, ProductAttribute, Customer, Order, OrderItem, SiteSettings
 from decimal import Decimal
 from django.utils import timezone
 import random
@@ -150,6 +150,28 @@ def create_products():
             created += 1
 
     print(f"Created {created} products")
+
+
+def create_product_attributes():
+    """Seed tabular inline rows for visual checks in the product admin."""
+    product = Product.objects.get(slug='iphone-15-pro')
+    attributes = [
+        ('Storage', '256 GB'),
+        ('Finish', 'Natural Titanium'),
+        ('Display', '6.1-inch Super Retina XDR'),
+    ]
+
+    created = 0
+    for name, value in attributes:
+        _, is_created = ProductAttribute.objects.get_or_create(
+            product=product,
+            name=name,
+            defaults={'value': value},
+        )
+        if is_created:
+            created += 1
+
+    print(f"Created {created} product attributes")
 
 
 def create_customers():
@@ -301,6 +323,7 @@ def main():
     create_superuser()
     create_categories()
     create_products()
+    create_product_attributes()
     create_customers()
     create_orders()
     create_site_settings()

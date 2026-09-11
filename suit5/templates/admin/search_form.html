@@ -1,4 +1,5 @@
 {% load i18n static suit_list admin_list suit_tags %}
+{% suit_conf_value 'SEARCH_AUTOFOCUS' as suit_search_autofocus %}
 {% if cl.search_fields or cl.has_filters %}
   {% suit_bc_value 1.5 'pop' 1.6 '_popup' as POPUP_VAR %}
   {% block search_toolbar %}
@@ -7,29 +8,36 @@
       <div class="search-container">
         {% block search_input %}
         {% if cl.search_fields %}
+          <div class="search-filter-item search-keyword">
+          <label class="search-filter-title" for="searchbar">{% trans 'Keyword' %}</label>
           <input type="text" size="40" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar" placeholder="{% block search_placeholder %}{% trans 'keyword'|capfirst %}{% endblock %}"{{ cl.query|yesno:' class=active,' }}>
-          <script type="text/javascript">document.getElementById("searchbar").focus();</script>
+          </div>
+          {% if suit_search_autofocus %}
+            <script type="text/javascript">document.getElementById("searchbar").focus();</script>
+          {% endif %}
         {% endif %}
         {% endblock %}
         {% spaceless %}
           {% if cl.has_filters %}
             {% block filters %}
               {% if cl.has_filters %}
-                <span class="search-filters">
+                <div class="search-filters">
                 {% for spec in cl.filter_specs %}
+                  <div class="search-filter-item" role="group" aria-labelledby="suit-filter-title-{{ forloop.counter }}">
+                  <span class="search-filter-title" id="suit-filter-title-{{ forloop.counter }}">{{ spec.title|capfirst }}</span>
                   {% block filter_item %}
                   {% suit_list_filter_select cl spec %}
                   {% endblock filter_item %}
+                  </div>
                 {% endfor %}
-                </span>
+                </div>
               {% endif %}
             {% endblock %}
           {% endif %}
         {% endspaceless %}
 
-        {% block search_submit %}
-        <input type="submit" value="{% trans 'Search' %}" class="btn btn-info"/>
-        {% endblock %}
+        <div class="search-actions">
+        {% block search_clear %}{% endblock %}
         {% block result_count %}
         {% if show_result_count %}
           <span class="small quiet result-count">{% blocktrans count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
@@ -40,6 +48,10 @@
           </span>
         {% endif %}
         {% endblock %}
+        {% block search_submit %}
+        <input type="submit" value="{% trans 'Search' %}" class="btn btn-info"/>
+        {% endblock %}
+        </div>
       </div>
 
       {% if cl.is_popup %}

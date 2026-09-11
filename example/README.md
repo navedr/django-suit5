@@ -28,7 +28,7 @@ python setup_demo.py
 
 4. Start the development server:
 ```bash
-python manage.py runserver
+python manage.py runserver 8000
 ```
 
 5. Open http://localhost:8000/admin/ and login with:
@@ -61,11 +61,15 @@ After setting up, test the following:
 1. **Login Page** - Check styling and form layout
 2. **Dashboard** - Verify menu icons and layout
 3. **List Views** - Test tables, filters, pagination
-4. **Change Forms** - Test fieldsets, inlines, widgets
+4. **Product change form** - Open the iPhone 15 Pro record to check the stacked
+   Product images inline and tabular Product attributes inline together.
 5. **Dark Theme** - Click the theme toggle in the header
 6. **Alerts** - Messages should display correctly
 7. **Date/Time Widgets** - Calendar and clock popups
 8. **Search** - Quick search in the left sidebar
+
+Set `DEMO_DB_PATH` to use a separate SQLite database when testing another
+Django version against the same checkout.
 
 ## Troubleshooting
 

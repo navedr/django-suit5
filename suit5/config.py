@@ -21,6 +21,7 @@ def default_config():
 
         # menu
         'SEARCH_URL': '/admin/auth/user/',
+        'SEARCH_AUTOFOCUS': False,
         'MENU_OPEN_FIRST_CHILD': True,
         'MENU_ICONS': {
             'auth': 'icon-lock',

@@ -593,6 +593,22 @@ h3 {
   }
 }
 
+// Django's base stylesheet gives tabular inline titles a full-width grey
+// module bar. Tabular inlines are not always inside .form-horizontal, so this
+// must apply independently of the form layout. The table column heading keeps
+// its normal table-header styling.
+.inline-related.tabular > h2,
+.inline-related.tabular > fieldset.module > h2 {
+  margin: 0 0 2px 10px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--suit-text-color);
+  font-size: 16px;
+  line-height: 20px;
+  text-shadow: none;
+}
+
 // Selector (M2M widget)
 .form-horizontal .control-group .controls .selector {
   overflow: auto;
