@@ -4,6 +4,7 @@
   "description": "Modern theme for Django Admin",
   "private": true,
   "scripts": {
+    "build:icons": "node scripts/gen-icons-scss.js",
     "build:css": "sass suit5/static/suit5/scss/suit.scss suit5/static/suit5/css/suit.css --style=compressed",
     "build:css:expanded": "sass suit5/static/suit5/scss/suit.scss suit5/static/suit5/css/suit.css --style=expanded",
     "watch:css": "sass --watch suit5/static/suit5/scss/suit.scss:suit5/static/suit5/css/suit.css",
@@ -12,7 +13,7 @@
     "copy:icons": "cp node_modules/bootstrap-icons/font/bootstrap-icons.min.css suit5/static/suit5/icons/ && cp -r node_modules/bootstrap-icons/font/fonts/* suit5/static/suit5/icons/fonts/",
     "copy:jquery": "cp node_modules/jquery/dist/jquery.min.js suit5/static/suit5/js/jquery-3.7.1.min.js",
     "setup": "npm run copy:bootstrap && npm run copy:icons && npm run copy:jquery",
-    "build": "npm run setup && npm run build:css && npm run build:djangocms"
+    "build": "npm run setup && npm run build:icons && npm run build:css && npm run build:djangocms"
   },
   "devDependencies": {
     "sass": "^1.69.0",

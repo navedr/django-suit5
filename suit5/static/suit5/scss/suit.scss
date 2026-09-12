@@ -33,6 +33,7 @@
 @import 'ui/calendar';
 @import 'ui/datepicker';
 @import 'ui/tabs';
+@import 'ui/compat';
 
 // Base body styles
 body {
@@ -398,11 +399,12 @@ input.vTimeField {
   min-width: 0;
 }
 
-input.vIntegerField,
-input.vPositiveIntegerField,
-input.vSmallIntegerField {
-  width: 80px;
-}
+// Integer inputs deliberately take the shared --suit-control-width, like every other
+// text-ish input. They used to carry width: 80px here, which matched nothing else and
+// was a same-specificity tie with the `input[type="number"]` rule above -- Django renders
+// IntegerField as <input type="number" class="vIntegerField">, so both applied and the
+// winner was decided by source order alone. Narrow them again only by raising the
+// specificity here on purpose, never by relying on which rule comes last.
 
 // Multiple select
 select[multiple] {

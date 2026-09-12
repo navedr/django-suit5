@@ -85,7 +85,16 @@
     @extend .white-shadow;
   }
 
-  table {
+  // Django's date/time popups are .module too (class="calendarbox module"), so these
+  // dashboard table defaults reach the day grid: they left-align the numbers, re-pad the
+  // cells and draw an extra border under every row.
+  //
+  // The exclusion is wrapped in :where() deliberately. A bare :not(.calendarbox):not(.clockbox)
+  // would raise this selector from (0,1,2) to (0,3,2), which is enough to start winning
+  // fights it used to lose -- the changelist is .module too, and the raised rule beat
+  // `.table thead th`, repainting the data header light while its text stayed white.
+  // :where() contributes no specificity, so this stays exactly as strong as `.module table`.
+  &:where(:not(.calendarbox):not(.clockbox)) table {
     width: 100%;
     border-collapse: collapse;
 

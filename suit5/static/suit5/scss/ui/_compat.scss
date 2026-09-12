@@ -1,0 +1,40 @@
+// Bootstrap 2/3 compatibility
+//
+// Projects upgrading from django-suit 0.2.x arrive with markup written against the
+// Bootstrap 2 that shipped with it. Bootstrap 5 renamed or dropped some of those class
+// names outright, and the markup then renders with no styling at all rather than failing
+// loudly. Shims for the ones that leave visible damage live here.
+// (.input-append / .input-prepend / .add-on are shimmed in ui/_form.scss.)
+
+// .close -- Bootstrap 5 renamed the dismiss control to .btn-close, so a leftover
+// .close button falls back to the browser's default button chrome: a bordered box at
+// whatever size the UA picks. react-bootstrap < 1.0 still emits it, as do templates
+// carried over from Bootstrap 2/3.
+.close {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color: var(--suit-text-color);
+  opacity: 0.3;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    opacity: 0.6;
+    text-decoration: none;
+  }
+}
+
+.modal-header .close {
+  // Bootstrap 2/3 put the button at the right with a float, and the markup that carries
+  // .close still relies on that. Bootstrap 5 made .modal-header a flex container, where
+  // float is ignored -- so the button lands wherever it sits in the DOM, which for
+  // react-bootstrap is *before* the title. Both declarations are here on purpose: each
+  // is inert under the layout the other one targets.
+  float: right;
+  order: 1;
+  margin-left: auto;
+}

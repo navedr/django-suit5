@@ -163,6 +163,18 @@
 
   select { padding-right: 28px; }
 
+  // A <select multiple> sizes itself to its `size` attribute -- the fixed height above is
+  // meant for the single-select filters and crushes it to about one row. The stylesheet
+  // already carries `select[multiple] { height: auto }`, but that is (0,1,2) and loses to
+  // the `#changelist-search` ID here, so the exemption has to be repeated inside this block.
+  // No dropdown arrow either, so the padding-right above does not apply.
+  select[multiple] {
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    padding: 4px;
+  }
+
   // Both Django's Select2 and legacy Select2 filter templates remain usable.
   .search-filter-item .select2-container {
     width: 100% !important;

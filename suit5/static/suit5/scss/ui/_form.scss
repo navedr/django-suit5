@@ -976,7 +976,7 @@ h3 {
   }
 
   .date-icon::before {
-    content: "\f1f4"; // bi-calendar
+    content: "\f1f6"; // bi-calendar
   }
 
   .clock-icon::before {
@@ -1011,10 +1011,13 @@ h3 {
     }
   }
 
+  // Decorative only, and only until DateTimeShortcuts.js runs: Django then inserts its
+  // own icon link, which we promote to the button below. Two buttons would be one too many.
   .add-on {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    align-self: stretch; // match the input's height, as the promoted icon link does
     padding: 5px 8px;
     background-color: var(--suit-bg-light);
     border: 1px solid var(--suit-input-border);
@@ -1037,9 +1040,77 @@ h3 {
     }
   }
 
-  // Datetime shortcuts inside .suit-date (Django inserts them as siblings of the input)
+  // Django inserts <span class="datetimeshortcuts"> between the input and our .add-on.
+  //
+  // Do NOT hide the span. Only the icon link is redundant -- "Today"/"Now" is not -- and
+  // display:none breaks the popup as well: DateTimeShortcuts positions calendarbox and
+  // clockbox from findPosX/findPosY of that icon link, and a hidden link measures (0, 0),
+  // which parks the popup at the top of the page instead of beside the field.
+  //
+  // So the icon link stays in the layout and becomes the button itself, while our
+  // decorative .add-on steps aside.
+  &:has(.datetimeshortcuts) .add-on {
+    display: none;
+  }
+
+  // No `order` here on purpose: the span already sits right after the input in the DOM,
+  // and anything a project appends to the widget (a reminder button, a clear button) comes
+  // after it. Reordering would jump the span past those and detach the button from the input.
   .datetimeshortcuts {
-    display: none; // Hide Django's shortcuts inside .suit-date since we use our own icon
+    display: inline-flex;
+    align-items: center;
+    // Stretch to the input's height so the button below can match it exactly; without this
+    // the span is only as tall as the "Today" text and the button ends up short of the input.
+    align-self: stretch;
+    margin: 0;
+    font-size: 0; // swallows Django's "\00a0|\00a0" separator text nodes
+    color: transparent;
+
+    a {
+      font-size: 12px;
+      color: var(--suit-link-color);
+      text-decoration: none;
+      margin-left: 8px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    // The icon link, promoted to the widget's button.
+    a:last-of-type {
+      order: -1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0;
+      padding: 5px 8px;
+      align-self: stretch;
+      background-color: var(--suit-bg-light);
+      border: 1px solid var(--suit-input-border);
+      border-left: none;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--suit-table-header-bg);
+        text-decoration: none;
+      }
+
+      .date-icon,
+      .clock-icon {
+        width: auto;
+        height: auto;
+        font-size: 14px;
+        color: var(--suit-text-muted);
+        opacity: 0.8;
+      }
+
+      &:hover .date-icon,
+      &:hover .clock-icon {
+        opacity: 1;
+      }
+    }
   }
 
   // Datetime shortcuts (Today/Now links) - when outside .suit-date
@@ -1066,10 +1137,6 @@ h3 {
     width: $time-input-width;
   }
 
-  // Datetime shortcuts inside .suit-time (Django inserts them as siblings of the input)
-  .datetimeshortcuts {
-    display: none; // Hide Django's shortcuts inside .suit-time since we use our own icon
-  }
 }
 
 .autosize {
