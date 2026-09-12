@@ -2,7 +2,7 @@
 // visual depth does not change the compact admin layout or printed output.
 @media screen {
   :root {
-    --suit-bg-color: #e8ebed;
+    --suit-bg-color: #dfe4e8;
     --suit-bg-light: #e6ebee;
     --suit-text-color: #303b43;
     --suit-text-muted: #4b5e6b;
@@ -16,12 +16,12 @@
     --suit-table-bg: #fafbfc;
     --suit-table-header-bg: #d5dde2;
     --suit-table-header-sorted-bg: #c6d2da;
-    --suit-data-header-bg: linear-gradient(#526b7b, #405967);
-    --suit-data-header-sorted-bg: linear-gradient(#34637a, #244f65);
+    --suit-data-header-bg: #405967;
+    --suit-data-header-sorted-bg: #4b6573;
     --suit-data-header-text: #fff;
     --suit-data-header-border: #657c8a;
     --suit-table-border: #d5dde2;
-    --suit-table-stripe-bg: #edf1f3;
+    --suit-table-stripe-bg: #f2f5f6;
     --suit-input-bg: #fafbfc;
     --suit-input-border: #a4b3be;
     --suit-form-label-bg: #f1f3f4;
@@ -55,7 +55,7 @@
     --suit-table-header-bg: #344962;
     --suit-table-header-sorted-bg: #405c7a;
     --suit-data-header-bg: linear-gradient(#40596b, #304756);
-    --suit-data-header-sorted-bg: linear-gradient(#34637a, #244f65);
+    --suit-data-header-sorted-bg: linear-gradient(#4b6476, #3b5261);
     --suit-data-header-border: #607889;
     --suit-table-border: #35485f;
     --suit-table-stripe-bg: #25354a;
@@ -78,11 +78,16 @@
 
   #changelist-search .search-container {
     border-color: var(--suit-border-color);
-    box-shadow: var(--suit-surface-shadow);
+    box-shadow: none;
   }
 
   .breadcrumb, .breadcrumbs {
-    box-shadow: var(--suit-shallow-shadow);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 4px 0;
+    margin-bottom: 12px;
   }
 
   #changelist-form .results {
@@ -97,6 +102,66 @@
   .table th, .table td {
     text-shadow: none;
     box-shadow: none;
+  }
+
+  #result_list {
+    th, td { border-left: 0; border-right: 0; }
+    tbody th, tbody td { border-bottom: 1px solid var(--suit-table-border); }
+    thead th { border-bottom: 2px solid var(--suit-action-hover); }
+    thead th.sorted { background: var(--suit-data-header-sorted-bg); }
+    thead th .sortoptions {
+      z-index: 1;
+      .sortpriority { color: var(--suit-data-header-text); }
+      .toggle, .sortremove {
+        position: relative;
+        background: none;
+        color: var(--suit-data-header-text);
+        opacity: .85;
+        &:hover, &:focus-visible { opacity: 1; }
+      }
+      .toggle::before {
+        content: '';
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        left: 3px;
+        top: 4px;
+        border-top: 2px solid currentColor;
+        border-left: 2px solid currentColor;
+        transform: rotate(45deg);
+      }
+      .toggle.descending::before { transform: rotate(225deg); top: 0; }
+      .sortremove::before, .sortremove::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 2px;
+        left: 2px;
+        top: 5px;
+        background: currentColor;
+        transform: rotate(45deg);
+      }
+      .sortremove::after { transform: rotate(-45deg); }
+    }
+    thead th .text > a {
+      text-decoration: underline;
+      text-decoration-color: rgba(255, 255, 255, .6);
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      &:hover, &:focus-visible {
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 2px;
+        background-color: rgba(255, 255, 255, .08);
+      }
+    }
+    // Django renders linked model names as th; give them the same row surface
+    // as td without overriding selected, hovered, or semantic status rows.
+    tbody > tr:not(.selected):not(.error):not(.warning):not(.info):not(.success):not(:hover) {
+      > th, > td { background-color: var(--suit-table-bg); }
+      &:nth-of-type(odd) > th, &:nth-of-type(odd) > td {
+        background-color: var(--suit-table-stripe-bg);
+      }
+    }
   }
 
   .table thead th,

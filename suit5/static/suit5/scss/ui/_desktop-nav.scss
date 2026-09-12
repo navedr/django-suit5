@@ -1,5 +1,14 @@
 // Desktop keeps dense rows and hover flyouts, with the same hierarchy as the
 // mobile drawer: neutral section headings and a blue current-page marker.
+// Continue the rail below its content instead of exposing the legacy white image.
+@media screen and (min-width: $breakpoint-lg) {
+  body:not(.popup) #wrap {
+    background: linear-gradient(to right,
+      var(--suit-box-bg) 0, var(--suit-box-bg) $left-column-width,
+      transparent $left-column-width);
+  }
+}
+
 #suit-left {
   box-shadow: 1px 0 5px rgba(20, 40, 60, .07);
 
