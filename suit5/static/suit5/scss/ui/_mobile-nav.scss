@@ -1,0 +1,101 @@
+// Touch navigation has its own hierarchy: quiet section groups, a strong
+// current-page marker, and no desktop flyout/gradient treatment.
+#sidebarOffcanvas {
+  --bs-offcanvas-width: min(320px, calc(100vw - 40px));
+  --suit-menu-hover-bg: var(--suit-bg-light);
+  --suit-menu-focus-offset: 2px;
+  border: 0;
+  box-shadow: 8px 0 32px rgba(15, 30, 48, .22);
+  transition: transform 280ms cubic-bezier(.22, 1, .36, 1);
+
+  &.hiding { transition: transform 220ms cubic-bezier(.4, 0, 1, 1); }
+
+  .offcanvas-header {
+    padding: 12px 14px 12px 18px;
+    min-height: 64px;
+    background: var(--suit-box-bg);
+    border-bottom: 1px solid var(--suit-border-color-light);
+    gap: 10px;
+
+    .offcanvas-title {
+      color: var(--suit-text-color);
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: -.2px;
+      overflow-wrap: anywhere;
+    }
+
+    .btn-close {
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      margin: 0 -6px 0 auto;
+      box-sizing: border-box;
+      background-position: center;
+      background-size: 14px;
+      filter: none;
+      opacity: .7;
+      border-radius: 6px;
+      &:hover { background-color: var(--suit-bg-light); opacity: 1; }
+    }
+  }
+
+  .offcanvas-body {
+    background: var(--suit-box-bg);
+    padding: 12px;
+    overscroll-behavior: contain;
+  }
+
+  .nav-quick-search {
+    margin: 0 0 10px;
+    padding: 0 4px;
+    .form-control {
+      height: 40px;
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 16px;
+    }
+  }
+
+  .left-nav > .nav {
+    padding: 0;
+    gap: 4px;
+    > .nav-item > .nav-link {
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 20px;
+      i:first-child { font-size: 16px; }
+    }
+  }
+
+  .left-nav .nav-submenu {
+    margin: 4px 0 6px 19px;
+    padding: 0 0 0 12px;
+    .nav-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      line-height: 20px;
+      border-radius: 5px;
+    }
+  }
+
+}
+
+[data-bs-theme="dark"] #sidebarOffcanvas {
+  .offcanvas-header .btn-close { filter: invert(1); }
+}
+
+.offcanvas-backdrop.fade {
+  transition: opacity 220ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  // Keep the drawer's explicit slide and backdrop fade; suppress motion only
+  // inside the drawer (for example section expansion and chevron rotation).
+  #sidebarOffcanvas * { transition: none !important; }
+}

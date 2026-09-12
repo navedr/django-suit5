@@ -1,0 +1,55 @@
+// Desktop keeps dense rows and hover flyouts, with the same hierarchy as the
+// mobile drawer: neutral section headings and a blue current-page marker.
+#suit-left {
+  box-shadow: 1px 0 5px rgba(20, 40, 60, .07);
+
+  .nav-quick-search {
+    padding: 12px 10px 8px;
+    .search-query {
+      height: 32px;
+    }
+  }
+
+  .left-nav > .nav {
+    padding: 4px 8px;
+    gap: 3px;
+    > .nav-item > .nav-link {
+      min-height: 36px;
+      padding: 8px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      line-height: 18px;
+      i:first-child { margin-right: 8px; }
+    }
+  }
+
+  .left-nav .nav-submenu {
+    padding: 0 0 0 9px;
+    margin: 4px 0 7px 17px;
+    .nav-link {
+      padding: 7px 9px;
+      min-height: 32px;
+      border-radius: 4px;
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+
+  .left-nav.desktop-flyouts > .nav > .nav-item:not(.nav-current) > .collapse {
+    background: var(--suit-box-bg);
+    border-radius: 6px;
+    box-shadow: var(--suit-surface-shadow);
+    padding: 5px;
+    .nav-submenu {
+      padding: 0;
+      margin: 0;
+      border: 0;
+      .nav-link { padding: 8px 10px; }
+    }
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #suit-left .nav-link, #suit-left .chevron-icon { transition: none; }
+}

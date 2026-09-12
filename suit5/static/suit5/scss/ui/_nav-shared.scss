@@ -1,0 +1,76 @@
+// Shared visual hierarchy for desktop navigation and the mobile drawer.
+// Device files only define density, container layout, and interaction surfaces.
+#suit-left, #sidebarOffcanvas {
+  --suit-menu-selected-text: #075574;
+  --suit-menu-hover-bg: var(--suit-nav-hover-bg);
+  --suit-menu-focus-offset: -2px;
+  background: var(--suit-box-bg);
+
+  .nav-quick-search .search-query {
+    background: var(--suit-bg-light);
+    border-color: var(--suit-border-color);
+    box-shadow: none;
+  }
+
+  .left-nav > .nav > .nav-item > .nav-link {
+    border: 0;
+    color: var(--suit-text-color);
+    background: transparent;
+    text-shadow: none;
+    box-shadow: none;
+    span { min-width: 0; overflow-wrap: anywhere; }
+    i:first-child, .chevron-icon { color: var(--suit-text-muted); opacity: 1; }
+    &:hover { background: var(--suit-bg-light); }
+    &.active, &[aria-expanded="true"] {
+      background: transparent;
+      font-weight: 600;
+      i { color: var(--suit-link-color); }
+    }
+    &[aria-expanded="true"] { border-bottom: 1px solid var(--suit-border-color-light); border-radius: 0; }
+  }
+
+  .left-nav .nav-submenu {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    gap: 2px;
+    .nav-link {
+      color: var(--suit-text-muted);
+      text-shadow: none;
+      &:hover {
+        background: var(--suit-menu-hover-bg);
+        color: var(--suit-text-color);
+        text-shadow: none;
+      }
+      &.active {
+        position: relative;
+        background: transparent;
+        color: var(--suit-menu-selected-text);
+        font-weight: 700;
+        box-shadow: none;
+        &::before {
+          content: '';
+          position: absolute;
+          left: -5px;
+          top: 50%;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: var(--suit-link-color);
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+
+  :is(a, button, input):focus-visible {
+    outline: 2px solid var(--suit-link-color);
+    outline-offset: var(--suit-menu-focus-offset);
+  }
+}
+
+[data-bs-theme="dark"] {
+  #suit-left, #sidebarOffcanvas {
+    --suit-menu-selected-text: #b5e4ff;
+  }
+}

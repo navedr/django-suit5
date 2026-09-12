@@ -1,0 +1,162 @@
+// Shared surface and contrast treatment. Keep geometry in component styles so
+// visual depth does not change the compact admin layout or printed output.
+@media screen {
+  :root {
+    --suit-bg-color: #e8ebed;
+    --suit-bg-light: #e6ebee;
+    --suit-text-color: #303b43;
+    --suit-text-muted: #4b5e6b;
+    --suit-link-color: #006fa6;
+    --suit-link-hover-color: #00517a;
+    --suit-box-bg: #f1f3f4;
+    --suit-border-color: #bdc7ce;
+    --suit-border-color-light: #d4dce0;
+    --suit-header-bg-1: #3c4851;
+    --suit-header-bg-2: #2c3740;
+    --suit-table-bg: #fafbfc;
+    --suit-table-header-bg: #d5dde2;
+    --suit-table-header-sorted-bg: #c6d2da;
+    --suit-data-header-bg: linear-gradient(#526b7b, #405967);
+    --suit-data-header-sorted-bg: linear-gradient(#34637a, #244f65);
+    --suit-data-header-text: #fff;
+    --suit-data-header-border: #657c8a;
+    --suit-table-border: #d5dde2;
+    --suit-table-stripe-bg: #edf1f3;
+    --suit-input-bg: #fafbfc;
+    --suit-input-border: #a4b3be;
+    --suit-form-label-bg: #f1f3f4;
+    --suit-form-control-bg: #fafbfc;
+    --suit-form-control-border: #d5dde2;
+    --suit-surface-shadow: 0 2px 4px rgba(29, 49, 70, .07), 0 8px 20px rgba(29, 49, 70, .06);
+    --suit-shallow-shadow: 0 1px 3px rgba(29, 49, 70, .09);
+    --suit-button-shadow: 0 1px 2px rgba(20, 40, 60, .18), inset 0 1px rgba(255, 255, 255, .16);
+    --suit-box-shadow: var(--suit-shallow-shadow);
+    --suit-row-hover: #dcebf2;
+    --suit-white-shadow: none;
+    --suit-inset-shadow: none;
+    --suit-action-bg: linear-gradient(#087f9a, #006781);
+    --suit-action-hover: #005c74;
+    --suit-btn-primary-bg: var(--suit-action-bg);
+    --suit-positive-bg: linear-gradient(#318d47, #237337);
+    --suit-positive-hover: #19612e;
+  }
+
+  [data-bs-theme="dark"] {
+    --suit-bg-color: #141c29;
+    --suit-bg-light: #263449;
+    --suit-text-color: #edf2f8;
+    --suit-text-muted: #b8c7d8;
+    --suit-link-color: #7dcfff;
+    --suit-link-hover-color: #b5e4ff;
+    --suit-box-bg: #233044;
+    --suit-border-color: #465b73;
+    --suit-border-color-light: #35485f;
+    --suit-table-bg: #1e2b3d;
+    --suit-table-header-bg: #344962;
+    --suit-table-header-sorted-bg: #405c7a;
+    --suit-data-header-bg: linear-gradient(#40596b, #304756);
+    --suit-data-header-sorted-bg: linear-gradient(#34637a, #244f65);
+    --suit-data-header-border: #607889;
+    --suit-table-border: #35485f;
+    --suit-table-stripe-bg: #25354a;
+    --suit-input-bg: #172335;
+    --suit-input-border: #667d96;
+    --suit-form-label-bg: #1e2b3d;
+    --suit-form-control-bg: #233044;
+    --suit-form-control-border: #35485f;
+    --suit-surface-shadow: 0 2px 5px rgba(0, 0, 0, .2), 0 10px 24px rgba(0, 0, 0, .22);
+    --suit-shallow-shadow: 0 1px 4px rgba(0, 0, 0, .24);
+    --suit-button-shadow: 0 2px 4px rgba(0, 0, 0, .3), inset 0 1px rgba(255, 255, 255, .12);
+    --suit-row-hover: #304962;
+    --suit-btn-primary-bg: var(--suit-action-bg);
+    --suit-white-shadow: none;
+    --suit-inset-shadow: none;
+    background-color: var(--suit-bg-color) !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 { text-shadow: none; }
+
+  #changelist-search .search-container {
+    border-color: var(--suit-border-color);
+    box-shadow: var(--suit-surface-shadow);
+  }
+
+  .breadcrumb, .breadcrumbs {
+    box-shadow: var(--suit-shallow-shadow);
+  }
+
+  #changelist-form .results {
+    background: var(--suit-table-bg);
+    border-radius: 5px;
+    box-shadow: var(--suit-surface-shadow);
+  }
+
+  #result_list { margin-bottom: 0; }
+  #changelist-form .results { margin-bottom: 12px; }
+
+  .table th, .table td {
+    text-shadow: none;
+    box-shadow: none;
+  }
+
+  .table thead th,
+  .form-horizontal .inline-related:not(.tabular) > h3 {
+    background: var(--suit-data-header-bg);
+    border-color: var(--suit-data-header-border);
+    color: var(--suit-data-header-text);
+    &.sorted { background: var(--suit-data-header-sorted-bg); }
+    .text > a, .text > span, a {
+      color: var(--suit-data-header-text);
+      &:hover { color: var(--suit-data-header-text); text-decoration: underline; }
+    }
+  }
+
+  .form-horizontal .inline-related:not(.tabular) > h3 {
+    label, .inline_label { color: var(--suit-data-header-text); }
+  }
+
+  .table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--suit-row-hover);
+    --bs-table-bg-state: var(--suit-row-hover);
+    background-color: var(--suit-row-hover);
+  }
+
+  .form-horizontal > fieldset,
+  .table-overview {
+    box-shadow: var(--suit-surface-shadow);
+  }
+
+  .btn {
+    box-shadow: var(--suit-button-shadow);
+    text-shadow: none;
+    &:active { box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2); }
+    &:disabled, &.disabled { box-shadow: none; }
+  }
+
+  .btn-info, .btn-primary, #changelist-search .search-container .btn-info {
+    background: var(--suit-action-bg);
+    border-color: var(--suit-action-hover);
+    color: #fff;
+    &:hover, &:focus-visible {
+      background: var(--suit-action-hover);
+      color: #fff;
+    }
+  }
+
+  .btn-success {
+    background: var(--suit-positive-bg);
+    border-color: var(--suit-positive-hover);
+    color: #fff;
+    &:hover, &:focus-visible { background: var(--suit-positive-hover); color: #fff; }
+  }
+
+  :is(.btn, input, select, textarea, a):focus-visible {
+    outline: 2px solid var(--suit-link-color);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body, .header, .footer, .left-nav, .table, .form-horizontal,
+    .box, .well, input, select, textarea { transition: none; }
+  }
+}

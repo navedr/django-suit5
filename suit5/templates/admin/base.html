@@ -215,8 +215,8 @@
                 {% block quick-search-mobile %}
                   {% with search_url=suit_search_url %}
                     {% if search_url %}
-                      <form class="form-search nav-quick-search mb-3" autocomplete="off" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
-                        <input type="text" name="q" class="input-medium search-query form-control" id="quick-search-mobile" placeholder="{% trans 'Search' %}...">
+                      <form class="form-search nav-quick-search" autocomplete="off" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
+                        <input type="text" name="q" class="input-medium search-query form-control" id="quick-search-mobile" aria-label="{% trans 'Search' %}" placeholder="{% trans 'Search' %}...">
                       </form>
                     {% endif %}
                   {% endwith %}
