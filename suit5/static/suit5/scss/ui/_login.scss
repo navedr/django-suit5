@@ -3,7 +3,10 @@
 .login {
   #wrap {
     background: none;
+    margin-bottom: 0;
   }
+
+  #footer, #push { display: none; }
 
   #content-main {
     margin: 0;

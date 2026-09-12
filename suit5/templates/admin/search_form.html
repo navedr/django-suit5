@@ -24,7 +24,7 @@
                 <div class="search-filters">
                 {% for spec in cl.filter_specs %}
                   <div class="search-filter-item" role="group" aria-labelledby="suit-filter-title-{{ forloop.counter }}">
-                  <span class="search-filter-title" id="suit-filter-title-{{ forloop.counter }}">{{ spec.title|capfirst }}</span>
+                  <span class="search-filter-title{% if spec.template == 'more_admin_filters/multiselectdropdownfilter.html' %} visually-hidden{% endif %}" id="suit-filter-title-{{ forloop.counter }}">{{ spec.title|capfirst }}</span>
                   {% block filter_item %}
                   {% suit_list_filter_select cl spec %}
                   {% endblock filter_item %}

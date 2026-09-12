@@ -181,16 +181,32 @@
 
   .select2-selection--multiple {
     min-height: 30px;
+    width: 100%;
+    height: auto;
     border-color: var(--suit-input-border);
     background: var(--suit-input-bg);
+    .select2-selection__rendered {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+      margin: 0;
+      padding: 0 5px;
+      box-sizing: border-box;
+    }
+    .select2-search--inline { flex: 1 1 30px; min-width: 30px; }
   }
 
-  .select2-search input.select2-search__field {
+  .search-filter-item .select2-container .select2-search input.select2-search__field {
     height: auto;
     min-height: 0;
+    min-width: 20px;
     padding: 0;
     border: 0;
+    border-radius: 0;
+    background: transparent;
     box-shadow: none;
+    &:focus { box-shadow: none; outline: none; }
   }
 
   .suit-form-filter .material-symbols-outlined {
