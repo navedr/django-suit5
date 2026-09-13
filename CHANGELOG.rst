@@ -4,6 +4,17 @@ Changelog
 Only important changes are mentioned below. See `commit log <https://github.com/darklow/django-suit/commits/develop>`_, `closed issues <https://github.com/darklow/django-suit/issues?direction=desc&sort=updated&state=closed>`_ and `closed pull
 requests <https://github.com/darklow/django-suit/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aclosed>`_ for full changes.
 
+v0.3.13
+--------------------
+
+* [Fix] A variant-less ``.btn`` has a default appearance again. Bootstrap 5's ``.btn`` is a
+  transparent base that expects ``.btn-primary`` and friends, so plain ``.btn`` markup rendered
+  as bare text -- including the "Go" button in this theme's own ``admin/actions.html``, and
+  anything carried over from Bootstrap 2 where ``.btn`` was a finished button. Buttons that do
+  carry a variant are untouched: the rule excludes each variant by name (so the ``.btn-sm`` /
+  ``.btn-lg`` size modifiers still get the default look) and sits in ``:where()``, leaving it
+  no stronger than plain ``.btn`` for a project to override.
+
 v0.3.12
 --------------------
 

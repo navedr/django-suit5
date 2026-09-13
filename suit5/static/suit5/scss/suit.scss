@@ -438,6 +438,28 @@ input[type="radio"] {
   border-radius: 3px;
 }
 
+// Bootstrap 5's `.btn` is a transparent base that expects a variant class, so a plain
+// `.btn` renders as bare text on the page background. Plenty of markup ships exactly
+// that -- admin/actions.html's "Go" button here does, and so does anything carried over
+// from Bootstrap 2, where `.btn` was a finished grey button.
+//
+// The exclusions are listed one by one rather than as [class*="btn-"] because the size
+// and layout modifiers (.btn-sm, .btn-lg, .btn-block, .btn-group) are not variants and
+// must still get the default look. :where() keeps this at (0,1,0) -- no stronger than
+// plain `.btn` -- so a project can still restyle its own buttons.
+.btn:where(:not(.btn-primary):not(.btn-secondary):not(.btn-success):not(.btn-danger):not(.btn-warning):not(.btn-info):not(.btn-light):not(.btn-dark):not(.btn-link):not(.btn-high):not(.btn-delete):not(.btn-close):not([class*="btn-outline-"])) {
+  background: var(--suit-btn-default-bg);
+  border: 1px solid var(--suit-input-border);
+  color: var(--suit-text-color);
+  text-shadow: var(--suit-white-shadow);
+
+  &:hover,
+  &:focus {
+    background: var(--suit-table-header-bg);
+    color: var(--suit-text-color);
+  }
+}
+
 .btn-lg {
   padding: 8px 16px;
   font-size: 16px;
