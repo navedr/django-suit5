@@ -44,7 +44,8 @@
                     {% block menu_model_item %}
                     <li class="nav-item">
                       <a href="{{ model.url }}" class="nav-link{% if model.is_active %} active{% endif %}"{{ model.blank|yesno:' target=_blank,' }}>
-                        {{ model.label }}
+                        {% if model.icon %}<i class="{{ model.icon }}"></i>{% endif %}
+                        <span>{{ model.label }}</span>
                       </a>
                     </li>
                     {% endblock menu_model_item %}

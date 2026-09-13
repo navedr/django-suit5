@@ -231,6 +231,35 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
         self.assertEqual(menu[0]['label'], label)
         self.assertEqual(menu[0]['icon'], icon)
 
+    def test_menu_model_icon(self):
+        """A MENU model entry can carry its own icon, like the app entries can.
+
+        ensure_model_keys() used to omit 'icon', so the key never reached the template
+        and submenu items could not be given one.
+        """
+        settings.SUIT_CONFIG['MENU'] = ({'label': 'app', 'models': [
+            {'label': 'with', 'url': '/a/', 'icon': 'bi bi-key'},
+            {'label': 'without', 'url': '/b/'},
+        ]},)
+        self.get_response()
+        menu = self.make_menu_from_response()
+        models = menu[0]['models']
+        self.assertEqual(models[0]['icon'], 'bi bi-key')
+        # The key is always present so the template can test it, even when unset.
+        self.assertIn('icon', models[1])
+        self.assertIsNone(models[1]['icon'])
+
+    def test_menu_model_icon_is_rendered(self):
+        settings.SUIT_CONFIG['MENU'] = ({'label': 'app', 'models': [
+            {'label': 'with', 'url': '/a/', 'icon': 'bi bi-key'},
+            {'label': 'without', 'url': '/b/'},
+        ]},)
+        self.get_response()
+        content = force_unicode(self.response.content)
+        self.assertIn('<i class="bi bi-key"></i>', content)
+        # No icon means no empty <i>, so menus that set none look exactly as before.
+        self.assertNotIn('<i class=""></i>', content)
+
     def test_menu_custom_app_permissions(self):
         settings.SUIT_CONFIG['MENU'] = ({'label': 'a',
                                          'permissions': 'secure-perms'},

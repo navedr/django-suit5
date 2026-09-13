@@ -114,6 +114,24 @@
       font-size: 13px;
       transition: background-color 0.15s ease;
 
+      // A MENU model entry may carry its own `icon`, like the app entries above. The
+      // 38px indent stays so the submenu still reads as nested; the icon sits inside it
+      // and the labels line up whether or not a given item has one.
+      display: flex;
+      align-items: center;
+
+      i:first-child {
+        margin-right: 8px;
+        width: 14px;
+        font-size: 12px;
+        text-align: center;
+        opacity: 0.7;
+      }
+
+      span {
+        flex: 1;
+      }
+
       &:hover {
         background-color: var(--suit-nav-hover-bg);
         @extend .white-shadow-max;
