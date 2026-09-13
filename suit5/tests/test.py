@@ -1,3 +1,4 @@
+from suit5.tests.appload import AppLoadDefaultsTestCase  # noqa: F401
 from suit5.tests.config import ConfigTestCase, ConfigWithModelsTestCase  # noqa: F401
 from suit5.tests.icons import IconCompatMapTestCase  # noqa: F401
 from suit5.tests.templates.form_tabs import FormTabsTestCase  # noqa: F401

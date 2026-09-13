@@ -4,6 +4,20 @@ Changelog
 Only important changes are mentioned below. See `commit log <https://github.com/darklow/django-suit/commits/develop>`_, `closed issues <https://github.com/darklow/django-suit/issues?direction=desc&sort=updated&state=closed>`_ and `closed pull
 requests <https://github.com/darklow/django-suit/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aclosed>`_ for full changes.
 
+v0.3.10 (unreleased)
+--------------------
+
+* [Fix] Suit5's global ``ModelAdmin`` defaults are applied during ``django.setup()`` instead of
+  whenever ``suit5.config`` first happened to be imported. They are import-time side effects in
+  that module, and nothing pulled it in at startup -- the template tags did, *during* the first
+  changelist render, by which point ``ModelAdmin.changelist_view`` had already read
+  ``actions_on_top`` and ``list_per_page`` into the context. So the first changelist after every
+  process start or autoreload drew its action bar above the table and paginated with Django's
+  default instead of ``SUIT_CONFIG['LIST_PER_PAGE']``; a refresh appeared to "fix" it.
+* [Tests] Added ``suit5.tests.appload``, which probes a fresh interpreter (the check cannot fail
+  once any other test has imported ``suit5.config``) to assert the defaults are in place before
+  any request is served.
+
 v0.3.9
 --------------------
 
