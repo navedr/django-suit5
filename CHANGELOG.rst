@@ -4,6 +4,14 @@ Changelog
 Only important changes are mentioned below. See `commit log <https://github.com/darklow/django-suit/commits/develop>`_, `closed issues <https://github.com/darklow/django-suit/issues?direction=desc&sort=updated&state=closed>`_ and `closed pull
 requests <https://github.com/darklow/django-suit/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aclosed>`_ for full changes.
 
+v0.3.12
+--------------------
+
+* [Feature] ``MENU_ICONS`` entries keyed by ``"app.model"`` now give icons to models the MENU
+  never names -- those contributed automatically by an app listed as ``{'app': 'x'}``. Listing
+  such models explicitly to give each an icon would work, but the app would then stop
+  contributing models added to it later. An icon set on the entry still wins.
+
 v0.3.11
 --------------------
 

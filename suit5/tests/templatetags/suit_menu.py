@@ -260,6 +260,31 @@ class SuitMenuTestCase(ModelsTestCaseMixin, UserTestCaseMixin):
         # No icon means no empty <i>, so menus that set none look exactly as before.
         self.assertNotIn('<i class=""></i>', content)
 
+    def test_menu_icons_apply_to_natively_listed_models(self):
+        """MENU_ICONS keyed by "app.model" reaches models the MENU never names.
+
+        An app listed as {'app': 'x'} contributes its models automatically, so there is
+        no entry to hang an icon on; enumerating them instead would stop the app from
+        contributing models added to it later.
+        """
+        settings.SUIT_CONFIG['MENU'] = ({'app': app_label},)
+        settings.SUIT_CONFIG['MENU_ICONS'] = {'%s.book' % app_label: 'bi bi-book'}
+        self.get_response()
+        menu = self.make_menu_from_response()
+        icons = {m['label']: m['icon'] for m in menu[0]['models']}
+        self.assertEqual(icons.get('Books'), 'bi bi-book')
+        # Models the mapping does not name are left alone rather than given a default.
+        self.assertIsNone(icons.get('Albums'))
+
+    def test_menu_model_icon_wins_over_menu_icons(self):
+        settings.SUIT_CONFIG['MENU'] = ({'label': 'app', 'models': [
+            {'model': '%s.book' % app_label, 'icon': 'bi bi-key'},
+        ]},)
+        settings.SUIT_CONFIG['MENU_ICONS'] = {'%s.book' % app_label: 'bi bi-book'}
+        self.get_response()
+        menu = self.make_menu_from_response()
+        self.assertEqual(menu[0]['models'][0]['icon'], 'bi bi-key')
+
     def test_menu_custom_app_permissions(self):
         settings.SUIT_CONFIG['MENU'] = ({'label': 'a',
                                          'permissions': 'secure-perms'},

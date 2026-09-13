@@ -210,6 +210,20 @@ class Menu(object):
                         app['name'] in self.conf_icons:
             app['icon'] = self.conf_icons[app['name']]
 
+    def process_model_icon(self, model):
+        """
+        Same contract as process_icons() for apps: an icon set on the entry wins,
+        otherwise MENU_ICONS may supply one keyed by the model's "app.model" name.
+
+        This is what lets a model listed natively -- one the MENU names by app rather
+        than model by model -- carry an icon. Enumerating those models in the MENU would
+        work too, but then the app would stop contributing models added to it later.
+        """
+        if model.get('icon'):
+            return
+        if self.conf_icons and model.get('name') in self.conf_icons:
+            model['icon'] = self.conf_icons[model['name']]
+
     def process_semi_native_app(self, app):
         """
         Process app defined as { app: 'app' }
@@ -365,6 +379,7 @@ class Menu(object):
 
         if model:
             self.ensure_model_keys(model)
+            self.process_model_icon(model)
 
             if 'app' in model and 'name' in model:
                 model_name = self.get_model_name(model['app'], model['name'])
