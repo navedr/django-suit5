@@ -1,10 +1,14 @@
 // Desktop keeps dense rows and hover flyouts, with the same hierarchy as the
 // mobile drawer: neutral section headings and a blue current-page marker.
-// Continue the rail below its content instead of exposing the legacy white image.
+// #suit-left is a flex item, so it is only ever as tall as the taller of the nav
+// and the page content. This gradient continues the rail the rest of the way down
+// #wrap (which is min-height:100%) instead of exposing the legacy white image.
+// It must use the same token as #suit-left in _nav-shared.scss -- recolouring only
+// one of the two paints half a rail on any short page.
 @media screen and (min-width: $breakpoint-lg) {
   body:not(.popup):not(.login) #wrap {
     background: linear-gradient(to right,
-      var(--suit-box-bg) 0, var(--suit-box-bg) $left-column-width,
+      var(--suit-nav-rail-bg) 0, var(--suit-nav-rail-bg) $left-column-width,
       transparent $left-column-width);
   }
 }

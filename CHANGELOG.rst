@@ -4,6 +4,18 @@ Changelog
 Only important changes are mentioned below. See `commit log <https://github.com/darklow/django-suit/commits/develop>`_, `closed issues <https://github.com/darklow/django-suit/issues?direction=desc&sort=updated&state=closed>`_ and `closed pull
 requests <https://github.com/darklow/django-suit/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aclosed>`_ for full changes.
 
+v0.3.14
+--------------------
+
+* [Feature] New ``--suit-nav-rail-bg`` variable recolours the left navigation rail in one
+  declaration. The rail is painted in two places -- ``#suit-left`` itself, which is a flex item
+  and so only ever as tall as the taller of the nav and the page content, and a gradient on
+  ``#wrap`` that continues it down the rest of the page. Overriding the background of
+  ``#suit-left`` alone therefore repainted only the top of the rail and left the theme colour
+  showing below it on any short page, with nothing to indicate why. Both now resolve the same
+  variable, which defaults to ``--suit-box-bg``, so existing themes are unchanged. Set it at
+  ``:root`` rather than on ``#suit-left``, since the gradient sits on an ancestor.
+
 v0.3.13
 --------------------
 

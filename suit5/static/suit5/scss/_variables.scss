@@ -40,6 +40,10 @@
 
   // Component colors
   --suit-box-bg: #F6F7F8;
+  // Background of the left navigation rail. Painted in two places -- #suit-left
+  // itself, and the gradient on #wrap that continues the rail below it -- so it
+  // must be overridden here rather than on #suit-left alone.
+  --suit-nav-rail-bg: var(--suit-box-bg);
   --suit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07);
   --suit-table-bg: #fff;
   --suit-table-header-bg: #e5e5e5;
@@ -105,6 +109,7 @@
   --suit-border-color: #374151;
   --suit-border-color-light: #2d2d44;
   --suit-box-bg: #1f1f38;
+  --suit-nav-rail-bg: var(--suit-box-bg);
   --suit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
   --suit-table-bg: #1a1a2e;
   --suit-table-header-bg: linear-gradient(to bottom, #252540, #1f1f38);
